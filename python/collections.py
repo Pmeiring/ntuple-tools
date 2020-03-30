@@ -889,10 +889,7 @@ class TPSet:
         return self.cl3d_df
 
     def activate(self):
-        self.tcs.activate()
-        self.cl2ds.activate()
         self.cl3ds.activate()
-
 
 tp_def = TPSet(tcs, cl2d_def, cl3d_def)
 tp_truth = TPSet(tcs, tcs, cl3d_truth)

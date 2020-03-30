@@ -1,0 +1,18 @@
+executable            = run_batch.sh
+arguments             = $(ClusterID) $(JOB_ID)
+output                = logs/job_$(JOB_ID).$(ClusterId).$(ProcId).out
+error                 = logs/job_$(JOB_ID).$(ClusterId).$(ProcId).err
+log                   = logs/condor.$(ClusterId).log
++JobFlavour           = "workday"
+
+RequestCpus = 1
+
+transfer_input_files  = copy_files.sh,myselection.yaml,../ntuple-tools.tar.gz
++PostCmd              = "copy_files.sh"
++PostArguments        = "$(ClusterID) $(JOB_ID) true"
+
+
++AccountingGroup = "group_u_CMST3.all"
+
+transfer_output_files   = ""
+queue

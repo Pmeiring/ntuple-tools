@@ -1,0 +1,395 @@
+03/27/20 19:04:37 ******************************************************
+03/27/20 19:04:37 ** condor_scheduniv_exec.4189268.0 (CONDOR_DAGMAN) STARTING UP
+03/27/20 19:04:37 ** /usr/bin/condor_dagman
+03/27/20 19:04:37 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+03/27/20 19:04:37 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+03/27/20 19:04:37 ** $CondorVersion: 8.9.2 Jun 04 2019 BuildID: 471265 PackageID: 8.9.2-1 $
+03/27/20 19:04:37 ** $CondorPlatform: x86_64_RedHat7 $
+03/27/20 19:04:37 ** PID = 1137710
+03/27/20 19:04:37 ** Log last touched time unavailable (No such file or directory)
+03/27/20 19:04:37 ******************************************************
+03/27/20 19:04:37 Using config source: /etc/condor/condor_config
+03/27/20 19:04:37 Using local config sources: 
+03/27/20 19:04:37    /etc/condor/config.d/10_security.config
+03/27/20 19:04:37    /etc/condor/config.d/11_fairshares.config
+03/27/20 19:04:37    /etc/condor/config.d/12_resourcelimits.config
+03/27/20 19:04:37    /etc/condor/config.d/14_network.config
+03/27/20 19:04:37    /etc/condor/config.d/21_schedd.config
+03/27/20 19:04:37    /etc/condor/config.d/21_submit_requirements.config
+03/27/20 19:04:37    /etc/condor/config.d/31_krbrenewal.config
+03/27/20 19:04:37    /etc/condor/config.d/41_job_transform.config
+03/27/20 19:04:37    /etc/condor/config.d/99_local.config
+03/27/20 19:04:37    /etc/condor/condor_config.local
+03/27/20 19:04:37 config Macros = 232, Sorted = 232, StringBytes = 20609, TablesBytes = 8472
+03/27/20 19:04:37 CLASSAD_CACHING is ENABLED
+03/27/20 19:04:37 Daemon Log is logging: D_ALWAYS D_ERROR
+03/27/20 19:04:37 DaemonCore: No command port requested.
+03/27/20 19:04:37 DAGMAN_USE_STRICT setting: 1
+03/27/20 19:04:37 DAGMAN_VERBOSITY setting: 3
+03/27/20 19:04:37 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+03/27/20 19:04:37 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+03/27/20 19:04:37 DAGMAN_SUBMIT_DELAY setting: 0
+03/27/20 19:04:37 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+03/27/20 19:04:37 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+03/27/20 19:04:37 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 100
+03/27/20 19:04:37 DAGMAN_AGGRESSIVE_SUBMIT setting: False
+03/27/20 19:04:37 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+03/27/20 19:04:37 DAGMAN_QUEUE_UPDATE_INTERVAL setting: 300
+03/27/20 19:04:37 DAGMAN_DEFAULT_PRIORITY setting: 0
+03/27/20 19:04:37 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+03/27/20 19:04:37 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+03/27/20 19:04:37 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+03/27/20 19:04:37 DAGMAN_RETRY_NODE_FIRST setting: False
+03/27/20 19:04:37 DAGMAN_MAX_JOBS_IDLE setting: 1000
+03/27/20 19:04:37 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+03/27/20 19:04:37 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+03/27/20 19:04:37 DAGMAN_MAX_POST_SCRIPTS setting: 20
+03/27/20 19:04:37 DAGMAN_MUNGE_NODE_NAMES setting: True
+03/27/20 19:04:37 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+03/27/20 19:04:37 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+03/27/20 19:04:37 DAGMAN_ALWAYS_RUN_POST setting: False
+03/27/20 19:04:37 DAGMAN_ABORT_DUPLICATES setting: True
+03/27/20 19:04:37 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+03/27/20 19:04:37 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+03/27/20 19:04:37 DAGMAN_AUTO_RESCUE setting: True
+03/27/20 19:04:37 DAGMAN_MAX_RESCUE_NUM setting: 100
+03/27/20 19:04:37 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+03/27/20 19:04:37 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+03/27/20 19:04:37 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+03/27/20 19:04:37 DAGMAN_MAX_JOB_HOLDS setting: 100
+03/27/20 19:04:37 DAGMAN_HOLD_CLAIM_TIME setting: 20
+03/27/20 19:04:37 ALL_DEBUG setting: 
+03/27/20 19:04:37 DAGMAN_DEBUG setting: 
+03/27/20 19:04:37 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+03/27/20 19:04:37 DAGMAN_REMOVE_NODE_JOBS setting: True
+03/27/20 19:04:37 argv[0] == "condor_scheduniv_exec.4189268.0"
+03/27/20 19:04:37 argv[1] == "-Lockfile"
+03/27/20 19:04:37 argv[2] == "batch_BDT_input_v127/dagman.dag.lock"
+03/27/20 19:04:37 argv[3] == "-AutoRescue"
+03/27/20 19:04:37 argv[4] == "1"
+03/27/20 19:04:37 argv[5] == "-DoRescueFrom"
+03/27/20 19:04:37 argv[6] == "0"
+03/27/20 19:04:37 argv[7] == "-Dag"
+03/27/20 19:04:37 argv[8] == "batch_BDT_input_v127/dagman.dag"
+03/27/20 19:04:37 argv[9] == "-Suppress_notification"
+03/27/20 19:04:37 argv[10] == "-CsdVersion"
+03/27/20 19:04:37 argv[11] == "$CondorVersion: 8.8.7 Dec 24 2019 BuildID: 493225 PackageID: 8.8.7-1 $"
+03/27/20 19:04:37 argv[12] == "-Dagman"
+03/27/20 19:04:37 argv[13] == "/usr/bin/condor_dagman"
+03/27/20 19:04:37 Workflow batch-name: <dagman.dag+4189268>
+03/27/20 19:04:37 Workflow accounting_group: <>
+03/27/20 19:04:37 Workflow accounting_group_user: <>
+03/27/20 19:04:37 Warning: failed to get attribute DAGNodeName
+03/27/20 19:04:37 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+03/27/20 19:04:37 Default node log file is: </afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log>
+03/27/20 19:04:37 Note: the version ($CondorVersion: 8.8.7 Dec 24 2019 BuildID: 493225 PackageID: 8.8.7-1 $) of this DAG's HTCondor submit file (created by condor_submit_dag) differs from condor_dagman version ($CondorVersion: 8.9.2 Jun 04 2019 BuildID: 471265 PackageID: 8.9.2-1 $), but the difference is permissible
+03/27/20 19:04:37 DAG Lockfile will be written to batch_BDT_input_v127/dagman.dag.lock
+03/27/20 19:04:37 DAG Input file is batch_BDT_input_v127/dagman.dag
+03/27/20 19:04:37 Parsing 1 dagfiles
+03/27/20 19:04:37 Parsing batch_BDT_input_v127/dagman.dag ...
+03/27/20 19:04:37 Parsing Splice ele_flat2to100_PU200 in directory batch_BDT_input_v127/ele_flat2to100_PU200 with file ele_flat2to100_PU200.spl
+03/27/20 19:04:37 Dag contains 3 total jobs
+03/27/20 19:04:37 Sleeping for 3 seconds to ensure ProcessId uniqueness
+03/27/20 19:04:40 Bootstrapping...
+03/27/20 19:04:40 Number of pre-completed nodes: 0
+03/27/20 19:04:40 MultiLogFiles: truncating log file /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log
+03/27/20 19:04:40 DAG status: 0 (DAG_STATUS_OK)
+03/27/20 19:04:40 Of 3 nodes total:
+03/27/20 19:04:40  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/27/20 19:04:40   ===     ===      ===     ===     ===        ===      ===
+03/27/20 19:04:40     0       0        0       0       1          2        0
+03/27/20 19:04:40 0 job proc(s) currently held
+03/27/20 19:04:40 DAGMan Runtime Statistics: [ EventCycleTimeCount = 0.0; EventCycleTimeSum = 0.0; LogProcessCycleTimeCount = 0.0; LogProcessCycleTimeSum = 0.0; SleepCycleTimeCount = 0.0; SleepCycleTimeSum = 0.0; SubmitCycleTimeCount = 0.0; SubmitCycleTimeSum = 0.0; ]
+03/27/20 19:04:40 Registering condor_event_timer...
+03/27/20 19:04:41 Submitting HTCondor Node ele_flat2to100_PU200+Job_0 job(s)...
+03/27/20 19:04:41 Adding a DAGMan workflow log /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log
+03/27/20 19:04:41 Masking the events recorded in the DAGMAN workflow log
+03/27/20 19:04:41 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36
+03/27/20 19:04:41 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'ele_flat2to100_PU200+Job_0 -a +DAGManJobId' '=' '4189268 -a DAGManJobId' '=' '4189268 -batch-name dagman.dag+4189268 -a submit_event_notes' '=' 'DAG' 'Node:' 'ele_flat2to100_PU200+Job_0 -a dagman_log' '=' '/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36" -a priority=1 -a JOB_ID' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" batch.sub
+03/27/20 19:04:42 From submit: Submitting job(s).
+03/27/20 19:04:42 From submit: 1 job(s) submitted to cluster 4189270.
+03/27/20 19:04:42 	assigned HTCondor ID (4189270.0.0)
+03/27/20 19:04:42 Just submitted 1 job this cycle...
+03/27/20 19:04:42 DAG status: 0 (DAG_STATUS_OK)
+03/27/20 19:04:42 Of 3 nodes total:
+03/27/20 19:04:42  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/27/20 19:04:42   ===     ===      ===     ===     ===        ===      ===
+03/27/20 19:04:42     0       0        1       0       0          2        0
+03/27/20 19:04:42 0 job proc(s) currently held
+03/27/20 19:04:42 DAGMan Runtime Statistics: [ EventCycleTimeCount = 0.0; EventCycleTimeSum = 0.0; LogProcessCycleTimeCount = 0.0; LogProcessCycleTimeSum = 0.0; SleepCycleTimeCount = 0.0; SleepCycleTimeSum = 0.0; SubmitCycleTimeAvg = 1.180620193481445; SubmitCycleTimeCount = 1.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.180620193481445; SubmitCycleTimeStd = 1.180620193481445; SubmitCycleTimeSum = 1.180620193481445; ]
+03/27/20 19:04:47 Currently monitoring 1 HTCondor log file(s)
+03/27/20 19:04:47 Reassigning the id of job ele_flat2to100_PU200+Job_0 from (4189270.0.0) to (4189270.0.0)
+03/27/20 19:04:47 Event: ULOG_SUBMIT for HTCondor Node ele_flat2to100_PU200+Job_0 (4189270.0.0) {03/27/20 19:04:42}
+03/27/20 19:04:47 Number of idle job procs: 1
+03/27/20 19:14:48 601 seconds since last log event
+03/27/20 19:14:48 Pending DAG nodes:
+03/27/20 19:14:48   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 19:24:49 1202 seconds since last log event
+03/27/20 19:24:49 Pending DAG nodes:
+03/27/20 19:24:49   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 19:34:49 1802 seconds since last log event
+03/27/20 19:34:49 Pending DAG nodes:
+03/27/20 19:34:49   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 19:44:50 2403 seconds since last log event
+03/27/20 19:44:50 Pending DAG nodes:
+03/27/20 19:44:50   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 19:54:50 3003 seconds since last log event
+03/27/20 19:54:50 Pending DAG nodes:
+03/27/20 19:54:50   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 20:04:51 3604 seconds since last log event
+03/27/20 20:04:51 Pending DAG nodes:
+03/27/20 20:04:51   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 20:14:51 4204 seconds since last log event
+03/27/20 20:14:51 Pending DAG nodes:
+03/27/20 20:14:51   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 20:24:52 4805 seconds since last log event
+03/27/20 20:24:52 Pending DAG nodes:
+03/27/20 20:24:52   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 20:34:53 5406 seconds since last log event
+03/27/20 20:34:53 Pending DAG nodes:
+03/27/20 20:34:53   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 20:44:53 6006 seconds since last log event
+03/27/20 20:44:53 Pending DAG nodes:
+03/27/20 20:44:53   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 20:54:54 6607 seconds since last log event
+03/27/20 20:54:54 Pending DAG nodes:
+03/27/20 20:54:54   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 21:04:54 7207 seconds since last log event
+03/27/20 21:04:54 Pending DAG nodes:
+03/27/20 21:04:54   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 21:14:55 7808 seconds since last log event
+03/27/20 21:14:55 Pending DAG nodes:
+03/27/20 21:14:55   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 21:24:56 8409 seconds since last log event
+03/27/20 21:24:56 Pending DAG nodes:
+03/27/20 21:24:56   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 21:34:56 9009 seconds since last log event
+03/27/20 21:34:56 Pending DAG nodes:
+03/27/20 21:34:56   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 21:44:57 9610 seconds since last log event
+03/27/20 21:44:57 Pending DAG nodes:
+03/27/20 21:44:57   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 21:54:57 10210 seconds since last log event
+03/27/20 21:54:57 Pending DAG nodes:
+03/27/20 21:54:57   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 22:04:58 10811 seconds since last log event
+03/27/20 22:04:58 Pending DAG nodes:
+03/27/20 22:04:58   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 22:14:58 11411 seconds since last log event
+03/27/20 22:14:58 Pending DAG nodes:
+03/27/20 22:14:58   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 22:24:59 12012 seconds since last log event
+03/27/20 22:24:59 Pending DAG nodes:
+03/27/20 22:24:59   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 22:35:00 12613 seconds since last log event
+03/27/20 22:35:00 Pending DAG nodes:
+03/27/20 22:35:00   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 22:45:00 13213 seconds since last log event
+03/27/20 22:45:00 Pending DAG nodes:
+03/27/20 22:45:00   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 22:55:01 13814 seconds since last log event
+03/27/20 22:55:01 Pending DAG nodes:
+03/27/20 22:55:01   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 23:05:02 14415 seconds since last log event
+03/27/20 23:05:02 Pending DAG nodes:
+03/27/20 23:05:02   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 23:15:02 15015 seconds since last log event
+03/27/20 23:15:02 Pending DAG nodes:
+03/27/20 23:15:02   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 23:25:03 15616 seconds since last log event
+03/27/20 23:25:03 Pending DAG nodes:
+03/27/20 23:25:03   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 23:35:03 16216 seconds since last log event
+03/27/20 23:35:03 Pending DAG nodes:
+03/27/20 23:35:03   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 23:45:04 16817 seconds since last log event
+03/27/20 23:45:04 Pending DAG nodes:
+03/27/20 23:45:04   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/27/20 23:55:05 17418 seconds since last log event
+03/27/20 23:55:05 Pending DAG nodes:
+03/27/20 23:55:05   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 00:05:05 18018 seconds since last log event
+03/28/20 00:05:05 Pending DAG nodes:
+03/28/20 00:05:05   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 00:15:06 18619 seconds since last log event
+03/28/20 00:15:06 Pending DAG nodes:
+03/28/20 00:15:06   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 00:25:06 19219 seconds since last log event
+03/28/20 00:25:06 Pending DAG nodes:
+03/28/20 00:25:06   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 00:35:07 19820 seconds since last log event
+03/28/20 00:35:07 Pending DAG nodes:
+03/28/20 00:35:07   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 00:45:07 20420 seconds since last log event
+03/28/20 00:45:07 Pending DAG nodes:
+03/28/20 00:45:07   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 00:55:08 21021 seconds since last log event
+03/28/20 00:55:08 Pending DAG nodes:
+03/28/20 00:55:08   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 01:05:09 21622 seconds since last log event
+03/28/20 01:05:09 Pending DAG nodes:
+03/28/20 01:05:09   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 01:15:09 22222 seconds since last log event
+03/28/20 01:15:09 Pending DAG nodes:
+03/28/20 01:15:09   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 01:25:09 22822 seconds since last log event
+03/28/20 01:25:09 Pending DAG nodes:
+03/28/20 01:25:09   Node ele_flat2to100_PU200+Job_0, HTCondor ID 4189270, status STATUS_SUBMITTED
+03/28/20 01:33:44 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:33:44 Event: ULOG_EXECUTE for HTCondor Node ele_flat2to100_PU200+Job_0 (4189270.0.0) {03/28/20 01:33:42}
+03/28/20 01:33:44 Number of idle job procs: 0
+03/28/20 01:34:29 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:34:29 Event: ULOG_JOB_TERMINATED for HTCondor Node ele_flat2to100_PU200+Job_0 (4189270.0.0) {03/28/20 01:34:25}
+03/28/20 01:34:29 Number of idle job procs: 0
+03/28/20 01:34:29 Node ele_flat2to100_PU200+Job_0 job proc (4189270.0.0) failed with status 100.
+03/28/20 01:34:29 Retrying node ele_flat2to100_PU200+Job_0 (retry #1 of 3)...
+03/28/20 01:34:29 DAG status: 0 (DAG_STATUS_OK)
+03/28/20 01:34:29 Of 3 nodes total:
+03/28/20 01:34:29  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:34:29   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:34:29     0       0        0       0       1          2        0
+03/28/20 01:34:29 0 job proc(s) currently held
+03/28/20 01:34:29 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0004144460823815001; EventCycleTimeCount = 4673.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01736361393641991; EventCycleTimeSum = 1.93670654296875; LogProcessCycleTimeAvg = 0.002602974573771159; LogProcessCycleTimeCount = 3.0; LogProcessCycleTimeMax = 0.005912065505981445; LogProcessCycleTimeMin = 0.0005528926849365234; LogProcessCycleTimeStd = 0.002892924326686217; LogProcessCycleTimeSum = 0.007808923721313477; SleepCycleTimeAvg = 5.004591279996173; SleepCycleTimeCount = 4673.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01469694554317089; SleepCycleTimeSum = 23386.45505142212; SubmitCycleTimeAvg = 0.0003290285552012191; SubmitCycleTimeCount = 4674.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.01730871715417201; SubmitCycleTimeSum = 1.537879467010498; ]
+03/28/20 01:34:35 Reassigning the id of job ele_flat2to100_PU200+Job_0 from (4189270.0.0) to (-1.-1.-1)
+03/28/20 01:34:35 Submitting HTCondor Node ele_flat2to100_PU200+Job_0 job(s)...
+03/28/20 01:34:35 Adding a DAGMan workflow log /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log
+03/28/20 01:34:35 Masking the events recorded in the DAGMAN workflow log
+03/28/20 01:34:35 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36
+03/28/20 01:34:35 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'ele_flat2to100_PU200+Job_0 -a +DAGManJobId' '=' '4189268 -a DAGManJobId' '=' '4189268 -batch-name dagman.dag+4189268 -a submit_event_notes' '=' 'DAG' 'Node:' 'ele_flat2to100_PU200+Job_0 -a dagman_log' '=' '/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36" -a priority=1 -a JOB_ID' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" batch.sub
+03/28/20 01:34:35 From submit: Submitting job(s).
+03/28/20 01:34:35 From submit: 1 job(s) submitted to cluster 4194797.
+03/28/20 01:34:35 	assigned HTCondor ID (4194797.0.0)
+03/28/20 01:34:35 Just submitted 1 job this cycle...
+03/28/20 01:34:35 DAG status: 0 (DAG_STATUS_OK)
+03/28/20 01:34:35 Of 3 nodes total:
+03/28/20 01:34:35  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:34:35   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:34:35     0       0        1       0       0          2        0
+03/28/20 01:34:35 0 job proc(s) currently held
+03/28/20 01:34:35 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.000463682002474418; EventCycleTimeCount = 4674.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01768505493971284; EventCycleTimeSum = 2.16724967956543; LogProcessCycleTimeAvg = 0.002602974573771159; LogProcessCycleTimeCount = 3.0; LogProcessCycleTimeMax = 0.005912065505981445; LogProcessCycleTimeMin = 0.0005528926849365234; LogProcessCycleTimeStd = 0.002892924326686217; LogProcessCycleTimeSum = 0.007808923721313477; SleepCycleTimeAvg = 5.004591264324817; SleepCycleTimeCount = 4674.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.0146953729594464; SleepCycleTimeSum = 23391.45956945419; SubmitCycleTimeAvg = 0.0003740790566021108; SubmitCycleTimeCount = 4675.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.0175788431762754; SubmitCycleTimeSum = 1.748819589614868; ]
+03/28/20 01:34:40 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:34:40 Reassigning the id of job ele_flat2to100_PU200+Job_0 from (4194797.0.0) to (4194797.0.0)
+03/28/20 01:34:40 Event: ULOG_SUBMIT for HTCondor Node ele_flat2to100_PU200+Job_0 (4194797.0.0) {03/28/20 01:34:35}
+03/28/20 01:34:40 Number of idle job procs: 1
+03/28/20 01:38:50 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:38:50 Event: ULOG_EXECUTE for HTCondor Node ele_flat2to100_PU200+Job_0 (4194797.0.0) {03/28/20 01:38:48}
+03/28/20 01:38:50 Number of idle job procs: 0
+03/28/20 01:39:10 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:39:10 Event: ULOG_JOB_TERMINATED for HTCondor Node ele_flat2to100_PU200+Job_0 (4194797.0.0) {03/28/20 01:39:08}
+03/28/20 01:39:10 Number of idle job procs: 0
+03/28/20 01:39:10 Node ele_flat2to100_PU200+Job_0 job proc (4194797.0.0) failed with status 100.
+03/28/20 01:39:10 Retrying node ele_flat2to100_PU200+Job_0 (retry #2 of 3)...
+03/28/20 01:39:10 DAG status: 0 (DAG_STATUS_OK)
+03/28/20 01:39:10 Of 3 nodes total:
+03/28/20 01:39:10  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:39:10   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:39:10     0       0        0       0       1          2        0
+03/28/20 01:39:10 0 job proc(s) currently held
+03/28/20 01:39:10 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0005039645441240427; EventCycleTimeCount = 4729.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01784720498994508; EventCycleTimeSum = 2.383248329162598; LogProcessCycleTimeAvg = 0.001509467760721843; LogProcessCycleTimeCount = 6.0; LogProcessCycleTimeMax = 0.005912065505981445; LogProcessCycleTimeMin = 0.0002129077911376953; LogProcessCycleTimeStd = 0.002189796089776852; LogProcessCycleTimeSum = 0.009056806564331055; SleepCycleTimeAvg = 5.004595983454429; SleepCycleTimeCount = 4729.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01460998549072173; SleepCycleTimeSum = 23666.734405756; SubmitCycleTimeAvg = 0.0003703563460335923; SubmitCycleTimeCount = 4730.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.01747635378245086; SubmitCycleTimeSum = 1.751785516738892; ]
+03/28/20 01:39:15 Reassigning the id of job ele_flat2to100_PU200+Job_0 from (4194797.0.0) to (-1.-1.-1)
+03/28/20 01:39:15 Submitting HTCondor Node ele_flat2to100_PU200+Job_0 job(s)...
+03/28/20 01:39:15 Adding a DAGMan workflow log /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log
+03/28/20 01:39:15 Masking the events recorded in the DAGMAN workflow log
+03/28/20 01:39:15 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36
+03/28/20 01:39:15 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'ele_flat2to100_PU200+Job_0 -a +DAGManJobId' '=' '4189268 -a DAGManJobId' '=' '4189268 -batch-name dagman.dag+4189268 -a submit_event_notes' '=' 'DAG' 'Node:' 'ele_flat2to100_PU200+Job_0 -a dagman_log' '=' '/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36" -a priority=1 -a JOB_ID' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" batch.sub
+03/28/20 01:39:15 From submit: Submitting job(s).
+03/28/20 01:39:15 From submit: 1 job(s) submitted to cluster 4194798.
+03/28/20 01:39:15 	assigned HTCondor ID (4194798.0.0)
+03/28/20 01:39:15 Just submitted 1 job this cycle...
+03/28/20 01:39:15 DAG status: 0 (DAG_STATUS_OK)
+03/28/20 01:39:15 Of 3 nodes total:
+03/28/20 01:39:15  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:39:15   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:39:15     0       0        1       0       0          2        0
+03/28/20 01:39:15 0 job proc(s) currently held
+03/28/20 01:39:15 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0005040510008249424; EventCycleTimeCount = 4730.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01784531888512728; EventCycleTimeSum = 2.384161233901978; LogProcessCycleTimeAvg = 0.001509467760721843; LogProcessCycleTimeCount = 6.0; LogProcessCycleTimeMax = 0.005912065505981445; LogProcessCycleTimeMin = 0.0002129077911376953; LogProcessCycleTimeStd = 0.002189796089776852; LogProcessCycleTimeSum = 0.009056806564331055; SleepCycleTimeAvg = 5.004595902303812; SleepCycleTimeCount = 4730.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01460844175271119; SleepCycleTimeSum = 23671.73861789703; SubmitCycleTimeAvg = 0.0003901271783783985; SubmitCycleTimeCount = 4731.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.0175273400964802; SubmitCycleTimeSum = 1.845691680908203; ]
+03/28/20 01:39:20 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:39:20 Reassigning the id of job ele_flat2to100_PU200+Job_0 from (4194798.0.0) to (4194798.0.0)
+03/28/20 01:39:20 Event: ULOG_SUBMIT for HTCondor Node ele_flat2to100_PU200+Job_0 (4194798.0.0) {03/28/20 01:39:15}
+03/28/20 01:39:20 Number of idle job procs: 1
+03/28/20 01:43:21 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:43:21 Event: ULOG_EXECUTE for HTCondor Node ele_flat2to100_PU200+Job_0 (4194798.0.0) {03/28/20 01:43:17}
+03/28/20 01:43:21 Number of idle job procs: 0
+03/28/20 01:43:36 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:43:36 Event: ULOG_JOB_TERMINATED for HTCondor Node ele_flat2to100_PU200+Job_0 (4194798.0.0) {03/28/20 01:43:33}
+03/28/20 01:43:36 Number of idle job procs: 0
+03/28/20 01:43:36 Node ele_flat2to100_PU200+Job_0 job proc (4194798.0.0) failed with status 100.
+03/28/20 01:43:36 Retrying node ele_flat2to100_PU200+Job_0 (retry #3 of 3)...
+03/28/20 01:43:36 DAG status: 0 (DAG_STATUS_OK)
+03/28/20 01:43:36 Of 3 nodes total:
+03/28/20 01:43:36  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:43:36   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:43:36     0       0        0       0       1          2        0
+03/28/20 01:43:36 0 job proc(s) currently held
+03/28/20 01:43:36 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0005194898032583686; EventCycleTimeCount = 4782.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01779981229846617; EventCycleTimeSum = 2.484200239181519; LogProcessCycleTimeAvg = 0.001139084498087565; LogProcessCycleTimeCount = 9.0; LogProcessCycleTimeMax = 0.005912065505981445; LogProcessCycleTimeMin = 0.0002129077911376953; LogProcessCycleTimeStd = 0.001820151096441841; LogProcessCycleTimeSum = 0.01025176048278809; SleepCycleTimeAvg = 5.004598400823146; SleepCycleTimeCount = 4782.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01452952232682848; SleepCycleTimeSum = 23931.98955273628; SubmitCycleTimeAvg = 0.0003866279521497902; SubmitCycleTimeCount = 4783.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.0174318170659888; SubmitCycleTimeSum = 1.849241495132446; ]
+03/28/20 01:43:41 Reassigning the id of job ele_flat2to100_PU200+Job_0 from (4194798.0.0) to (-1.-1.-1)
+03/28/20 01:43:41 Submitting HTCondor Node ele_flat2to100_PU200+Job_0 job(s)...
+03/28/20 01:43:41 Adding a DAGMan workflow log /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log
+03/28/20 01:43:41 Masking the events recorded in the DAGMAN workflow log
+03/28/20 01:43:41 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36
+03/28/20 01:43:41 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'ele_flat2to100_PU200+Job_0 -a +DAGManJobId' '=' '4189268 -a DAGManJobId' '=' '4189268 -batch-name dagman.dag+4189268 -a submit_event_notes' '=' 'DAG' 'Node:' 'ele_flat2to100_PU200+Job_0 -a dagman_log' '=' '/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/batch_BDT_input_v127/dagman.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27,35,36" -a priority=1 -a JOB_ID' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" batch.sub
+03/28/20 01:43:41 From submit: Submitting job(s).
+03/28/20 01:43:41 From submit: 1 job(s) submitted to cluster 4194802.
+03/28/20 01:43:41 	assigned HTCondor ID (4194802.0.0)
+03/28/20 01:43:41 Just submitted 1 job this cycle...
+03/28/20 01:43:41 DAG status: 0 (DAG_STATUS_OK)
+03/28/20 01:43:41 Of 3 nodes total:
+03/28/20 01:43:41  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:43:41   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:43:41     0       0        1       0       0          2        0
+03/28/20 01:43:41 0 job proc(s) currently held
+03/28/20 01:43:41 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0005302078774253021; EventCycleTimeCount = 4783.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01781338035571; EventCycleTimeSum = 2.53598427772522; LogProcessCycleTimeAvg = 0.001139084498087565; LogProcessCycleTimeCount = 9.0; LogProcessCycleTimeMax = 0.005912065505981445; LogProcessCycleTimeMin = 0.0002129077911376953; LogProcessCycleTimeStd = 0.001820151096441841; LogProcessCycleTimeSum = 0.01025176048278809; SleepCycleTimeAvg = 5.004598471651311; SleepCycleTimeCount = 4783.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01452800388443815; SleepCycleTimeSum = 23936.99448990822; SubmitCycleTimeAvg = 0.0004446639564125035; SubmitCycleTimeCount = 4784.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.01788625388065744; SubmitCycleTimeSum = 2.127272367477417; ]
+03/28/20 01:43:46 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:43:46 Reassigning the id of job ele_flat2to100_PU200+Job_0 from (4194802.0.0) to (4194802.0.0)
+03/28/20 01:43:46 Event: ULOG_SUBMIT for HTCondor Node ele_flat2to100_PU200+Job_0 (4194802.0.0) {03/28/20 01:43:41}
+03/28/20 01:43:46 Number of idle job procs: 1
+03/28/20 01:48:31 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:48:31 Event: ULOG_EXECUTE for HTCondor Node ele_flat2to100_PU200+Job_0 (4194802.0.0) {03/28/20 01:48:27}
+03/28/20 01:48:31 Number of idle job procs: 0
+03/28/20 01:48:46 Currently monitoring 1 HTCondor log file(s)
+03/28/20 01:48:46 Event: ULOG_JOB_TERMINATED for HTCondor Node ele_flat2to100_PU200+Job_0 (4194802.0.0) {03/28/20 01:48:43}
+03/28/20 01:48:46 Number of idle job procs: 0
+03/28/20 01:48:46 Node ele_flat2to100_PU200+Job_0 job proc (4194802.0.0) failed with status 100.
+03/28/20 01:48:46 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/28/20 01:48:46 Of 3 nodes total:
+03/28/20 01:48:46  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:48:46   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:48:46     0       0        0       0       0          2        1
+03/28/20 01:48:46 0 job proc(s) currently held
+03/28/20 01:48:46 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0005865259469785935; EventCycleTimeCount = 4844.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01814815619988362; EventCycleTimeSum = 2.841131687164307; LogProcessCycleTimeAvg = 0.002726892630259196; LogProcessCycleTimeCount = 12.0; LogProcessCycleTimeMax = 0.02156591415405273; LogProcessCycleTimeMin = 0.0002129077911376953; LogProcessCycleTimeStd = 0.006138233009496507; LogProcessCycleTimeSum = 0.03272271156311035; SleepCycleTimeAvg = 5.00460460410445; SleepCycleTimeCount = 4844.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01443649697457152; SleepCycleTimeSum = 24242.30470228195; SubmitCycleTimeAvg = 0.0004397266789486534; SubmitCycleTimeCount = 4845.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.01777333104783902; SubmitCycleTimeSum = 2.130475759506226; ]
+03/28/20 01:48:46 ERROR: the following job(s) failed:
+03/28/20 01:48:46 ---------------------- Job ----------------------
+03/28/20 01:48:46       Node Name: ele_flat2to100_PU200+Job_0
+03/28/20 01:48:46            Noop: false
+03/28/20 01:48:46          NodeID: 0
+03/28/20 01:48:46     Node Status: STATUS_ERROR    
+03/28/20 01:48:46 Node return val: 100
+03/28/20 01:48:46           Error: Job proc (4194802.0.0) failed with status 100 (after 3 node retries)
+03/28/20 01:48:46 Job Submit File: batch.sub
+03/28/20 01:48:46           Retry: 3
+03/28/20 01:48:46  HTCondor Job ID: (4194802.0.0)
+03/28/20 01:48:46       Q_PARENTS: <END>
+03/28/20 01:48:46       Q_WAITING: <END>
+03/28/20 01:48:46      Q_CHILDREN: ele_flat2to100_PU200_hadd, <END>
+03/28/20 01:48:46 ---------------------------------------	<END>
+03/28/20 01:48:46 Aborting DAG...
+03/28/20 01:48:46 Writing Rescue DAG to batch_BDT_input_v127/dagman.dag.rescue001...
+03/28/20 01:48:46 Removing submitted jobs...
+03/28/20 01:48:46 Removing any/all submitted HTCondor jobs...
+03/28/20 01:48:46 Running: /usr/bin/condor_rm -const DAGManJobId' '=?=' '4189268
+03/28/20 01:48:47 Note: 0 total job deferrals because of -MaxJobs limit (0)
+03/28/20 01:48:47 Note: 0 total job deferrals because of -MaxIdle limit (1000)
+03/28/20 01:48:47 Note: 0 total job deferrals because of node category throttles
+03/28/20 01:48:47 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+03/28/20 01:48:47 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+03/28/20 01:48:47 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/28/20 01:48:47 Of 3 nodes total:
+03/28/20 01:48:47  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/28/20 01:48:47   ===     ===      ===     ===     ===        ===      ===
+03/28/20 01:48:47     0       0        0       0       0          2        1
+03/28/20 01:48:47 0 job proc(s) currently held
+03/28/20 01:48:47 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0005865259469785935; EventCycleTimeCount = 4844.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01814815619988362; EventCycleTimeSum = 2.841131687164307; LogProcessCycleTimeAvg = 0.002726892630259196; LogProcessCycleTimeCount = 12.0; LogProcessCycleTimeMax = 0.02156591415405273; LogProcessCycleTimeMin = 0.0002129077911376953; LogProcessCycleTimeStd = 0.006138233009496507; LogProcessCycleTimeSum = 0.03272271156311035; SleepCycleTimeAvg = 5.00460460410445; SleepCycleTimeCount = 4844.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01443649697457152; SleepCycleTimeSum = 24242.30470228195; SubmitCycleTimeAvg = 0.0004397266789486534; SubmitCycleTimeCount = 4845.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.01777333104783902; SubmitCycleTimeSum = 2.130475759506226; ]
+03/28/20 01:48:47 Wrote metrics file batch_BDT_input_v127/dagman.dag.metrics.
+03/28/20 01:48:47 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
+03/28/20 01:48:47 DAGMan Runtime Statistics: [ EventCycleTimeAvg = 0.0005865259469785935; EventCycleTimeCount = 4844.0; EventCycleTimeMax = 1.180965185165405; EventCycleTimeMin = 3.385543823242188E-05; EventCycleTimeStd = 0.01814815619988362; EventCycleTimeSum = 2.841131687164307; LogProcessCycleTimeAvg = 0.002726892630259196; LogProcessCycleTimeCount = 12.0; LogProcessCycleTimeMax = 0.02156591415405273; LogProcessCycleTimeMin = 0.0002129077911376953; LogProcessCycleTimeStd = 0.006138233009496507; LogProcessCycleTimeSum = 0.03272271156311035; SleepCycleTimeAvg = 5.00460460410445; SleepCycleTimeCount = 4844.0; SleepCycleTimeMax = 5.025898933410645; SleepCycleTimeMin = 4.005891084671021; SleepCycleTimeStd = 0.01443649697457152; SleepCycleTimeSum = 24242.30470228195; SubmitCycleTimeAvg = 0.0004397266789486534; SubmitCycleTimeCount = 4845.0; SubmitCycleTimeMax = 1.180620193481445; SubmitCycleTimeMin = 1.811981201171875E-05; SubmitCycleTimeStd = 0.01777333104783902; SubmitCycleTimeSum = 2.130475759506226; ]
+03/28/20 01:48:47 **** condor_scheduniv_exec.4189268.0 (condor_DAGMAN) pid 1137710 EXITING WITH STATUS 1

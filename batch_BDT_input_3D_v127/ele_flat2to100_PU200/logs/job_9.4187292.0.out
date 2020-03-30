@@ -1,0 +1,12 @@
+/afs/cern.ch/cms/caf/scripts:/cvmfs/cms.cern.ch/common:/usr/sue/bin:/bin:/usr/condabin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin
+Runnin Cluster 4187292 Job 9
+Current dir: /pool/condor/dir_7076
+b7s10n5898.cern.ch
+0
+/pool/condor/dir_7076
+Fri Mar 27 18:45:18 CET 2020
+gen_part_selections: 14
+while constructing a Python object
+cannot find 'my_plotter' in the module 'python.plotters_config'
+  in "myselection.yaml", line 29, column 15
+('Unexpected error:', <class 'yaml.constructor.ConstructorError'>)

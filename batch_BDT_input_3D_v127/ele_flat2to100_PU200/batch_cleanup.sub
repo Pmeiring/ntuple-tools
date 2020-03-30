@@ -1,0 +1,10 @@
+executable            = batch_BDT_input_3D_v127/ele_flat2to100_PU200/run_batch_cleanup.sh
+arguments             = $(ClusterID) $(ProcId)
+output                = batch_BDT_input_3D_v127/ele_flat2to100_PU200/logs/cleanup.$(ClusterId).$(ProcId).out
+error                 = batch_BDT_input_3D_v127/ele_flat2to100_PU200/logs/cleanup.$(ClusterId).$(ProcId).err
+log                   = batch_BDT_input_3D_v127/ele_flat2to100_PU200/logs/condor_cleanup.$(ClusterId).log
++JobFlavour           = "espresso"
+RequestCpus = 1
+
+transfer_output_files   = ""
+queue

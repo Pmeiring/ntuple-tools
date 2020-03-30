@@ -1,0 +1,61 @@
+# Rescue DAG file, created after running
+#   the batch_BDT_input_3D_v127/dagman.dag DAG file
+# Created 3/27/2020 17:59:09 UTC
+# Rescue DAG version: 2.0.1 (partial)
+#
+# Total number of Nodes: 52
+# Nodes premarked DONE: 0
+# Nodes that failed: 50
+#   ele_flat2to100_PU200+Job_0,ele_flat2to100_PU200+Job_1,ele_flat2to100_PU200+Job_2,ele_flat2to100_PU200+Job_3,ele_flat2to100_PU200+Job_4,ele_flat2to100_PU200+Job_5,ele_flat2to100_PU200+Job_6,ele_flat2to100_PU200+Job_7,ele_flat2to100_PU200+Job_8,ele_flat2to100_PU200+Job_9,ele_flat2to100_PU200+Job_10,ele_flat2to100_PU200+Job_11,ele_flat2to100_PU200+Job_12,ele_flat2to100_PU200+Job_13,ele_flat2to100_PU200+Job_14,ele_flat2to100_PU200+Job_15,ele_flat2to100_PU200+Job_16,ele_flat2to100_PU200+Job_17,ele_flat2to100_PU200+Job_18,ele_flat2to100_PU200+Job_19,ele_flat2to100_PU200+Job_20,ele_flat2to100_PU200+Job_21,ele_flat2to100_PU200+Job_22,ele_flat2to100_PU200+Job_23,ele_flat2to100_PU200+Job_24,ele_flat2to100_PU200+Job_25,ele_flat2to100_PU200+Job_26,ele_flat2to100_PU200+Job_27,ele_flat2to100_PU200+Job_28,ele_flat2to100_PU200+Job_29,ele_flat2to100_PU200+Job_30,ele_flat2to100_PU200+Job_31,ele_flat2to100_PU200+Job_32,ele_flat2to100_PU200+Job_33,ele_flat2to100_PU200+Job_34,ele_flat2to100_PU200+Job_35,ele_flat2to100_PU200+Job_36,ele_flat2to100_PU200+Job_37,ele_flat2to100_PU200+Job_38,ele_flat2to100_PU200+Job_39,ele_flat2to100_PU200+Job_40,ele_flat2to100_PU200+Job_41,ele_flat2to100_PU200+Job_42,ele_flat2to100_PU200+Job_43,ele_flat2to100_PU200+Job_44,ele_flat2to100_PU200+Job_45,ele_flat2to100_PU200+Job_46,ele_flat2to100_PU200+Job_47,ele_flat2to100_PU200+Job_48,ele_flat2to100_PU200+Job_49,<ENDLIST>
+
+RETRY ele_flat2to100_PU200_hadd 3
+RETRY ele_flat2to100_PU200+Job_0 3
+RETRY ele_flat2to100_PU200+Job_1 3
+RETRY ele_flat2to100_PU200+Job_2 3
+RETRY ele_flat2to100_PU200+Job_3 3
+RETRY ele_flat2to100_PU200+Job_4 3
+RETRY ele_flat2to100_PU200+Job_5 3
+RETRY ele_flat2to100_PU200+Job_6 3
+RETRY ele_flat2to100_PU200+Job_7 3
+RETRY ele_flat2to100_PU200+Job_8 3
+RETRY ele_flat2to100_PU200+Job_9 3
+RETRY ele_flat2to100_PU200+Job_10 3
+RETRY ele_flat2to100_PU200+Job_11 3
+RETRY ele_flat2to100_PU200+Job_12 3
+RETRY ele_flat2to100_PU200+Job_13 3
+RETRY ele_flat2to100_PU200+Job_14 3
+RETRY ele_flat2to100_PU200+Job_15 3
+RETRY ele_flat2to100_PU200+Job_16 3
+RETRY ele_flat2to100_PU200+Job_17 3
+RETRY ele_flat2to100_PU200+Job_18 3
+RETRY ele_flat2to100_PU200+Job_19 3
+RETRY ele_flat2to100_PU200+Job_20 3
+RETRY ele_flat2to100_PU200+Job_21 3
+RETRY ele_flat2to100_PU200+Job_22 3
+RETRY ele_flat2to100_PU200+Job_23 3
+RETRY ele_flat2to100_PU200+Job_24 3
+RETRY ele_flat2to100_PU200+Job_25 3
+RETRY ele_flat2to100_PU200+Job_26 3
+RETRY ele_flat2to100_PU200+Job_27 3
+RETRY ele_flat2to100_PU200+Job_28 3
+RETRY ele_flat2to100_PU200+Job_29 3
+RETRY ele_flat2to100_PU200+Job_30 3
+RETRY ele_flat2to100_PU200+Job_31 3
+RETRY ele_flat2to100_PU200+Job_32 3
+RETRY ele_flat2to100_PU200+Job_33 3
+RETRY ele_flat2to100_PU200+Job_34 3
+RETRY ele_flat2to100_PU200+Job_35 3
+RETRY ele_flat2to100_PU200+Job_36 3
+RETRY ele_flat2to100_PU200+Job_37 3
+RETRY ele_flat2to100_PU200+Job_38 3
+RETRY ele_flat2to100_PU200+Job_39 3
+RETRY ele_flat2to100_PU200+Job_40 3
+RETRY ele_flat2to100_PU200+Job_41 3
+RETRY ele_flat2to100_PU200+Job_42 3
+RETRY ele_flat2to100_PU200+Job_43 3
+RETRY ele_flat2to100_PU200+Job_44 3
+RETRY ele_flat2to100_PU200+Job_45 3
+RETRY ele_flat2to100_PU200+Job_46 3
+RETRY ele_flat2to100_PU200+Job_47 3
+RETRY ele_flat2to100_PU200+Job_48 3
+RETRY ele_flat2to100_PU200+Job_49 3
