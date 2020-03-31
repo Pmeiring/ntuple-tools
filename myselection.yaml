@@ -2,10 +2,10 @@
 common:
   input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/
   output_dir:
-    default: /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults
-  output_dir_local: /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults
-  output_dir_lx: /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults
-  plot_version: v3
+    default: /eos/user/j/jheikkil/www/triggerStudies
+  output_dir_local: /eos/user/j/jheikkil/www/triggerStudies
+  output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies
+  plot_version: v1
   run_clustering: False
   run_density_computation: False
 
