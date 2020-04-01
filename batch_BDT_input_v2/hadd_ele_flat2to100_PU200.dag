@@ -1,4 +1,0 @@
-JOB ele_flat2to100_PU200_hadd batch_BDT_input_v2/ele_flat2to100_PU200/batch_hadd.sub
-JOB ele_flat2to100_PU200_cleanup batch_BDT_input_v2/ele_flat2to100_PU200/batch_cleanup.sub
-PARENT ele_flat2to100_PU200_hadd CHILD ele_flat2to100_PU200_cleanup
-Retry ele_flat2to100_PU200_hadd 3
