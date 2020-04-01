@@ -1,0 +1,163 @@
+Runnin Cluster 4228745 Job 0
+Current dir: /pool/condor/dir_7889
+Now in dir: /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools
+b7g24n0497.cern.ch
+0
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools
+Mon Mar 30 23:12:13 CEST 2020
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_0.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_1.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_10.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_11.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_12.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_13.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_14.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_15.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_16.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_17.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_18.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_19.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_2.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_20.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_21.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_22.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_23.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_24.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_25.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_26.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_27.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_28.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_29.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_3.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_30.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_31.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_32.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_33.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_34.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_35.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_36.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_37.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_38.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_39.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_4.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_40.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_41.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_42.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_43.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_44.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_45.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_46.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_47.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_48.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_49.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_5.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_6.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_7.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_8.root
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v3_9.root
+Parallelizing  with 10 processes.
+hadd Target file: histos_ele_flat2to100_PU200_eg_v3.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_45.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_22.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_27.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_36.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_13.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_5.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_31.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_0.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_40.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: histos_ele_flat2to100_PU200_eg_v3_18.root
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_41.root
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_42.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_43.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_44.root
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_1.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial7_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_10.root
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_6.root
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_7.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_11.root
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_28.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_8.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_9.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_12.root
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_29.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial9_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Target path: /pool/condor/dir_7889/tmp/partial0_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_3.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_30.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial4_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_46.root
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_47.root
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_19.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_48.root
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_2.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_49.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_20.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial8_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_21.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial2_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Target path: /pool/condor/dir_7889/tmp/partial4_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial8_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_37.root
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_38.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_39.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_4.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial6_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_32.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial2_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial7_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_33.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial9_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_34.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_35.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial5_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_23.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial6_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_24.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_25.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial0_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_26.root
+hadd Source file 2: histos_ele_flat2to100_PU200_eg_v3_14.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial3_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Source file 3: histos_ele_flat2to100_PU200_eg_v3_15.root
+hadd Source file 4: histos_ele_flat2to100_PU200_eg_v3_16.root
+hadd Source file 5: histos_ele_flat2to100_PU200_eg_v3_17.root
+hadd Target path: /pool/condor/dir_7889/tmp/partial1_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/
+hadd Target path: /pool/condor/dir_7889/tmp/partial5_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial3_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial1_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/Cluster3DHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial3_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial0_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial6_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial5_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial1_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial2_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial9_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial8_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial4_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd Target path: /pool/condor/dir_7889/tmp/partial7_26521304-72cb-11ea-bb09-fad4b8bcbeef.root:/GenParticleHistos
+hadd compression setting for all ouput: 1
+hadd Source file 1: /pool/condor/dir_7889/tmp/partial0_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 2: /pool/condor/dir_7889/tmp/partial1_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 3: /pool/condor/dir_7889/tmp/partial2_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 4: /pool/condor/dir_7889/tmp/partial3_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 5: /pool/condor/dir_7889/tmp/partial4_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 6: /pool/condor/dir_7889/tmp/partial5_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 7: /pool/condor/dir_7889/tmp/partial6_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 8: /pool/condor/dir_7889/tmp/partial7_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 9: /pool/condor/dir_7889/tmp/partial8_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Source file 10: /pool/condor/dir_7889/tmp/partial9_26521304-72cb-11ea-bb09-fad4b8bcbeef.root
+hadd Target path: histos_ele_flat2to100_PU200_eg_v3.root:/
+hadd Target path: histos_ele_flat2to100_PU200_eg_v3.root:/Cluster3DHistos
+hadd Target path: histos_ele_flat2to100_PU200_eg_v3.root:/GenParticleHistos

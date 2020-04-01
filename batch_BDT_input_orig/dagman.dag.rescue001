@@ -1,0 +1,13 @@
+# Rescue DAG file, created after running
+#   the batch_BDT_input_v1/dagman.dag DAG file
+# Created 3/30/2020 17:52:04 UTC
+# Rescue DAG version: 2.0.1 (partial)
+#
+# Total number of Nodes: 3
+# Nodes premarked DONE: 1
+# Nodes that failed: 1
+#   ele_flat2to100_PU200_hadd,<ENDLIST>
+
+RETRY ele_flat2to100_PU200_hadd 3
+DONE ele_flat2to100_PU200+Job_0
+RETRY ele_flat2to100_PU200+Job_0 3

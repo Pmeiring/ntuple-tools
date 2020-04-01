@@ -12,6 +12,7 @@ def match_etaphi(ref_etaphi, trigger_etaphi, trigger_pt, deltaR=0.2):
     # print trigger_etaphi
     # print "INPUT trigger_pt"
     # print trigger_pt
+    #print "deltaR: ", deltaR
     kdtree = cKDTree(trigger_etaphi)
     best_match_indices = {}
     all_matches_indices = {}

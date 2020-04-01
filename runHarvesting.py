@@ -28,7 +28,7 @@ def data_creator(input_dir, sample_name, version, q):
 
         for id, item in enumerate(data):
             file_name = os.path.split(item)[1]
-            # print file_name
+            #print file_name
             # print id
             if sample_name in item and version+'_' in item:
                 # or not os.path.isfile('{}.checked'.format(os.path.splitext(file)[0])):

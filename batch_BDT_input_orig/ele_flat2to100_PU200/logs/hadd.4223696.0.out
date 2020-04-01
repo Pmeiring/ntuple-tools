@@ -1,0 +1,12 @@
+Runnin Cluster 4223696 Job 0
+Current dir: /pool/condor/dir_30461
+Now in dir: /afs/cern.ch/work/j/jheikkil/tools/ntuple-tools
+b7g24n0633.cern.ch
+0
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools
+Mon Mar 30 19:36:30 CEST 2020
+/afs/cern.ch/work/j/jheikkil/tools/ntuple-tools/triggerResults/tmp/histos_ele_flat2to100_PU200_eg_v1_*.root
+Parallelizing  with 10 processes.
+hadd Target file: histos_ele_flat2to100_PU200_eg_v1.root
+hadd compression setting for all ouput: 1
+Each process should handle at least 3 files for efficiency. Setting the number of processes to: 0

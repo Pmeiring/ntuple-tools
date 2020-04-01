@@ -1,0 +1,52 @@
+/afs/cern.ch/cms/caf/scripts:/cvmfs/cms.cern.ch/common:/usr/sue/bin:/bin:/usr/condabin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin
+Runnin Cluster 4232843 Job 164
+Current dir: /pool/condor/dir_9458
+b7g28n0667.cern.ch
+0
+/pool/condor/dir_9458
+Tue Mar 31 11:07:29 CEST 2020
+gen_part_selections: 14
+--- Collection: BDT_input with samples: ['ele_flat2to100_PU200']
+{'ele_flat2to100_PU200': 1}
+About to process samples: [ele_flat2to100_PU200]
+Name: ele_flat2to100_PU200,
+                 clusterize: False
+                 compute density: False
+                 maxEvents: -1
+                 output file: /pool/condor/dir_9458/histos_ele_flat2to100_PU200_eg_v1_164.root
+                 events per job: 200
+                 debug: 0
+This is batch processing...
+dir already indexed, will read metadata...
+['[eos-cp] copied 1/1 files and 11.01 kB in 0.10 seconds with 114.06 kB/s\n']
+# of jobs: 500
+['[eos-cp] copied 1/1 files and 2.22 GB in 18.32 seconds with 121.15 MB/s\n']
+- will read 1 files from dir SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v0/200319_124134/0000/:
+        - ntuple_DY_22.root
+- created TChain containing 1764 events
+- reading from event: 44 to event 243
+Resetting cache: 0
+Setting new cache size: 0
+Setting # of entries for cache learning: None to 1
+Setting cache entry range: 0
+Cache size: 400000000
+[<Cluster3DGenMatchPlotter tps: HMvDR, tps_s: ['all', 'Pt10', 'Pt20', 'Pt30', 'Em', 'EmPt10', 'EmPt20', 'EmPt30'], gen:GEN, gen_s:['GEN', 'GENPt15', 'GENPt10to25', 'GENPt30', 'GENPt35', 'GENPt40', 'GENEtaD', 'GENEtaDPt15', 'GENEtaDE', 'GENEtaDEPt15', 'GENEtaBC', 'GENEtaBCPt15', 'GENEtaBCD', 'GENEtaBCDPt15']> ]
+[EventManager] registering collection as active: MC
+[EventManager] registering collection as active: GEN
+[EventManager] registering collection as active: TC
+[EventManager] registering collection as active: HMvDR
+all HMvDR
+Pt10 HMvDR
+Pt20 HMvDR
+Pt30 HMvDR
+Em HMvDR
+EmPt10 HMvDR
+EmPt20 HMvDR
+EmPt30 HMvDR
+--- Event 100, @ 2020-03-31 11:11:49.846440
+    run: 0, lumi: 0, event: 0
+--- Event 200, @ 2020-03-31 11:18:08.961614
+    run: 0, lumi: 0, event: 0
+Processed 200 events/1764 TOT events
+Writing histos to file /pool/condor/dir_9458/histos_ele_flat2to100_PU200_eg_v1_164.root
+Read bytes: 1317631788, # of transaction: 948

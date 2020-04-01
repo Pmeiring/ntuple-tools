@@ -318,6 +318,7 @@ class Cluster3DHistos(BaseHistos):
             self.h_npt20 = ROOT.TH1F(name+'_npt20', '# 3D Cluster Pt > 2.0 GeV; # 3D clusters in cone;', 1000, 0, 1000)
             self.h_pt = ROOT.TH1F(name+'_pt', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
             self.h_eta = ROOT.TH1F(name+'_eta', '3D Cluster eta; #eta;', 100, -4, 4)
+            self.h_abseta = ROOT.TH1F(name+'_abseta', '3D Cluster abs(eta); |#eta|;', 40, 0, 4)
             self.h_phi = ROOT.TH1F(name+'_phi', '3D Cluster phi; #phi;', 100, -4, 4)
             self.h_energy = ROOT.TH1F(name+'_energy', '3D Cluster energy (GeV); E [GeV]', 1000, 0, 1000)
             self.h_nclu = ROOT.TH1F(name+'_nclu', '3D Cluster # clusters; # 2D components;', 60, 0, 60)
@@ -353,7 +354,7 @@ class Cluster3DHistos(BaseHistos):
             self.h_isoRel0p2 = ROOT.TH1F(name+'_isoRel0p2', '3D Cluster relative iso DR 0.2; Rel. Iso;', 100, 0, 1)
             self.h_bdtPU = ROOT.TH1F(name+'_bdtPU', '3D Cluster bdt PU out; BDT-PU out;', 100, -1, 1)
             self.h_bdtPi = ROOT.TH1F(name+'_bdtPi', '3D Cluster bdt Pi out; BDT-Pi out;', 100, -1, 1)
-            self.h_bdtEg = ROOT.TH1F(name+'_bdtEg', '3D Cluster bdt Pi out; BDT-EG out;', 100, -1, 1)
+            self.h_bdtEg = ROOT.TH1F(name+'_bdtEg', '3D Cluster bdt-EG out; BDT-EG out;', 100, -1, 1)
 
         BaseHistos.__init__(self, name, root_file, debug)
 
@@ -363,6 +364,7 @@ class Cluster3DHistos(BaseHistos):
 
         rnp.fill_hist(self.h_pt, cl3ds.pt)
         rnp.fill_hist(self.h_eta, cl3ds.eta)
+        rnp.fill_hist(self.h_abseta, cl3ds.eta.abs())
         rnp.fill_hist(self.h_phi, cl3ds.phi)
         rnp.fill_hist(self.h_energy, cl3ds.energy)
         rnp.fill_hist(self.h_nclu, cl3ds.nclu)

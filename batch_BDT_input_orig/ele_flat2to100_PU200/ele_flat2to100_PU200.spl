@@ -1,0 +1,4 @@
+JOB Job_0 batch.sub
+VARS Job_0 JOB_ID="0"
+Retry Job_0 3
+PRIORITY Job_0 1
