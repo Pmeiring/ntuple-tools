@@ -191,6 +191,7 @@ tp_eta_selections = [#Selection('all', '', ''),
 
 tp_rate_selections = add_selections(tp_rate_id_selections, tp_eta_selections)
 
+#MY SELECTIONS
 tp_match_selections = tp_pt_selections
 #tp_match_selections += add_selections(tp_id_selections, tp_pt_selections) 
 tp_match_selections += add_selections(tp_pt_selections, tp_eta_selections)
@@ -203,7 +204,9 @@ genpart_photon_selections = [Selection('Phot', '#gamma', 'abs(pdgid) == {}'.form
 genpart_pion_selections = [Selection('Pion', '#pi', 'abs(pdgid) == {}'.format(PID.pion))]
 
 
-gen_ee_selections = [Selection('', '', 'reachedEE == 2')]
+#gen_ee_selections = [Selection('', '', 'reachedEE == 2')]
+gen_ee_selections = [Selection('all')]
+
 
 gen_eta_selections = [
                       # Selection('EtaA', '|#eta^{GEN}| <= 1.52', 'abs(eta) <= 1.52'),
@@ -311,9 +314,9 @@ gen_part_ee_eta_brem_sel = add_selections(gen_part_ee_eta_sel, gen_part_fbrem_se
 gen_part_selections_debug = []
 gen_part_selections_debug = add_selections(gen_part_ee_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
 
-
-gen_part_selections = []
-gen_part_selections += gen_part_ee_sel
+#MYSTUFF
+gen_part_selections = gen_selections
+#gen_part_selections += gen_part_ee_sel
 gen_part_selections += gen_part_ee_pt_sel
 gen_part_selections += gen_part_ee_eta_sel
 gen_part_selections += add_selections(gen_part_ee_eta_sel, gen_part_ee_pt_sel)
