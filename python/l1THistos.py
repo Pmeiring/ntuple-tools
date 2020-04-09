@@ -328,9 +328,9 @@ class Cluster3DHistos(BaseHistos):
             self.h_firstlayer = ROOT.TH1F(name+'_firstlayer', '3D Cluster first layer', 40, 0, 40)
             self.h_maxlayer = ROOT.TH1F(name+'_maxlayer', '3D Cluster max layer', 100, 0, 100)
             
-            self.h_sRRTot = ROOT.TH1F(name+'_sRRTot', '3D Cluster RMS R', 100, 0, 2)
-            self.h_sRRMax = ROOT.TH1F(name+'_sRRMax', '3D Cluster RMS R (max)', 100, 0, 2)
-            self.h_sRRMean = ROOT.TH1F(name+'_sRRMean', '3D Cluster RMS R (mean layers)', 100, 0, 2)
+            self.h_sRRTot = ROOT.TH1F(name+'_sRRTot', '3D Cluster RMS R', 1000, 0, 100)
+            self.h_sRRMax = ROOT.TH1F(name+'_sRRMax', '3D Cluster RMS R (max)', 1000, 0, 100)
+            self.h_sRRMean = ROOT.TH1F(name+'_sRRMean', '3D Cluster RMS R (mean layers)', 1000, 0, 100)
 
             self.h_meanZ = ROOT.TH1F(name+'_meanZ', 'Center of the cluster in Z', 1000, 0, 1000)
 
