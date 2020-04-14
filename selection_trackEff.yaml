@@ -5,7 +5,7 @@ common:
     default: /eos/user/j/jheikkil/www/triggerStudies/trackEff
   output_dir_local: /eos/user/j/jheikkil/www/triggerStudies/trackEff
   output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies/trackEff
-  plot_version: v4
+  plot_version: v5
   run_clustering: False
   run_density_computation: False
 
