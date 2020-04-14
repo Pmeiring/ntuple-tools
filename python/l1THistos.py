@@ -314,8 +314,8 @@ class ClusterHistos(BaseHistos):
 class Cluster3DHistos(BaseHistos):
     def __init__(self, name, root_file=None, debug=False):
         if not root_file:
-            self.h_npt05 = ROOT.TH1F(name+'_npt05', '# 3D Cluster Pt > 0.5 GeV; # 3D clusters in cone;', 1000, 0, 1000)
-            self.h_npt20 = ROOT.TH1F(name+'_npt20', '# 3D Cluster Pt > 2.0 GeV; # 3D clusters in cone;', 1000, 0, 1000)
+            self.h_npt05 = ROOT.TH1F(name+'_npt05', '# 3D Cluster Pt > 0.5 GeV; # 3D clusters in cone;', 1000, 0, 500)
+            self.h_npt20 = ROOT.TH1F(name+'_npt20', '# 3D Cluster Pt > 2.0 GeV; # 3D clusters in cone;', 1000, 0, 500)
             self.h_pt = ROOT.TH1F(name+'_pt', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
             self.h_eta = ROOT.TH1F(name+'_eta', '3D Cluster eta; #eta;', 100, -4, 4)
             self.h_abseta = ROOT.TH1F(name+'_abseta', '3D Cluster abs(eta); |#eta|;', 40, 0, 4)
@@ -328,29 +328,29 @@ class Cluster3DHistos(BaseHistos):
             self.h_firstlayer = ROOT.TH1F(name+'_firstlayer', '3D Cluster first layer', 40, 0, 40)
             self.h_maxlayer = ROOT.TH1F(name+'_maxlayer', '3D Cluster max layer', 100, 0, 100)
             
-            self.h_sRRTot = ROOT.TH1F(name+'_sRRTot', '3D Cluster RMS R', 1000, 0, 100)
-            self.h_sRRMax = ROOT.TH1F(name+'_sRRMax', '3D Cluster RMS R (max)', 1000, 0, 100)
-            self.h_sRRMean = ROOT.TH1F(name+'_sRRMean', '3D Cluster RMS R (mean layers)', 1000, 0, 100)
+            self.h_sRRTot = ROOT.TH1F(name+'_sRRTot', '3D Cluster RMS R', 1000, 0, 0.5)
+            self.h_sRRMax = ROOT.TH1F(name+'_sRRMax', '3D Cluster RMS R (max)', 1000, 0, 0.5)
+            self.h_sRRMean = ROOT.TH1F(name+'_sRRMean', '3D Cluster RMS R (mean layers)', 1000, 0, 0.5)
 
             self.h_meanZ = ROOT.TH1F(name+'_meanZ', 'Center of the cluster in Z', 1000, 0, 1000)
 
             self.h_sEtaEtaTot = ROOT.TH1F(name+'_sEtaEtaTot', '3D Cluster RMS Eta', 100, 0, 0.1)
             self.h_sEtaEtaMax = ROOT.TH1F(name+'_sEtaEtaMax', '3D Cluster RMS Eta (max)', 100, 0, 0.1)
-            self.h_sPhiPhiTot = ROOT.TH1F(name+'_sPhiPhiTot', '3D Cluster RMS Phi', 100, 0, 2)
-            self.h_sPhiPhiMax = ROOT.TH1F(name+'_sPhiPhiMax', '3D Cluster RMS Phi (max)', 100, 0, 2)
-            self.h_sZZ = ROOT.TH1F(name+'_sZZ', '3D Cluster RMS Z ???', 100, 0, 10)
+            self.h_sPhiPhiTot = ROOT.TH1F(name+'_sPhiPhiTot', '3D Cluster RMS Phi', 100, 0, 0.2)
+            self.h_sPhiPhiMax = ROOT.TH1F(name+'_sPhiPhiMax', '3D Cluster RMS Phi (max)', 100, 0, 0.2)
+            self.h_sZZ = ROOT.TH1F(name+'_sZZ', '3D Cluster RMS Z', 200, 0, 20)
             self.h_eMaxOverE = ROOT.TH1F(name+'_eMaxOverE', '3D Cluster Emax/E', 100, 0, 1)
-            self.h_HoE = ROOT.TH1F(name+'_HoE', '3D Cluster H/E', 20, 0, 2)
+            self.h_HoE = ROOT.TH1F(name+'_HoE', '3D Cluster H/E', 100, 0, 2)
 
-            self.h_layer10 = ROOT.TH1F(name+'_layer10', 'Number of the layers at which 10 percent of the cluster pt', 100, 0, 100)
-       	    self.h_layer50 = ROOT.TH1F(name+'_layer50', 'Number of the layers at which 50 percent of the cluster pt', 100, 0, 100)
-       	    self.h_layer90 = ROOT.TH1F(name+'_layer90', 'Number of the layers at which 90 percent of the cluster pt', 100, 0, 100)
+            self.h_layer10 = ROOT.TH1F(name+'_layer10', 'Number of the layers at which 10 percent of the cluster pt', 1000, 0, 100)
+       	    self.h_layer50 = ROOT.TH1F(name+'_layer50', 'Number of the layers at which 50 percent of the cluster pt', 1000, 0, 100)
+       	    self.h_layer90 = ROOT.TH1F(name+'_layer90', 'Number of the layers at which 90 percent of the cluster pt', 1000, 0, 100)
 
-            self.h_ntc67 = ROOT.TH1F(name+'_ntc67', 'Number of the trigger cells in a cluster at which 67 percent of the cluster pT', 100, 0, 100)
-            self.h_ntc90 = ROOT.TH1F(name+'_ntc90', 'Number of the trigger cells in a cluster at which 90 percent of the cluster pT', 100, 0, 100)
+            self.h_ntc67 = ROOT.TH1F(name+'_ntc67', 'Number of the trigger cells in a cluster at which 67 percent of the cluster pT', 1000, 0, 100)
+            self.h_ntc90 = ROOT.TH1F(name+'_ntc90', 'Number of the trigger cells in a cluster at which 90 percent of the cluster pT', 1000, 0, 100)
 
 
-            self.h_iso0p2 = ROOT.TH1F(name+'_iso0p2', '3D Cluster iso DR 0.2(GeV); Iso p_{T} [GeV];', 100, 0, 100)
+            self.h_iso0p2 = ROOT.TH1F(name+'_iso0p2', '3D Cluster iso DR 0.2(GeV); Iso p_{T} [GeV];', 100, 0, 1)
             self.h_isoRel0p2 = ROOT.TH1F(name+'_isoRel0p2', '3D Cluster relative iso DR 0.2; Rel. Iso;', 100, 0, 1)
             self.h_bdtPU = ROOT.TH1F(name+'_bdtPU', '3D Cluster bdt PU out; BDT-PU out;', 100, -1, 1)
             self.h_bdtPi = ROOT.TH1F(name+'_bdtPi', '3D Cluster bdt Pi out; BDT-Pi out;', 100, -1, 1)
