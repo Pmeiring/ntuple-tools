@@ -5,7 +5,7 @@ common:
     default: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_local: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies
-  plot_version: v6
+  plot_version: v7
   run_clustering: False
   run_density_computation: False
 
@@ -55,7 +55,7 @@ plotters:
 #test: !!python/name:python.selections.gen_part_selections
 samples:
   ele_flat2to100_PU200:
-    input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v0/200319_124134/0000/
+    input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v1/200407_080301/0000
     # input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v43/191022_152446/0000/
     # input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v47/191105_134950/0000/
     events_per_job : 200
