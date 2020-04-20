@@ -1275,7 +1275,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
 
         total=0
         for idx, genParticle in genParticles.iterrows():
-            All3DClusters = trigger3DClusters
+            #All3DClusters = trigger3DClusters
             if idx in best_match_indexes.keys():
                 # print ('-----------------------')
                 #  print(genParticle)
@@ -1310,6 +1310,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 #histoTCMatch.fill(matchedTriggerCells)
                 #histoClMatch.fill(matchedClusters)
                 histo3DClMatch.fill(matched3DCluster)
+                histo3DClNOMatch.fill(All3DClusters)
                 #histo3DClNOMatch.fill(All3DClusters)
 
                 # print matchedClusters
@@ -1386,7 +1387,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                     if debug >= 2:
                         print (genParticle)
                         print (trigger3DClusters)
-            histo3DClNOMatch.fill(All3DClusters)
+            #histo3DClNOMatch.fill(All3DClusters)
         
         #histo3DCl_UnMatch.fill(matched3DCluster)     
         # if len(allmatched2Dclusters) != 0:
