@@ -283,6 +283,8 @@ gen_pt_sel = [Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt >= 15'),
 gen_selections = [Selection('GEN', '', '((abs(pdgid) == {}) & (firstmother_pdgid == {})) | ((abs(pdgid) == {}) & (firstmother_pdgid == {}))'.format(PID.electron, PID.electron,
                                                                                                                                                     PID.photon, PID.photon))]
 
+gen_debug = [Selection('all')]
+
 gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}))'.format(PID.electron,
                                                                                                    PID.electron))]
 
@@ -315,11 +317,11 @@ gen_part_selections_debug = []
 gen_part_selections_debug = add_selections(gen_part_ee_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
 
 #MYSTUFF
-gen_part_selections = gen_selections
+gen_part_selections = gen_debug#gen_selections
 #gen_part_selections += gen_part_ee_sel
-gen_part_selections += gen_part_ee_pt_sel
-gen_part_selections += gen_part_ee_eta_sel
-gen_part_selections += add_selections(gen_part_ee_eta_sel, gen_part_ee_pt_sel)
+#gen_part_selections += gen_part_ee_pt_sel
+#gen_part_selections += gen_part_ee_eta_sel
+#gen_part_selections += add_selections(gen_part_ee_eta_sel, gen_part_ee_pt_sel)
 
 gen_part_ele_selections = []
 gen_part_ele_selections += genpart_ele_sel

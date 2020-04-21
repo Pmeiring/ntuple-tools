@@ -5,7 +5,7 @@ common:
     default: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_local: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies
-  plot_version: v8
+  plot_version: v10
   run_clustering: False
   run_density_computation: False
 
@@ -18,8 +18,10 @@ collections:
       eg
     samples:
       - ele_flat2to100_PU200
+      - nugun_10_PU200
     priorities:
       ele_flat2to100_PU200: 1
+      nugun_10_PU200: 1
     htc_jobflavor:
       workday
     plotters:
@@ -54,6 +56,11 @@ plotters:
 
 #test: !!python/name:python.selections.gen_part_selections
 samples:
+  nugun_10_PU200:
+    input_sample_dir: NeutrinoGun_E_10GeV/NuGunAllEta_PU200_v1/200420_130535/0000/
+    events_per_job : 200
+ 
+ 
   ele_flat2to100_PU200:
     input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v1/200407_080301/0000/
     # input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v43/191022_152446/0000/

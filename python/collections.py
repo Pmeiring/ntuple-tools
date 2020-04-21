@@ -538,10 +538,19 @@ def gen_part_pt_weights(gen_parts, weight_file):
 
 gen = DFCollection(name='MC', label='MC particles',
                    filler_function=lambda event: event.getDataFrame(prefix='gen'),
-                   fixture_function=mc_fixtures, debug=0)
+                   fixture_function=mc_fixtures, debug=0,
+                   )
 
+gen_parts = DFCollection(name='GEN', label='GEN particles', 
+                         filler_function=lambda event: event.getDataFrame(prefix='gen'),
+                         fixture_function=mc_fixtures,
+                         depends_on=[gen],
+                         debug=0,
+                         print_function=lambda df: df[['eta', 'phi', 'pt', 'weight']].sort_values(by='pt', ascending=False),
+                         weight_function=gen_part_pt_weights
+                         )
 
-gen_parts = DFCollection(name='GEN', label='GEN particles',
+gen_parts_ORIG = DFCollection(name='GEN', label='GEN particles',                                                 
                          filler_function=lambda event: event.getDataFrame(prefix='genpart'),
                          fixture_function=lambda gen_parts: gen_fixtures(gen_parts, gen),
                          depends_on=[gen],
@@ -550,6 +559,8 @@ gen_parts = DFCollection(name='GEN', label='GEN particles',
                          print_function=lambda df: df[['eta', 'phi', 'pt', 'weight']].sort_values(by='pt', ascending=False),
                          weight_function=gen_part_pt_weights
                          )
+
+
 # gen_parts.activate()
 
 tcs = DFCollection(name='TC', label='Trigger Cells',

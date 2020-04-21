@@ -270,8 +270,8 @@ class TPGenMatchPlotterDebugger:
 
         # allmatched2Dclusters = list()
         # matchedClustersAll = pd.DataFrame()
-        if histoGen is not None:
-            histoGen.fill(genParticles)
+        if histoGen is not None: #COMMENT THIS
+            histoGen.fill(genParticles) #COMMENT THIS
         orig_debug = debug
         for idx, genParticle in genParticles.iterrows():
             if idx in best_match_indexes.keys():
@@ -1270,8 +1270,8 @@ class Cluster3DGenMatchPlotter(BasePlotter):
 
         # allmatched2Dclusters = list()
         # matchedClustersAll = pd.DataFrame()
-        if histoGen is not None:
-            histoGen.fill(genParticles)
+        #if histoGen is not None: UNCOMMENT
+        #    histoGen.fill(genParticles) UNCOMMENT
 
         total=0
         for idx, genParticle in genParticles.iterrows():
@@ -1310,7 +1310,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 #histoTCMatch.fill(matchedTriggerCells)
                 #histoClMatch.fill(matchedClusters)
                 histo3DClMatch.fill(matched3DCluster)
-                histo3DClNOMatch.fill(All3DClusters)
+                #histo3DClNOMatch.fill(All3DClusters)
                 #histo3DClNOMatch.fill(All3DClusters)
 
                 # print matchedClusters
@@ -1358,8 +1358,8 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 #    # print (clustersInCone)
                 #    # histoResoCone.fill(reference=genParticle, target=clustersInCone.iloc[0])
 
-                if histoGenMatched is not None:
-                    histoGenMatched.fill(genParticles.loc[[idx]])
+                #if histoGenMatched is not None: UNCOMMENT
+                #    histoGenMatched.fill(genParticles.loc[[idx]]) UNCOMMENT
 
                 if debug >= 6:
                     print ('--- Dump match for algo {} ---------------'.format(algoname))
@@ -1387,7 +1387,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                     if debug >= 2:
                         print (genParticle)
                         print (trigger3DClusters)
-            #histo3DClNOMatch.fill(All3DClusters)
+        histo3DClNOMatch.fill(All3DClusters)
         
         #histo3DCl_UnMatch.fill(matched3DCluster)     
         # if len(allmatched2Dclusters) != 0:
@@ -1422,7 +1422,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
                 histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
                 #print histo_name
-                genReference = self.gen_set.df[(self.gen_set.df.gen > 0)]
+                genReference = self.gen_set.df[(self.gen_set.df.pt > -4)] #commented this [(self.gen_set.df.gen > 0)
                 if not gen_sel.all:
                     genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection)
                     # FIXME: this doesn't work for pizeros since they are never listed in the genParticles...we need a working solution
