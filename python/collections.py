@@ -541,7 +541,7 @@ gen = DFCollection(name='MC', label='MC particles',
                    fixture_function=mc_fixtures, debug=0,
                    )
 
-gen_parts = DFCollection(name='GEN', label='GEN particles', 
+gen_parts_TEST = DFCollection(name='GEN', label='GEN particles', 
                          filler_function=lambda event: event.getDataFrame(prefix='gen'),
                          fixture_function=mc_fixtures,
                          depends_on=[gen],
@@ -550,7 +550,7 @@ gen_parts = DFCollection(name='GEN', label='GEN particles',
                          weight_function=gen_part_pt_weights
                          )
 
-gen_parts_ORIG = DFCollection(name='GEN', label='GEN particles',                                                 
+gen_parts = DFCollection(name='GEN', label='GEN particles',                                                 
                          filler_function=lambda event: event.getDataFrame(prefix='genpart'),
                          fixture_function=lambda gen_parts: gen_fixtures(gen_parts, gen),
                          depends_on=[gen],
