@@ -1263,36 +1263,17 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                                                                 trigger3DClusters[['eta', 'phi']],
                                                                 trigger3DClusters['pt'],
                                                                 deltaR=0.2)
-        #print ('------ best match: ')
-        #print (best_match_indexes)
-        #print ('------ all matches:')
-        #print (allmatches)
-
         # allmatched2Dclusters = list()
         # matchedClustersAll = pd.DataFrame()
-        #if histoGen is not None: UNCOMMENT
-        #    histoGen.fill(genParticles) UNCOMMENT
+        if histoGen is not None: 
+            histoGen.fill(genParticles) 
 
         total=0
         for idx, genParticle in genParticles.iterrows():
-            #All3DClusters = trigger3DClusters
             if idx in best_match_indexes.keys():
-                # print ('-----------------------')
-                #  print(genParticle)
                 matched3DCluster = trigger3DClusters.loc[[best_match_indexes[idx]]]
-                #print "PRINT VAHANANANANAAAAAAAAAAAAAAAAAAAAAAAAa"
-                #print idx, best_match_indexes[idx]
-                #print (matched3DCluster)
                 All3DClusters = All3DClusters.drop(best_match_indexes[idx])
-                # print (matched3DCluster)
-                # allMatches = trigger3DClusters.iloc[allmatches[idx]]
-                # print ('--')
-                # print (allMatches)
-                # print (matched3DCluster.clusters.item())
-                # print (type(matched3DCluster.clusters.item()))
-                # matchedClusters = triggerClusters[ [x in matched3DCluster.clusters.item() for x in triggerClusters.id]]
                 matchedClusters = triggerClusters[triggerClusters.id.isin(matched3DCluster.clusters.item())]
-                # print (matchedClusters)
                 matchedTriggerCells = triggerCells[triggerCells.id.isin(np.concatenate(matchedClusters.cells.values))]
                 # allmatched2Dclusters. append(matchedClusters)
 
@@ -1307,59 +1288,11 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 matched3DCluster['isoRel0p2'] = iso_df.pt/matched3DCluster.pt
 
                 # fill the plots
-                #histoTCMatch.fill(matchedTriggerCells)
-                #histoClMatch.fill(matchedClusters)
                 histo3DClMatch.fill(matched3DCluster)
-                #histo3DClNOMatch.fill(All3DClusters)
-                #histo3DClNOMatch.fill(All3DClusters)
 
-                # print matchedClusters
-                # print matchedClusters.layer.unique()
-                #for layer in matchedClusters.layer.unique():
-                #    if histoReso2D is not None:
-                #        histoReso2D.fill(reference=genParticle,
-                #                         target=clAlgo.build2D(matchedClusters[matchedClusters.layer == layer]))
 
-                #if False:
-                #    histoReso2D.fill(reference=genParticle, target=matchedClusters)
-                #histoReso.fill(reference=genParticle, target=matched3DCluster.iloc[0])
-
-                #if True:
-                #    # now we fill the reso plot for all the clusters in the cone
-                #    clustersInCone = sumClustersInCone(trigger3DClusters, allmatches[idx])
-
-                #    def fill_cluster_incone_histos(cl3ds,
-                #                                   idx_allmatches,
-                #                                   idx_bestmatch,
-                #                                   charge,
-                #                                   h_clustersInCone,
-                #                                   debug=0):
-                #        if debug > 4:
-                #            print '- best match: {}, all matches: {}'.format(idx_bestmatch,
-                #                                                             idx_allmatches)
-                #        bestcl = cl3ds.loc[idx_bestmatch]
-                #        h_clustersInCone.fill_n(len(idx_allmatches)-1)
-                #        for idx in idx_allmatches:
-                #            if idx == idx_bestmatch:
-                #                continue
-                #            clincone = cl3ds.loc[idx]
-                #            h_clustersInCone.fill(reference=bestcl,
-                #                                  target=clincone,
-                #                                  charge=charge)
-                #    # print genParticle
-                #    # print genParticle.pid/abs(genParticle.pid)
-                #    fill_cluster_incone_histos(trigger3DClusters,
-                #                               allmatches[idx],
-                #                               best_match_indexes[idx],
-                #                               genParticle.pid/abs(genParticle.pid),
-                #                               histoConeClusters)
-                #
-                #    # print ('----- in cone sum:')
-                #    # print (clustersInCone)
-                #    # histoResoCone.fill(reference=genParticle, target=clustersInCone.iloc[0])
-
-                #if histoGenMatched is not None: UNCOMMENT
-                #    histoGenMatched.fill(genParticles.loc[[idx]]) UNCOMMENT
+                if histoGenMatched is not None: 
+                    histoGenMatched.fill(genParticles.loc[[idx]]) 
 
                 if debug >= 6:
                     print ('--- Dump match for algo {} ---------------'.format(algoname))
@@ -1422,7 +1355,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
                 histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
                 #print histo_name
-                genReference = self.gen_set.df[(self.gen_set.df.pt > -4)] #commented this [(self.gen_set.df.gen > 0)
+                genReference = self.gen_set.df[(self.gen_set.df.pt > 0)] #commented this [(self.gen_set.df.gen > 0)
                 if not gen_sel.all:
                     genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection)
                     # FIXME: this doesn't work for pizeros since they are never listed in the genParticles...we need a working solution
