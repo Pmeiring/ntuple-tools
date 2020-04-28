@@ -1405,6 +1405,36 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                                                                    [sel.name for sel in self.gen_selections])
 
 
+class Cluster3DPlotter(BasePlotter):
+    def __init__(self, tp_set, tp_selections=[selections.Selection('all')]):
+        # self.tp_set = tp_set
+        # self.tp_selections = tp_selections
+        self.h_tpset = {}
+        super(Cluster3DPlotter, self).__init__(tp_set, tp_selections)
+
+    def book_histos(self):
+        self.tp_set.activate()
+        tp_name = self.tp_set.name
+        for selection in self.tp_selections: 
+            histo_name='{}_{}_noMatch'.format(tp_name, selection.name)
+            #self.h_tpset[selection.name] = histos.HistoSetClusters(name='{}_{}_nomatch'.format(tp_name, selection.name))
+            self.h_tpset[histo_name] = histos.HistoSet3DClusters(histo_name)
+
+    def fill_histos(self, debug=False):
+        #print tp_sel.name
+        for tp_sel in self.tp_selections:
+            tcs = self.tp_set.tc_df
+            cl2Ds = self.tp_set.cl2d_df
+            cl3Ds = self.tp_set.cl3d_df
+            if not tp_sel.all:
+                cl3Ds = self.tp_set.cl3d_df.query(tp_sel.selection)
+            # debug = 4
+            # utils.debugPrintOut(debug, '{}_{}'.format(self.tp_set.name, 'TCs'), tcs, tcs[:3])
+            # utils.debugPrintOut(debug, '{}_{}'.format(self.tp_set.name, 'CL2D'), cl2Ds, cl2Ds[:3])
+            # utils.debugPrintOut(debug, '{}_{}'.format(self.tp_set.name, 'CL3D'), cl3Ds, cl3Ds[:3])
+            histo_name='{}_{}_noMatch'.format(self.tp_set.name, tp_sel.name)
+            if not cl3Ds.empty:
+                self.h_tpset[histo_name].fill(tcs, cl2Ds, cl3Ds)
 
 if __name__ == "__main__":
     for sel in selections.add_selections(selections.tp_id_selections,
