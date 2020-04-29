@@ -19,9 +19,11 @@ collections:
     samples:
       - ele_flat2to100_PU200
       - nugun_10_PU200
+      - pion_flat2to100_PU200
     priorities:
       ele_flat2to100_PU200: 1
       nugun_10_PU200: 1
+      pion_flat2to100_PU200: 1
     htc_jobflavor:
       workday
     plotters:
@@ -72,4 +74,8 @@ samples:
     # input_sample_dir: DYToLL_M-50_14TeV_TuneCP5_pythia8/DYToLL_PU200_v45/191105_102403/0000/
     events_per_job: 200
 
+
+  pion_flat2to100_PU200:
+    input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v13/181126_123358/0000/
+    events_per_job : 200
 
