@@ -76,6 +76,6 @@ samples:
 
 
   pion_flat2to100_PU200:
-    input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v13/181126_123358/0000/
+    input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v3/200428_094742/0000/
     events_per_job : 200
 
