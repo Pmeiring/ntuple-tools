@@ -6,9 +6,9 @@ ROOT.gROOT.SetBatch(True)
 from ROOT import TH1D, TLegend
 from ROOT import gDirectory, TCanvas, gStyle
 
-file = ROOT.TFile( '/eos/user/j/jheikkil/www/triggerStudies/histos_ele_flat2to100_PU200_eg_v5.root', 'read' )
+file = ROOT.TFile( '/eos/user/j/jheikkil/www/triggerStudies/histos_ele_flat2to100_PU200_eg_v11.root', 'read' )
 
-version = 'v5'
+version = 'v11_Ele'
 
 outputDir = '/eos/user/j/jheikkil/www/triggerStudies/'+version+'/'
 
@@ -16,21 +16,24 @@ if os.path.isdir(outputDir)==False:
     os.mkdir(outputDir)
     shutil.copy('/eos/user/j/jheikkil/www/index.php', outputDir)    
 
-tps_s = ['all'] #, 'Pt10EtaDE', 'Pt10EtaBC', 'Pt20EtaDE', 'Pt20EtaBC'] #'Pt10', 'Pt20', 'EtaDE', 'EtaBC', 'Pt10EtaDE', 'Pt10EtaBC', 'Pt20EtaDE', 'Pt20EtaBC']
-gen_s = ['GEN'] #, 
+tps_s = ['all', 'Pt10', 'Pt20', 'Pt10EtaDE', 'Pt10EtaBC', 'Pt20EtaDE', 'Pt20EtaBC'] #'Pt10', 'Pt20', 'EtaDE', 'EtaBC', 'Pt10EtaDE', 'Pt10EtaBC', 'Pt20EtaDE', 'Pt20EtaBC']
+gen_s = ['GEN' , 
          #'GENPt0to5', 'GENPt5to10', 'GENPt10to15', 'GENPt15to20', 'GENPt20to30', 'GENPt30to40', 'GENPt40', 'GENPt20', 
          #'GENEtaDE', 'GENEtaBC', 
-         #'GENEtaDEGENPt0to5', 'GENEtaDEGENPt5to10', 'GENEtaDEGENPt10to15', 'GENEtaDEGENPt15to20', 'GENEtaDEGENPt20to30', 'GENEtaDEGENPt30to40', 'GENEtaDEGENPt40', 'GENEtaDEGENPt20', 
-         #'GENEtaBCGENPt0to5', 'GENEtaBCGENPt5to10', 'GENEtaBCGENPt10to15', 'GENEtaBCGENPt15to20', 'GENEtaBCGENPt20to30', 'GENEtaBCGENPt30to40', 'GENEtaBCGENPt40', 'GENEtaBCGENPt20']
+         #'GENEtaDEGENPt0to5', 'GENEtaDEGENPt5to10', 'GENEtaDEGENPt10to15', 'GENEtaDEGENPt15to20', 'GENEtaDEGENPt20to30', 'GENEtaDEGENPt30to40', 'GENEtaDEGENPt40', 
+         'GENEtaDEGENPt20', 
+         #'GENEtaBCGENPt0to5', 'GENEtaBCGENPt5to10', 'GENEtaBCGENPt10to15', 'GENEtaBCGENPt15to20', 'GENEtaBCGENPt20to30', 'GENEtaBCGENPt30to40', 'GENEtaBCGENPt40', 
+         'GENEtaBCGENPt20']
 
-variables = ['HoE', 'abseta', 'bdtEg', 'coreshowlenght', 'eMaxOverE', 'energy', 
+variables = ['HoE', 'abseta', 'bdtEg', 'coreshowlenght', 'eMaxOverE', 'energy', 'eta',
              'firstlayer', 'layer10', 'layer50', 'layer90', 'maxlayer', 'meanZ', 'nclu', 
-              'npt05', 'npt20', 'ntc67', 'ntc90', 'phi', 'pt', 'sEtaEtaMax', 'sEtaEtaTot',
+              #'npt05', 'npt20', 
+              'ntc67', 'ntc90', 'phi', 'pt', 'sEtaEtaMax', 'sEtaEtaTot',
               'sPhiPhiMax', 'sPhiPhiTot', 'sRRMax', 'sRRMean', 'sRRTot', 'sZZ', 'showlenght']
              #'bdtPU', 'bdtPi','iso0p2', 'isoRel0p2', 'eta', 'ncluVpt'
 
 current = ['coreshowlenght', 'firstlayer', 'maxlayer', 'showlenght',
-            'sEtaEtaTot', 'sPhiPhiTot', 'sRRMean', 'sRRTot', 'sZZ']
+            'sEtaEtaTot', 'sPhiPhiTot', 'sRRMean', 'sRRTot', 'sZZ', 'eta']
 
 
 cluster=True
@@ -77,9 +80,11 @@ for tp_sel in tps_s:
             NOmatched.Scale(1.0/NOmatched.Integral(), "width")           
 
             matched.SetLineColor(1)
+            matched.SetLineStyle(1)
             matched.SetLineWidth(3)
   
             NOmatched.SetLineColor(2)
+            NOmatched.SetLineStyle(1)
             NOmatched.SetLineWidth(3)
 
             x1 = 0.15
@@ -134,11 +139,11 @@ for tp_sel in tps_s:
  
 
             if matched.GetMaximum()>NOmatched.GetMaximum() or 'bdtEg' in variable:
-                matched.Draw()
-                NOmatched.Draw("SAME")
+                matched.Draw("HIST L")
+                NOmatched.Draw("HIST L SAME")
             else:
-                NOmatched.Draw()
-                matched.Draw("SAME")
+                NOmatched.Draw("HIST L")
+                matched.Draw("HIST L SAME")
             legend.Draw() 
 
             gStyle.SetOptStat(0)#("ne")

@@ -359,6 +359,10 @@ my_plotter =  [plotters.Cluster3DGenMatchPlotter(collections.tp_hm_vdr, collecti
                                             selections.tp_match_selections,
                                             selections.gen_part_selections)]
 
+#my_plotter_pions =  [plotters.Cluster3DGenMatchPlotter(collections.tp_hm_vdr, collections.gen_parts,
+#                                            selections.tp_match_selections,
+#                                            selections.gen_part_selections_pions)]
+
 
 my_tp_plotters = [
                plotters.Cluster3DPlotter(collections.tp_hm_vdr, selections.tp_match_selections),
