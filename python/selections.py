@@ -284,9 +284,9 @@ gen_pt_sel = [Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt >= 15'),
 # gen_part_selections = [Selection('GEN', '', '(abs(pdgid) == {}) & (firstmother_pdgid == {})'.format(PID.electron, PID.electron))]
 # FIXME: add fabs to firstmother_if
 #add pions here
-gen_selections = [Selection('GEN', '', '((abs(pdgid) == {}) & (firstmother_pdgid == {})) | ((abs(pdgid) == {}) & (firstmother_pdgid == {})) | ((abs(pdgid) == {}) & (firstmother_pdgid == {}))'.format(PID.electron, PID.electron,
+gen_selections = [Selection('GEN', '', '((abs(pdgid) == {}) & (firstmother_pdgid == {})) | ((abs(pdgid) == {}) & (firstmother_pdgid == {})) | ((abs(pdgid) == {}))'.format(PID.electron, PID.electron,
                                                                                                                                                     PID.photon, PID.photon,
-																		    PID.pion, PID.pion))]
+																		    PID.pion))]
 
 gen_debug = [Selection('all')]
 
