@@ -1275,14 +1275,23 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         #    print (allmatches)
         total=0
 
+        #print "now lengths"
         #print len(All3DClusters)
         for match in allmatches.values():
             #print match
             for k in match:
                 #print k
                 All3DClusters = All3DClusters.drop(k)
-        histo3DClNOMatch.fill(All3DClusters)        
+        
         #print len(All3DClusters)
+        unmatchedClusters = All3DClusters
+        #print len(unmatchedClusters)
+        for index, row in All3DClusters.iterrows():
+            if row['pt'] < 20.0:
+                unmatchedClusters=unmatchedClusters.drop(index)
+        
+        #print unmatchedClusters  
+        histo3DClNOMatch.fill(unmatchedClusters)        
 
         for idx, genParticle in genParticles.iterrows():
             if idx in best_match_indexes.keys():
