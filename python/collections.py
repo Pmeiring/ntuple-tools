@@ -62,7 +62,7 @@ class EventManager(object):
             self.weight_file = WeightFile(weight_file_name)
 
         def registerCollection(self, collection):
-            print '[EventManager] registering collection: {}'.format(collection.name)
+            #print '[EventManager] registering collection: {}'.format(collection.name)
             self.collections.append(collection)
 
         def registerActiveCollection(self, collection):
@@ -148,23 +148,23 @@ class DFCollection(object):
         return self.is_active
 
     def fill(self, event, weight_file=None, debug=0):
-        print "trying to fill"
+        ###print "trying to fill"
         self.df = self.filler_function(event)
         if self.fixture_function is not None:
-            print "HAHA"
+            #print "HAHA"
             # FIXME: wouldn't this be more efficient
             # self.fixture_function(self.df)
             self.df = self.fixture_function(self.df)
         if self.weight_function is not None:
-            print "HMMMM"
+            ###print "HMMMM"
             self.df = self.weight_function(self.df, weight_file)
-        print "here we are: "
-        print self.df
-        if not self.df.empty:
-            print "about to print"
-            debugPrintOut(max(debug, self.debug), self.label,
-                          toCount=self.df,
-                          toPrint=self.print_function(self.df))
+        #print "here we are: "
+        #print self.df
+        #if not self.df.empty:
+            #print "about to print"
+        #    debugPrintOut(max(debug, self.debug), self.label,
+        #                  toCount=self.df,
+        #                  toPrint=self.print_function(self.df))
 
 
 def tkeg_fromcluster_fixture(tkegs):
@@ -252,16 +252,22 @@ def cl3d_fixtures(clusters, tcs):
 def gen_fixtures(particles, mc_particles):
     #print particles
 
-    print particles.columns
+    #print particles.columns
     particles['pdgid'] = particles.pid
     particles['abseta'] = np.abs(particles.eta)
-    print particles.gen
+    #print particles.gen
+
+    if particles.empty:
+        particles['firstmother_pdgid'] = -1
+        return particles
 
     def get_mother_pdgid(particle, mc_particles):
         if particle.gen == -1:
             return -1
         return mc_particles.df.loc[particle.gen-1].firstmother_pdgid
     particles['firstmother_pdgid'] = particles.apply(func=lambda x: get_mother_pdgid(x, mc_particles), axis=1)
+
+    
     return particles
 
 
@@ -538,7 +544,6 @@ def gen_part_pt_weights(gen_parts, weight_file):
     def compute_weight(gen_part):
         return weight_file.get_weight_1d('h_weights', gen_part.pt)
 
-    print "I am here"
     if weight_file is None:
         gen_parts['weight'] = 1
     else:
@@ -556,13 +561,12 @@ gen_parts = DFCollection(name='GEN', label='GEN particles',
                          filler_function=lambda event: event.getDataFrame(prefix='genpart'),
                          fixture_function=lambda gen_parts: gen_fixtures(gen_parts, gen),
                          depends_on=[gen],
-                         debug=4,
                          # print_function=lambda df: df[['eta', 'phi', 'pt', 'energy', 'mother', 'fbrem', 'ovz', 'pid', 'gen', 'reachedEE', 'firstmother_pdgid']],
                          print_function=lambda df: df[['eta', 'phi', 'pt', 'weight']].sort_values(by='pt', ascending=False),
                          weight_function=gen_part_pt_weights
                          )
 
-gen_parts.activate()
+#gen_parts.activate()
 
 tcs = DFCollection(name='TC', label='Trigger Cells',
                    filler_function=lambda event: event.getDataFrame(prefix='tc'),

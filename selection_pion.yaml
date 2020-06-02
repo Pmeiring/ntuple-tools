@@ -26,6 +26,7 @@ collections:
       - my_plotter
 
 
+
 plotters:
   my_plotter: !!python/name:python.plotters_config.my_plotter
   my_tp_plotters: !!python/name:python.plotters_config.my_tp_plotters

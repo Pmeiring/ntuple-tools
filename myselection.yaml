@@ -5,7 +5,7 @@ common:
     default: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_local: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies
-  plot_version: v16
+  plot_version: v17
   run_clustering: False
   run_density_computation: False
 
@@ -76,6 +76,6 @@ samples:
 
 
   pion_flat2to100_PU200:
-    input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v3/200428_094742/0000/
+    input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v7/200525_095544/0000/
     events_per_job : 200
 
