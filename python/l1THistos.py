@@ -310,8 +310,62 @@ class ClusterHistos(BaseHistos):
         #     rnp.fill_hist(self.h_nCoreCells, clsts.nCoreCells)
         #     rnp.fill_hist(self.h_layerVnCoreCells, clsts[['layer', 'nCoreCells']])
 
-
 class Cluster3DHistos(BaseHistos):
+    def __init__(self, name, root_file=None, debug=False):
+        if not root_file:
+            # self.data = []
+            # self.reference = []
+            self.t_values = ROOT.TNtuple(name, name, 'pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg')
+        BaseHistos.__init__(self, name, root_file, debug)
+
+    def fill(self, cl3ds):
+       energy_fill = []
+
+       if not cl3ds.empty:
+           energy_fill.append(cl3ds.pt)
+           energy_fill.append(cl3ds.eta)
+           energy_fill.append(abs(cl3ds.eta))
+           energy_fill.append(cl3ds.phi)
+           energy_fill.append(cl3ds.energy)
+           energy_fill.append(cl3ds.nclu)
+           energy_fill.append(cl3ds.showerlength)
+           energy_fill.append(cl3ds.coreshowerlength)
+           energy_fill.append(cl3ds.firstlayer)
+           energy_fill.append(cl3ds.maxlayer)
+           energy_fill.append(cl3ds.seetot)
+           energy_fill.append(cl3ds.seemax)
+           energy_fill.append(cl3ds.spptot)
+           energy_fill.append(cl3ds.sppmax)
+           energy_fill.append(cl3ds.srrtot)
+           energy_fill.append(cl3ds.srrmax)
+           energy_fill.append(cl3ds.srrmean)
+           energy_fill.append(cl3ds.meanz)
+           energy_fill.append(cl3ds.szz)
+           energy_fill.append(cl3ds.emaxe)
+           energy_fill.append(cl3ds.layer10)
+           energy_fill.append(cl3ds.layer50)
+           energy_fill.append(cl3ds.layer90)
+           energy_fill.append(cl3ds.ntc67)
+           energy_fill.append(cl3ds.ntc90)
+           energy_fill.append(cl3ds.hoe)
+           energy_fill.append(cl3ds.bdteg)
+       else:
+           for i in range(0,27):
+               energy_fill.append(-999)       
+       
+       self.t_values.Fill(array('f', energy_fill))
+
+    def write(self):
+        if self.__class__.__name__ not in ROOT.gDirectory.GetListOfKeys():
+            ROOT.gDirectory.mkdir(self.__class__.__name__)
+        newdir = ROOT.gDirectory.GetDirectory(self.__class__.__name__)
+        newdir.cd()
+        self.t_values.Write()
+        ROOT.gDirectory.cd('..')
+        return
+
+
+class Cluster3DHistosOLD(BaseHistos):
     def __init__(self, name, root_file=None, debug=False):
         if not root_file:
             self.h_npt05 = ROOT.TH1F(name+'_npt05', '# 3D Cluster Pt > 0.5 GeV; # 3D clusters in cone;', 1000, 0, 500)
@@ -756,7 +810,7 @@ class HistoSetClusters():
     def __init__(self, name, root_file=None, debug=False):
         self.htc = TCHistos('h_tc_'+name, root_file, debug)
         self.hcl2d = ClusterHistos('h_cl2d_'+name, root_file, debug)
-        self.hcl3d = Cluster3DHistos('h_cl3d_'+name, root_file, debug)
+        self.hcl3d = Cluster3DHistosOLD('h_cl3d_'+name, root_file, debug)
         # if not root_file:
         #     self.htc.annotateTitles(name)
         #     self.hcl2d.annotateTitles(name)
@@ -775,7 +829,7 @@ class HistoSet3DClusters():
         #     self.hcl2d.annotateTitles(name)
         #     self.hcl3d.annotateTitles(name)
 
-    def fill(self, tcs, cl2ds, cl3ds):
+    def fill(self, cl3ds):
         self.hcl3d.fill(cl3ds)
 
 

@@ -5,7 +5,7 @@ common:
     default: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_local: /eos/user/j/jheikkil/www/triggerStudies
   output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies
-  plot_version: v17
+  plot_version: v20
   run_clustering: False
   run_density_computation: False
 
@@ -18,11 +18,9 @@ collections:
       eg
     samples:
       - ele_flat2to100_PU200
-      - nugun_10_PU200
       - pion_flat2to100_PU200
     priorities:
       ele_flat2to100_PU200: 1
-      nugun_10_PU200: 1
       pion_flat2to100_PU200: 1
     htc_jobflavor:
       workday

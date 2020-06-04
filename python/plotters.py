@@ -1286,12 +1286,17 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         #print len(All3DClusters)
         unmatchedClusters = All3DClusters
         #print len(unmatchedClusters)
-        for index, row in All3DClusters.iterrows():
-            if row['pt'] < 20.0:
-                unmatchedClusters=unmatchedClusters.drop(index)
+        for index, row in unmatchedClusters.iterrows():
+            histo3DClNOMatch.fill(row)
+                #unmatchedClusters=unmatchedClusters.drop(index)
         
         #print unmatchedClusters  
-        histo3DClNOMatch.fill(unmatchedClusters)        
+        #print "Length of unmatched clusters: ", len(unmatchedClusters)
+        
+        #for idx, row in unmatchedClusters.iterrows()
+        #histo3DClNOMatch.fill(unmatchedClusters)        
+
+        #print "Here are the gen particles:", genParticles
 
         for idx, genParticle in genParticles.iterrows():
             if idx in best_match_indexes.keys():
@@ -1443,7 +1448,9 @@ class Cluster3DPlotter(BasePlotter):
             # utils.debugPrintOut(debug, '{}_{}'.format(self.tp_set.name, 'CL3D'), cl3Ds, cl3Ds[:3])
             histo_name='{}_{}_noMatch'.format(self.tp_set.name, tp_sel.name)
             if not cl3Ds.empty:
-                self.h_tpset[histo_name].fill(tcs, cl2Ds, cl3Ds)
+                for index, row in cl3Ds.iterrows():
+            #histo3DClNOMatch.fill(row)
+                    self.h_tpset[histo_name].fill(row)
 
 if __name__ == "__main__":
     for sel in selections.add_selections(selections.tp_id_selections,

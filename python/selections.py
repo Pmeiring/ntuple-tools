@@ -206,8 +206,8 @@ genpart_photon_selections = [Selection('Phot', '#gamma', 'abs(pdgid) == {}'.form
 genpart_pion_selections = [Selection('Pion', '#pi', 'abs(pdgid) == {}'.format(PID.pion))]
 
 
-#gen_ee_selections = [Selection('', '', 'reachedEE == 2')]
-gen_ee_selections = [Selection('all')]
+gen_ee_selections = [Selection('all', '', 'reachedEE >= 1')]
+#gen_ee_selections = [Selection('all')]
 
 
 gen_eta_selections = [
@@ -286,9 +286,12 @@ gen_pt_sel = [Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt >= 15'),
 #add pions here
 
 
-gen_selections = [Selection('GEN', '', '((abs(pdgid) == {}) & (firstmother_pdgid == {})) | ((abs(pdgid) == {}) & (firstmother_pdgid == {})) | ((abs(pdgid) == {}) & (firstmother_pdgid == {}))'.format(PID.electron, PID.electron,
+gen_selections = [Selection('GEN', '', 'reachedEE >= 1 & ((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {})) | ((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {})) | ((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}))'.format(PID.electron, PID.electron,
                                                                                                                                                     PID.photon, PID.photon, PID.pion, PID.pion
 																		    ))]
+
+
+#gen_selections = [Selection('GEN', '', '(abs(pdgid) == {}) & (abs(firstmother_pdgid) == {})'.format(PID.electron, PID.electron))]
 
 #gen_selections = [Selection('GEN', '', '')]
 
@@ -297,8 +300,8 @@ gen_debug = [Selection('all')]
 
 gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}))'.format(PID.electron, PID.electron))]
 
-gen_ee_sel = [Selection('all'),
-              ###COMMENTFORTESTSelection('END', 'ECAll', 'reachedEE >0 '),
+gen_ee_sel = [#Selection('all'),
+              Selection('END', 'ECAll', 'reachedEE>=1 '),
               ###COMMENTFORTESTSelection('EC', 'EC', 'reachedEE == 2')
               ]
 
