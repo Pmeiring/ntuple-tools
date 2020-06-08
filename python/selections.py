@@ -196,7 +196,7 @@ tp_rate_selections = add_selections(tp_rate_id_selections, tp_eta_selections)
 #MY SELECTIONS
 tp_match_selections = tp_pt_selections
 #tp_match_selections += add_selections(tp_id_selections, tp_pt_selections) 
-tp_match_selections += add_selections(tp_pt_selections, tp_eta_selections)
+#tp_match_selections += add_selections(tp_pt_selections, tp_eta_selections)
 
 tp_calib_selections = tp_id_selections
 
@@ -332,8 +332,8 @@ gen_part_selections_debug = add_selections(gen_part_ee_sel, [Selection('EtaBCD',
 #gen_part_selections = gen_debug
 gen_part_selections = gen_part_ee_sel#gen_selections
 gen_part_selections += gen_part_ee_pt_sel
-gen_part_selections += gen_part_ee_eta_sel
-gen_part_selections += add_selections(gen_part_ee_eta_sel, gen_part_ee_pt_sel)
+#gen_part_selections += gen_part_ee_eta_sel
+#gen_part_selections += add_selections(gen_part_ee_eta_sel, gen_part_ee_pt_sel)
 
 gen_part_ele_selections = []
 gen_part_ele_selections += genpart_ele_sel
