@@ -137,10 +137,10 @@ tp_rate_id_selections = [Selection('all', '', ''),
 
 
 tp_pt_selections = [Selection('all', '', ''),
-                    Selection('Pt10', 'p_{T}^{L1}>10GeV', 'pt > 10'),
-                    Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20'),
-                    Selection('Pt5to20', '5 <= p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt >= 5)'),
-                    Selection('Pt5to30', '5 <= p_{T}^{L1} <= 30GeV', '(pt <= 30) & (pt >= 5)')
+                    #Selection('Pt10', 'p_{T}^{L1}>10GeV', 'pt > 10'),
+                    #Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20'),
+                    #Selection('Pt5to20', '5 <= p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt >= 5)'),
+                    #Selection('Pt5to30', '5 <= p_{T}^{L1} <= 30GeV', '(pt <= 30) & (pt >= 5)')
                     # Selection('Pt25', 'p_{T}^{L1}>=25GeV', 'pt >= 25'),
                     ##COMMENTFORTESTSelection('Pt30', 'p_{T}^{L1}>=30GeV', 'pt >= 30')
                     ]
@@ -260,14 +260,14 @@ eg_all_rate_selections = [sel for sel in all_rate_selections if 'Iso' not in sel
 gen_pt_selection15 = [Selection('all'),
                       Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt >= 15')]
 
-gen_pt_selections = [Selection('Pt0to5', '0 #leq p_{T}^{GEN} < 5GeV', '(pt >= 0) & (pt < 5)'),
-                     Selection('Pt5to10', '5 #leq p_{T}^{GEN} < 10GeV', '(pt >= 5) & (pt < 10)'),
+gen_pt_selections = [#Selection('Pt0to5', '0 #leq p_{T}^{GEN} < 5GeV', '(pt >= 0) & (pt < 5)'),
+                     #Selection('Pt5to10', '5 #leq p_{T}^{GEN} < 10GeV', '(pt >= 5) & (pt < 10)'),
                      Selection('Pt5to20', '5 #leq p_{T}^{GEN} <= 20GeV', '(pt >= 5) & (pt <= 20)'),
-                     Selection('Pt10to15', '10 #leq p_{T}^{GEN} < 15GeV', '(pt >= 10) & (pt < 15)'),
-                     Selection('Pt15to20', '15 #leq p_{T}^{GEN} < 20GeV', '(pt >= 15) & (pt < 20)'),
-                     Selection('Pt20to30', '20 #leq p_{T}^{GEN} < 30GeV', '(pt >= 20) & (pt < 30)'),
-                     Selection('Pt30to40', '30 #leq p_{T}^{GEN} < 40GeV', '(pt >= 30) & (pt < 40)'),
-                     Selection('Pt40', 'p_{T}^{GEN}>=40GeV', 'pt >= 40'),
+                     #Selection('Pt10to15', '10 #leq p_{T}^{GEN} < 15GeV', '(pt >= 10) & (pt < 15)'),
+                     #Selection('Pt15to20', '15 #leq p_{T}^{GEN} < 20GeV', '(pt >= 15) & (pt < 20)'),
+                     #Selection('Pt20to30', '20 #leq p_{T}^{GEN} < 30GeV', '(pt >= 20) & (pt < 30)'),
+                     #Selection('Pt30to40', '30 #leq p_{T}^{GEN} < 40GeV', '(pt >= 30) & (pt < 40)'),
+                     #Selection('Pt40', 'p_{T}^{GEN}>=40GeV', 'pt >= 40'),
                      Selection('Pt20', 'p_{T}^{GEN}>20GeV', 'pt > 20')
                      ]
 
