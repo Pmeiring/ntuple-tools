@@ -275,10 +275,17 @@ def mc_fixtures(particles):
     particles['firstmother'] = particles.index
     particles['firstmother_pdgid'] = particles.pdgid
 
+    #these are just for running, will be deleted
+    particles['weight'] = 1
+    particles['reachedEE'] = -99
+    particles['fbrem'] = -99
+    #particles['gen'] = particle.gen
+
     for particle in particles.itertuples():
         # print particle.Index
         particles.loc[particle.daughters, 'firstmother'] = particle.Index
         particles.loc[particle.daughters, 'firstmother_pdgid'] = particle.pdgid
+        #particles['gen'] = particle.gen
         # print particles.loc[particle.daughters]['firstmother']
     return particles
 
@@ -552,12 +559,12 @@ def gen_part_pt_weights(gen_parts, weight_file):
     return gen_parts
 
 
-gen = DFCollection(name='MC', label='MC particles',
+gen = DFCollection(name='GEN', label='MC particles',
                    filler_function=lambda event: event.getDataFrame(prefix='gen'),
                    fixture_function=mc_fixtures, debug=0,
                    )
 
-gen_parts = DFCollection(name='GEN', label='GEN particles',
+gen_parts = DFCollection(name='GEN2', label='GEN particles',
                          filler_function=lambda event: event.getDataFrame(prefix='genpart'),
                          fixture_function=lambda gen_parts: gen_fixtures(gen_parts, gen),
                          depends_on=[gen],

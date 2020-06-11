@@ -1383,9 +1383,9 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
                 histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
                 #print histo_name
-                genReference = self.gen_set.df[(self.gen_set.df.gen > 0)] #commented this [(self.gen_set.df.gen > 0)
+                genReference = self.gen_set.df[(self.gen_set.df.pt > -1)] #commented this [(self.gen_set.df.gen > 0)
                 if not gen_sel.all:
-                    genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection)
+                    genReference = self.gen_set.df[(self.gen_set.df.pt > -1)].query(gen_sel.selection) #commented this [(self.gen_set.df.gen > 0)
                     # FIXME: this doesn't work for pizeros since they are never listed in the genParticles...we need a working solution
                     # elif  particle.pdgid == PID.pizero:
                     #     genReference = genParts[(genParts.pid == particle.pdgid)]
