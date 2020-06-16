@@ -148,23 +148,18 @@ class DFCollection(object):
         return self.is_active
 
     def fill(self, event, weight_file=None, debug=0):
-        ###print "trying to fill"
         self.df = self.filler_function(event)
         if self.fixture_function is not None:
-            #print "HAHA"
             # FIXME: wouldn't this be more efficient
             # self.fixture_function(self.df)
             self.df = self.fixture_function(self.df)
         if self.weight_function is not None:
-            ###print "HMMMM"
             self.df = self.weight_function(self.df, weight_file)
-        #print "here we are: "
-        #print self.df
-        #if not self.df.empty:
+        if not self.df.empty:
             #print "about to print"
-        #    debugPrintOut(max(debug, self.debug), self.label,
-        #                  toCount=self.df,
-        #                  toPrint=self.print_function(self.df))
+            debugPrintOut(max(debug, self.debug), self.label,
+                          toCount=self.df,
+                          toPrint=self.print_function(self.df))
 
 
 def tkeg_fromcluster_fixture(tkegs):
@@ -250,12 +245,9 @@ def cl3d_fixtures(clusters, tcs):
 
 
 def gen_fixtures(particles, mc_particles):
-    #print particles
 
-    #print particles.columns
     particles['pdgid'] = particles.pid
     particles['abseta'] = np.abs(particles.eta)
-    #print particles.gen
 
     if particles.empty:
         particles['firstmother_pdgid'] = -1
@@ -275,18 +267,14 @@ def mc_fixtures(particles):
     particles['firstmother'] = particles.index
     particles['firstmother_pdgid'] = particles.pdgid
 
-    #these are just for running, will be deleted
+    #these are just for running, will not be used for actual studies
     particles['weight'] = 1
     particles['reachedEE'] = -99
     particles['fbrem'] = -99
-    #particles['gen'] = particle.gen
 
     for particle in particles.itertuples():
-        # print particle.Index
         particles.loc[particle.daughters, 'firstmother'] = particle.Index
         particles.loc[particle.daughters, 'firstmother_pdgid'] = particle.pdgid
-        #particles['gen'] = particle.gen
-        # print particles.loc[particle.daughters]['firstmother']
     return particles
 
 
@@ -555,19 +543,19 @@ def gen_part_pt_weights(gen_parts, weight_file):
         gen_parts['weight'] = 1
     else:
         gen_parts['weight'] = gen_parts.apply(compute_weight, axis=1)
-    print gen_parts
     return gen_parts
 
 
-gen = DFCollection(name='GEN', label='MC particles',
+gen = DFCollection(name='MC', label='MC particles',
                    filler_function=lambda event: event.getDataFrame(prefix='gen'),
                    fixture_function=mc_fixtures, debug=0,
                    )
 
-gen_parts = DFCollection(name='GEN2', label='GEN particles',
+gen_parts = DFCollection(name='GEN', label='GEN particles',
                          filler_function=lambda event: event.getDataFrame(prefix='genpart'),
                          fixture_function=lambda gen_parts: gen_fixtures(gen_parts, gen),
                          depends_on=[gen],
+                         debug=0,
                          # print_function=lambda df: df[['eta', 'phi', 'pt', 'energy', 'mother', 'fbrem', 'ovz', 'pid', 'gen', 'reachedEE', 'firstmother_pdgid']],
                          print_function=lambda df: df[['eta', 'phi', 'pt', 'weight']].sort_values(by='pt', ascending=False),
                          weight_function=gen_part_pt_weights

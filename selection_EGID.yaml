@@ -1,0 +1,73 @@
+
+common:
+  input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/
+  output_dir:
+    default: /eos/user/j/jheikkil/www/triggerStudies
+  output_dir_local: /eos/user/j/jheikkil/www/triggerStudies
+  output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies
+  plot_version: v25
+  run_clustering: False
+  run_density_computation: False
+
+
+collections:
+  BDT_input_sig:
+    file_label:
+      eg
+    samples:
+      - ele_flat2to100_PU200
+      - pion_flat2to100_PU200
+    priorities:
+      ele_flat2to100_PU200: 1
+      pion_flat2to100_PU200: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      - tp2genParts
+
+  BDT_input_BKG:
+    file_label:
+      ng_bkg
+    samples:
+      - nugun_10_PU200
+    priorities:
+      nugun_10_PU200: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      - tpPlotter
+
+  BDT_input_sig_MC:
+    file_label:
+      eg_MC
+    samples:
+      - ele_flat2to100_PU200
+      - pion_flat2to100_PU200
+    priorities:
+      ele_flat2to100_PU200: 1
+      pion_flat2to100_PU200: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      - tp2MC
+
+plotters:
+  tp2genParts: !!python/name:python.plotters_config.tp_matched2_genParts_plotter
+  tp2MC : !!python/name:python.plotters_config.tp_matched2_MC_plotter
+  tpPlotter : !!python/name:python.plotters_config.tp_cluster_plotter
+
+samples:
+  nugun_10_PU200:
+    input_sample_dir: NeutrinoGun_E_10GeV/NuGunAllEta_PU200_v1/200420_130535/0000/
+    events_per_job : 200
+ 
+ 
+  ele_flat2to100_PU200:
+    input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v1/200407_080301/0000/
+    events_per_job : 200
+
+
+  pion_flat2to100_PU200:
+    input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v7/200525_095544/0000/
+    events_per_job : 200
+

@@ -221,7 +221,7 @@ def analyze(params, batch_idx=0):
     # instantiate all the plotters
     plotter_collection = []
     plotter_collection.extend(params.plotters)
-    print plotter_collection
+    #print plotter_collection
 
     # -------------------------------------------------------
     # book histos
