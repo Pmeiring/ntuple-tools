@@ -206,8 +206,8 @@ genpart_photon_selections = [Selection('Phot', '#gamma', 'abs(pdgid) == {}'.form
 genpart_pion_selections = [Selection('Pion', '#pi', 'abs(pdgid) == {}'.format(PID.pion))]
 
 
-gen_ee_selections = [Selection('', '', 'reachedEE >= 1')]
-#gen_ee_selections = [Selection('all')]
+#gen_ee_selections = [Selection('', '', 'reachedEE >= 1')]
+gen_ee_selections = [Selection('all')]
 
 
 gen_eta_selections = [
@@ -320,7 +320,7 @@ genpart_ele_eta_brem_sel = add_selections(genpart_ele_eta_sel, gen_part_fbrem_se
 # gen_part_selections = [Selection('GEN', '', '(abs(pdgid) == {})'.format(PID.e lectron))]
 
 
-gen_part_ee_sel = gen_debug###add_selections(gen_selections, gen_ee_selections)
+gen_part_ee_sel = add_selections(gen_selections, gen_ee_selections)
 gen_part_ee_pt_sel = add_selections(gen_part_ee_sel, gen_pt_selections)
 gen_part_ee_eta_sel = add_selections(gen_part_ee_sel, gen_eta_selections)
 gen_part_ee_eta_brem_sel = add_selections(gen_part_ee_eta_sel, gen_part_fbrem_selection)
