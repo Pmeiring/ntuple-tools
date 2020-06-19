@@ -358,7 +358,7 @@ tp_matched2_genParts_plotter =  [plotters.Cluster3DGenMatchPlotter(collections.t
 
 tp_matched2_MC_plotter =  [plotters.Cluster3DMCMatchPlotter(collections.tp_hm_vdr, collections.gen,
                                             selections.tp_match_selections,
-                                            selections.gen_part_selections)]
+                                            selections.gen_MC_selections)]
 
 tp_cluster_plotter = [plotters.Cluster3DPlotter(collections.tp_hm_vdr, selections.tp_match_selections),]
 

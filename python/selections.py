@@ -262,7 +262,7 @@ gen_pt_selection15 = [Selection('all'),
 
 gen_pt_selections = [#Selection('Pt0to5', '0 #leq p_{T}^{GEN} < 5GeV', '(pt >= 0) & (pt < 5)'),
                      #Selection('Pt5to10', '5 #leq p_{T}^{GEN} < 10GeV', '(pt >= 5) & (pt < 10)'),
-                     #Selection('Pt5to20', '5 #leq p_{T}^{GEN} <= 20GeV', '(pt >= 5) & (pt <= 20)'),
+                     Selection('Pt5to20', '5 #leq p_{T}^{GEN} <= 20GeV', '(pt >= 5) & (pt <= 20)'),
                      #Selection('Pt10to15', '10 #leq p_{T}^{GEN} < 15GeV', '(pt >= 10) & (pt < 15)'),
                      #Selection('Pt15to20', '15 #leq p_{T}^{GEN} < 20GeV', '(pt >= 15) & (pt < 20)'),
                      #Selection('Pt20to30', '20 #leq p_{T}^{GEN} < 30GeV', '(pt >= 20) & (pt < 30)'),
@@ -297,6 +297,8 @@ gen_selections = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_p
 
 
 gen_debug = [Selection('all', '', '')] 
+
+MC_selections = [Selection('all', '', '')]
 
 gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}))'.format(PID.electron, PID.electron))]
 
@@ -334,6 +336,9 @@ gen_part_selections = gen_part_ee_sel#gen_selections
 gen_part_selections += gen_part_ee_pt_sel
 #gen_part_selections += gen_part_ee_eta_sel
 #gen_part_selections += add_selections(gen_part_ee_eta_sel, gen_part_ee_pt_sel)
+
+gen_MC_selections = MC_selections
+gen_MC_selections += gen_pt_selections
 
 gen_part_ele_selections = []
 gen_part_ele_selections += genpart_ele_sel

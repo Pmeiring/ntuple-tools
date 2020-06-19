@@ -221,7 +221,7 @@ def analyze(params, batch_idx=0):
     # instantiate all the plotters
     plotter_collection = []
     plotter_collection.extend(params.plotters)
-    #print plotter_collection
+    print plotter_collection
 
     # -------------------------------------------------------
     # book histos
@@ -256,7 +256,7 @@ def analyze(params, batch_idx=0):
             debugPrintOut(debug, 'PU', toCount=puInfo, toPrint=puInfo)
 
             for plotter in plotter_collection:
-                # print plotter
+                #print plotter
                 plotter.fill_histos(debug=debug)
 
         except Exception as inst:
