@@ -1,16 +1,28 @@
 
 common:
-  input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/
+  input_dir:  /eos/cms/store/user/pmeiring/TRG/
   output_dir:
-    default: /eos/user/j/jheikkil/www/triggerStudies
-  output_dir_local: /eos/user/j/jheikkil/www/triggerStudies
-  output_dir_lx: /eos/user/j/jheikkil/www/triggerStudies
+    default: /eos/user/p/pmeiring/www/L1Trigger
+  output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
+  output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
   plot_version: v32
   run_clustering: False
   run_density_computation: False
 
 
 collections:
+  PetersSecondTest:
+    file_label:
+      eg
+    samples:
+      - ele_flat2to100_PU0_test
+    priorities:
+      ele_flat2to100_PU0_test: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      - tp2genParts
+
   BDT_input_sig:
     file_label:
       eg
@@ -69,5 +81,9 @@ samples:
 
   pion_flat2to100_PU200:
     input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v7/200525_095544/0000/
+    events_per_job : 200
+
+  ele_flat2to100_PU0_test:
+    input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU0_newsetup_v7/200826_102525/0000/
     events_per_job : 200
 
