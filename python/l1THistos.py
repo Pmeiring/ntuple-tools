@@ -199,6 +199,21 @@ class GenParticleHistos(BaseHistos):
                       array=particles.fbrem,
                       weights=particles.weight)
 
+class dRHistos(BaseHistos):
+    def __init__(self, name, root_file=None, debug=False):
+        if not root_file:
+            self.h_dR_SimTracks= ROOT.TH1F(name+'_dR_SimTracks', '#Delta R (SimTracks);#Delta R', 120, 0, 6)
+            self.h_dR_BestInCone= ROOT.TH1F(name+'_dR_BestInCone', '#Delta R (SimTrack,3DCluster);#Delta R', 120, 0, 6)
+            self.h_dR_AnyInCone= ROOT.TH1F(name+'_dR_AnyInCone', '#Delta R (SimTrack,3DCluster);#Delta R', 120, 0, 6)
+        BaseHistos.__init__(self, name, root_file, debug)
+
+    # not called, so commented..
+    # def fill(self, particles):
+    #     rnp.fill_hist(hist=self.h_eta,
+    #                   array=particles.eta,
+    #                   weights=particles.weight)
+
+
 
 class DigiHistos(BaseHistos):
     def __init__(self, name, root_file=None, debug=False):

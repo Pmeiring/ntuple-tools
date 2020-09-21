@@ -260,15 +260,17 @@ eg_all_rate_selections = [sel for sel in all_rate_selections if 'Iso' not in sel
 gen_pt_selection15 = [Selection('all'),
                       Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt >= 15')]
 
-gen_pt_selections = [#Selection('Pt0to5', '0 #leq p_{T}^{GEN} < 5GeV', '(pt >= 0) & (pt < 5)'),
+gen_pt_selections = [Selection("Pt0toINF", 'p_{T}^{GEN} #leq 0 GeV', 'pt >= 0'),
+                     #Selection('Pt0to5', '0 #leq p_{T}^{GEN} < 5GeV', '(pt >= 0) & (pt < 5)'),
                      #Selection('Pt5to10', '5 #leq p_{T}^{GEN} < 10GeV', '(pt >= 5) & (pt < 10)'),
-                     Selection('Pt5to20', '5 #leq p_{T}^{GEN} <= 20GeV', '(pt >= 5) & (pt <= 20)'),
+                     Selection('Pt0to10', '0 #leq p_{T}^{GEN} < 10GeV', '(pt >= 0) & (pt < 10)'),
                      #Selection('Pt10to15', '10 #leq p_{T}^{GEN} < 15GeV', '(pt >= 10) & (pt < 15)'),
+                     Selection('Pt10to20', '10 #leq p_{T}^{GEN} < 20GeV', '(pt >= 10) & (pt < 20)'),
                      #Selection('Pt15to20', '15 #leq p_{T}^{GEN} < 20GeV', '(pt >= 15) & (pt < 20)'),
                      #Selection('Pt20to30', '20 #leq p_{T}^{GEN} < 30GeV', '(pt >= 20) & (pt < 30)'),
                      #Selection('Pt30to40', '30 #leq p_{T}^{GEN} < 40GeV', '(pt >= 30) & (pt < 40)'),
                      #Selection('Pt40', 'p_{T}^{GEN}>=40GeV', 'pt >= 40'),
-                     Selection('Pt20', 'p_{T}^{GEN}>20GeV', 'pt > 20')
+                     Selection('Pt20toINF', 'p_{T}^{GEN} #leq 20GeV', 'pt >= 20')
                      ]
 
 
@@ -291,7 +293,7 @@ gen_selections = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_p
 																		    ))]
 
 
-#gen_selections = [Selection('GEN', '', '(abs(pdgid) == {}) & (abs(firstmother_pdgid) == {})'.format(PID.electron, PID.electron))]
+# gen_selections = [Selection('GEN', '', '(abs(pdgid) == {}) & (abs(firstmother_pdgid) == {})'.format(PID.electron, PID.electron))]
 
 #gen_selections = [Selection('GEN', '', '')]
 
@@ -336,6 +338,14 @@ gen_part_selections = gen_part_ee_sel#gen_selections
 gen_part_selections += gen_part_ee_pt_sel
 #gen_part_selections += gen_part_ee_eta_sel
 #gen_part_selections += add_selections(gen_part_ee_eta_sel, gen_part_ee_pt_sel)
+
+# gen_e_sel = gen_ele_sel
+# gen_e_sel+= gen_pt_selections
+# gen_e_sel+= gen_eta_selections
+gen_e_sel = add_selections(gen_ele_sel, gen_pt_selections)
+gen_e_sel = add_selections(gen_e_sel, gen_eta_selections)
+# gen_e_pt_sel= add_selections(gen_e_sel, gen_pt_selections)
+# gen_e_pteta_sel = add_selections(gen_e_pt_sel, gen_eta_selections)
 
 gen_MC_selections = MC_selections
 gen_MC_selections += gen_pt_selections

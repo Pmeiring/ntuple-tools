@@ -1213,7 +1213,8 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         self.h_tpset = {}
         self.h_resoset = {}
         self.h_effset = {}
-        self.h_conecluster = {}
+        self.h_dRs = {}
+        # self.h_conecluster = {}
         super(Cluster3DGenMatchPlotter, self).__init__(tp_set, tp_selections, gen_set, gen_selections)
 
     def plot3DMatch(self,
@@ -1255,6 +1256,8 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 print ret
             return ret
 
+        doPrint="GENPt0toINF" in histoGen.name_
+
         All3DClusters = trigger3DClusters
         best_match_indexes = {}
         allmatches = {}
@@ -1263,6 +1266,39 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                                                                 trigger3DClusters[['eta', 'phi']],
                                                                 trigger3DClusters['pt'],
                                                                 deltaR=0.2)
+        # if doPrint: 
+        # histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
+        # print self.h_dRs
+        dummysplit = histoGen.name_.split("_")
+        targethist = dummysplit[2]+"_"+dummysplit[3]+"_"+dummysplit[4]
+        # print genParticles
+        # print best_match_indexes, allmatches # {0: 1, 1: 3} {0: array([0, 1]), 1: array([2, 3])}
+        # print All3DClusters
+        # Compute dR between the two simtracks
+        if len(genParticles.index)==2:
+            GP1=genParticles.iloc[0]
+            GP2=genParticles.iloc[1]
+            dR = float(np.sqrt((GP1.phi-GP2.phi)**2+(GP1.eta-GP2.eta)**2))
+            # print "comparing the two SimTracks"
+            # print "\tdR = %s"%(dR)
+            self.h_dRs[targethist].h_dR_SimTracks.Fill(dR)
+        elif len(genParticles.index)>2:
+            print "FOUND AN EVENT WITH NTRACKS>2"
+
+        # Compute dR between the simtrack and any 3D cluster 
+        # Use this loop also to compute dR between a simtrack and the best matching 3D cluster
+        for iGP,GP in genParticles.iterrows():
+            for iCL,CL in All3DClusters.iterrows():
+                # print "comparing SimTrack %s with Cluster %s"%(iGP,iCL)
+                dR=float(np.sqrt((GP.phi-CL.phi)**2+(GP.eta-CL.eta)**2))
+                # print "\tdR = %s\tpT(cluster) = %s"%(dR,CL.pt)
+                self.h_dRs[targethist].h_dR_AnyInCone.Fill(dR)
+                if iCL==best_match_indexes[iGP]:
+                    # print "found best match!"
+                    self.h_dRs[targethist].h_dR_BestInCone.Fill(dR)
+
+
+
         if histoGen is not None: 
             histoGen.fill(genParticles) 
 
@@ -1276,7 +1312,14 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         
 
         for idx, genParticle in genParticles.iterrows():
+
+            # if doPrint: print("%s\t%s\t%s\t%s"%(idx,genParticle['pt'],genParticle['eta'],genParticle['phi']))
+            # for match in allmatches:
+            #     mc = trigger3DClusters.loc[match]
+                # if doPrint: print("\t%s\t%s\t%s\t%s"%(mc['pt'],mc['eta'],mc['phi'],idx in best_match_indexes.keys()))
+
             if idx in best_match_indexes.keys():
+
                 matched3DCluster = trigger3DClusters.loc[[best_match_indexes[idx]]]
                 matchedClusters = triggerClusters[triggerClusters.id.isin(matched3DCluster.clusters.item())]
                 matchedTriggerCells = triggerCells[triggerCells.id.isin(np.concatenate(matchedClusters.cells.values))]
@@ -1334,9 +1377,12 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
                 #self.h_resoset[histo_name] = histos.HistoSetReso(histo_name)
                 self.h_effset[histo_name] = histos.HistoSetEff(histo_name)
-                #self.h_conecluster[histo_name] = histos.ClusterConeHistos(histo_name)
+                self.h_dRs[histo_name] = histos.dRHistos(histo_name)
+                # self.h_conecluster[histo_name] = histos.ClusterConeHistos(histo_name)
 
     def fill_histos(self, debug=False):
+        # print "================== new event =================="
+
         for tp_sel in self.tp_selections:
             tcs = self.tp_set.tc_df
             cl2Ds = self.tp_set.cl2d_df
