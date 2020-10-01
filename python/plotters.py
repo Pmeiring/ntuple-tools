@@ -1272,8 +1272,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         # print self.h_dRs
         dummysplit = histoGen.name_.split("_")
         targethist = dummysplit[2]+"_"+dummysplit[3]+"_"+dummysplit[4]
-        print dummysplit
-        print targethist
+
         # print genParticles
         # print best_match_indexes, allmatches # {0: 1, 1: 3} {0: array([0, 1]), 1: array([2, 3])}
         # print All3DClusters
@@ -1359,12 +1358,9 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 GP2=genParticles.iloc[1]
                 GPleading=GP1 if GP1.pt>GP2.pt else GP2
                 dR=float(np.sqrt((GP1.phi-GP2.phi)**2+(GP1.eta-GP2.eta)**2))
-                print GPleading.pt, dR
                 ipT=0
                 while ipT<len(pT_intervals)-1:
-                    print pT_intervals[ipT],pT_intervals[ipT+1]
                     if GPleading.pt>=float(pT_intervals[ipT]) and GPleading.pt<float(pT_intervals[ipT+1]):
-                        print "filling with dR = ",dR
                         interv=str(pT_intervals[ipT]) + "_" + str(pT_intervals[ipT+1])
                         getattr(self.h_custom["HMvDR_GEN"],"h_dR_GENGENpt_%s"%interv).Fill(dR)
                     ipT+=1
