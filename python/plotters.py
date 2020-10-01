@@ -1288,14 +1288,20 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         # Compute dR between the simtrack and any 3D cluster 
         # Use this loop also to compute dR between a simtrack and the best matching 3D cluster
         for iGP,GP in genParticles.iterrows():
-            for iCL,CL in All3DClusters.iterrows():
+            for iCL,CL in trigger3DClusters.iterrows():
                 # print "comparing SimTrack %s with Cluster %s"%(iGP,iCL)
                 dR=float(np.sqrt((GP.phi-CL.phi)**2+(GP.eta-CL.eta)**2))
                 # print "\tdR = %s\tpT(cluster) = %s"%(dR,CL.pt)
                 self.h_dRs[targethist].h_dR_AnyInCone.Fill(dR)
-                if iCL==best_match_indexes[iGP]:
-                    # print "found best match!"
-                    self.h_dRs[targethist].h_dR_BestInCone.Fill(dR)
+
+                # print iGP, iCL, best_match_indexes, "checking: ",iCL,"==",best_match_indexes[iGP]
+
+                # Check if Simtrack iGP has a "bestmatch"
+                if iGP in best_match_indexes:
+                    # Check if the cluster index corresponds to the best matched cluster
+                    if iCL==best_match_indexes[iGP]:
+                        # print "found best match!"
+                        self.h_dRs[targethist].h_dR_BestInCone.Fill(dR)
 
 
 
