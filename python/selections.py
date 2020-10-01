@@ -344,6 +344,8 @@ gen_part_selections += gen_part_ee_pt_sel
 # gen_e_sel+= gen_eta_selections
 gen_e_sel = add_selections(gen_ele_sel, gen_pt_selections)
 gen_e_sel = add_selections(gen_e_sel, gen_eta_selections)
+# gen_e_sel = add_selections(gen_e_sel, [Selection('all', '', '')])
+gen_e_sel += add_selections(gen_ele_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
 # gen_e_pt_sel= add_selections(gen_e_sel, gen_pt_selections)
 # gen_e_pteta_sel = add_selections(gen_e_pt_sel, gen_eta_selections)
 

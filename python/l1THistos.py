@@ -207,6 +207,61 @@ class dRHistos(BaseHistos):
             self.h_dR_AnyInCone= ROOT.TH1F(name+'_dR_AnyInCone', '#Delta R (SimTrack,3DCluster);#Delta R', 120, 0, 6)
         BaseHistos.__init__(self, name, root_file, debug)
 
+
+class CustomHistos(BaseHistos):
+    def __init__(self, name, root_file=None, debug=False):
+        if not root_file:
+            print "booking hists"
+            self.h_nsimtracks = ROOT.TH1F(name+'_nsimtracks','Number of SimTracks',50,0,50)
+            self.h_nclusters = ROOT.TH1F(name+'_nclusters','Number of 3DClusters',50,0,50)
+            self.h_nclusters_dR0p025 = ROOT.TH1F(name+'_nclusters_dR0p025','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_nclusters_dR0p05 = ROOT.TH1F(name+'_nclusters_dR0p05','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_nclusters_dR0p1 = ROOT.TH1F(name+'_nclusters_dR0p1','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_nclusters_dR0p2 = ROOT.TH1F(name+'_nclusters_dR0p2','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_nclusters_dR0p3 = ROOT.TH1F(name+'_nclusters_dR0p3','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_nclusters_dR0p4 = ROOT.TH1F(name+'_nclusters_dR0p4','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_nclusters_dR1p0 = ROOT.TH1F(name+'_nclusters_dR1p0','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_nclusters_dR100 = ROOT.TH1F(name+'_nclusters_dRinf','Number of 3DClusters within #Delta R = X of SimTrack',50,0,50)
+            self.h_dR_GENpt_0_5   = ROOT.TH1F(name+'_dR_GENpt_0_5',  '#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
+            self.h_dR_GENpt_5_10  = ROOT.TH1F(name+'_dR_GENpt_5_10', '#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
+            self.h_dR_GENpt_10_20 = ROOT.TH1F(name+'_dR_GENpt_10_20','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
+            self.h_dR_GENpt_20_30 = ROOT.TH1F(name+'_dR_GENpt_20_30','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
+            self.h_dR_GENpt_30_40 = ROOT.TH1F(name+'_dR_GENpt_30_40','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
+            self.h_dR_GENpt_40_50 = ROOT.TH1F(name+'_dR_GENpt_40_50','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
+            self.h_dR_GENpt_50_1000 = ROOT.TH1F(name+'_dR_GENpt_50_100','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_any_GENpt_0_5   = ROOT.TH1F(name+'_dR_any_GENpt_0_5',  '#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_any_GENpt_5_10  = ROOT.TH1F(name+'_dR_any_GENpt_5_10', '#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_any_GENpt_10_20 = ROOT.TH1F(name+'_dR_any_GENpt_10_20','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_any_GENpt_20_30 = ROOT.TH1F(name+'_dR_any_GENpt_20_30','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_any_GENpt_30_40 = ROOT.TH1F(name+'_dR_any_GENpt_30_40','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_any_GENpt_40_50 = ROOT.TH1F(name+'_dR_any_GENpt_40_50','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_any_GENpt_50_1000 = ROOT.TH1F(name+'_dR_any_GENpt_50_100','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_GENGENpt_0_5   = ROOT.TH1F(name+'_dR_GENGENpt_0_5',  '#Delta R (SimTrack, SimTrack)',1000,0,10)
+            self.h_dR_GENGENpt_5_10  = ROOT.TH1F(name+'_dR_GENGENpt_5_10', '#Delta R (SimTrack, SimTrack)',1000,0,10)
+            self.h_dR_GENGENpt_10_20 = ROOT.TH1F(name+'_dR_GENGENpt_10_20','#Delta R (SimTrack, SimTrack)',1000,0,10)
+            self.h_dR_GENGENpt_20_30 = ROOT.TH1F(name+'_dR_GENGENpt_20_30','#Delta R (SimTrack, SimTrack)',1000,0,10)
+            self.h_dR_GENGENpt_30_40 = ROOT.TH1F(name+'_dR_GENGENpt_30_40','#Delta R (SimTrack, SimTrack)',1000,0,10)
+            self.h_dR_GENGENpt_40_50 = ROOT.TH1F(name+'_dR_GENGENpt_40_50','#Delta R (SimTrack, SimTrack)',1000,0,10)
+            self.h_dR_GENGENpt_50_1000 = ROOT.TH1F(name+'_dR_GENGENpt_50_100','#Delta R (SimTrack, SimTrack)',1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR0p025 = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR0p025','Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR0p05  = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR0p05', 'Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR0p1   = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR0p1',  'Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR0p2   = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR0p2',  'Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR0p3   = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR0p3',  'Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR0p4   = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR0p4',  'Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR1p0   = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR1p0',  'Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptBestCl_over_ptGEN_vs_ptGEN_dR100   = ROOT.TH2F(name+'_ptBestCl_over_ptGEN_vs_ptGEN_dR100',  'Mismatch in pt of SimTrack and best matching 3DCluster within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR0p025 = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR0p025','Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR0p05  = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR0p05', 'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR0p1   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR0p1',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR0p2   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR0p2',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR0p3   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR0p3',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR0p4   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR0p4',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR1p0   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR1p0',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+            self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR100   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR100',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
+        BaseHistos.__init__(self, name, root_file, debug)
+
+
     # not called, so commented..
     # def fill(self, particles):
     #     rnp.fill_hist(hist=self.h_eta,
