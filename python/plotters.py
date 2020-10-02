@@ -1347,10 +1347,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
 
                             if iGP in best_match_indexes:
                                 if iCL==best_match_indexes[iGP]:
-                                    if dR > 0.2: 
-                                        dRcorr = deltar(CL.eta, CL.phi, GP.eta, GP.phi)
-                                        print dR, dRcorr, CL.eta, CL.phi, GP.eta, GP.phi
-
                                     getattr(self.h_custom["HMvDR_GEN"],"h_dR_GENpt_%s"%interv).Fill(dR)
                         ipT+=1
 
