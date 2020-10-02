@@ -26,7 +26,16 @@ import pandas as pd
 import numpy as np
 import clusterTools as clAlgo
 import selections as selections
+import math
 # import collections as collections
+
+def deltar(eta1, phi1, eta2, phi2):
+    deta = eta1-eta2
+    dphi = phi1-phi2
+    while (dphi>=math.pi): dphi-=2*math.pi
+    while (dphi<-math.pi): dphi+=2*math.pi
+    return math.sqrt(deta**2 + dphi**2)
+
 
 
 class BasePlotter(object):
@@ -1267,20 +1276,15 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                                                                 trigger3DClusters[['eta', 'phi']],
                                                                 trigger3DClusters['pt'],
                                                                 deltaR=0.2)
-        # if doPrint: 
-        # histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
-        # print self.h_dRs
+
         dummysplit = histoGen.name_.split("_")
         targethist = dummysplit[2]+"_"+dummysplit[3]+"_"+dummysplit[4]
 
-        # print genParticles
-        # print best_match_indexes, allmatches # {0: 1, 1: 3} {0: array([0, 1]), 1: array([2, 3])}
-        # print All3DClusters
         # Compute dR between the two simtracks
         if len(genParticles.index)==2:
             GP1=genParticles.iloc[0]
             GP2=genParticles.iloc[1]
-            dR = float(np.sqrt((GP1.phi-GP2.phi)**2+(GP1.eta-GP2.eta)**2))
+            dR=deltar(GP1.eta, GP1.phi, GP2.eta, GP2.phi)
             # print "comparing the two SimTracks"
             # print "\tdR = %s"%(dR)
             self.h_dRs[targethist].h_dR_SimTracks.Fill(dR)
@@ -1291,18 +1295,12 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         # Use this loop also to compute dR between a simtrack and the best matching 3D cluster
         for iGP,GP in genParticles.iterrows():
             for iCL,CL in trigger3DClusters.iterrows():
-                # print "comparing SimTrack %s with Cluster %s"%(iGP,iCL)
-                dR=float(np.sqrt((GP.phi-CL.phi)**2+(GP.eta-CL.eta)**2))
-                # print "\tdR = %s\tpT(cluster) = %s"%(dR,CL.pt)
+                dR=deltar(CL.eta, CL.phi, GP.eta, GP.phi)
                 self.h_dRs[targethist].h_dR_AnyInCone.Fill(dR)
-
-                # print iGP, iCL, best_match_indexes, "checking: ",iCL,"==",best_match_indexes[iGP]
-
                 # Check if Simtrack iGP has a "bestmatch"
                 if iGP in best_match_indexes:
                     # Check if the cluster index corresponds to the best matched cluster
                     if iCL==best_match_indexes[iGP]:
-                        # print "found best match!"
                         self.h_dRs[targethist].h_dR_BestInCone.Fill(dR)
 
 
@@ -1312,23 +1310,33 @@ class Cluster3DGenMatchPlotter(BasePlotter):
             getattr(self.h_custom["HMvDR_GEN"],"h_nsimtracks").Fill(len(genParticles.index))
             getattr(self.h_custom["HMvDR_GEN"],"h_nclusters").Fill(len(trigger3DClusters.index))
 
+            # print "\nnew event!"
+
+
             for iGP, GP in genParticles.iterrows():
-                nclusters_dR = {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
-                pt_dR = nclusters_dR
+                nclusters_dR =  {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
+                pt_dR =         {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
                 pT_intervals = [0,5,10,20,30,40,50,1000]
 
+                nClusters_pT = 0
+
                 for iCL,CL in trigger3DClusters.iterrows():
+                    dR=deltar(CL.eta, CL.phi, GP.eta, GP.phi)
+
+                    # Count the number of clusters around this GP.
+                    if dR<1.0: nClusters_pT+=1
+
                     # nClusters and pt in slices of dR
-                    for k,v in nclusters_dR.items():
-                        dR=float(np.sqrt((GP.phi-CL.phi)**2+(GP.eta-CL.eta)**2))
+                    for k,v in nclusters_dR.iteritems():
                         if dR<float(k): 
-                            nclusters_dR[k]+=1
+                            nclusters_dR[k]+=int(1)
                             pt_dR[k]+=CL.pt
                             # Check if this cluster is the best match to the simtrack
                             if iGP in best_match_indexes:
                                 if iCL==best_match_indexes[iGP]:
                                     dr = k.replace(".","p")
                                     getattr(self.h_custom["HMvDR_GEN"],"h_ptBestCl_over_ptGEN_vs_ptGEN_dR%s"%dr).Fill(GP.pt,(CL.pt/GP.pt))
+
 
                     # dR in slices of GEN pT
                     ipT=0
@@ -1339,17 +1347,27 @@ class Cluster3DGenMatchPlotter(BasePlotter):
 
                             if iGP in best_match_indexes:
                                 if iCL==best_match_indexes[iGP]:
+                                    if dR > 0.2: 
+                                        dRcorr = deltar(CL.eta, CL.phi, GP.eta, GP.phi)
+                                        print dR, dRcorr, CL.eta, CL.phi, GP.eta, GP.phi
+
                                     getattr(self.h_custom["HMvDR_GEN"],"h_dR_GENpt_%s"%interv).Fill(dR)
                         ipT+=1
 
                 # nClusters per SimTrack in slices of dR
-                for k,v in nclusters_dR.items():
+                for k,v in nclusters_dR.iteritems():
                     dR = k.replace(".","p")
                     getattr(self.h_custom["HMvDR_GEN"],"h_nclusters_dR%s"%dR).Fill(v)
                     getattr(self.h_custom["HMvDR_GEN"],"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(pt_dR[k]/GP.pt))
 
 
-
+                # nClusters per SimTrack in slides of GEN pt
+                ipT=0
+                while ipT<len(pT_intervals)-1:
+                    if GP.pt>=float(pT_intervals[ipT]) and GP.pt<float(pT_intervals[ipT+1]):
+                        interv=str(pT_intervals[ipT]) + "_" + str(pT_intervals[ipT+1])
+                        getattr(self.h_custom["HMvDR_GEN"],"h_nclusters_pt_%s"%interv).Fill(nClusters_pT)
+                    ipT+=1
 
 
             # dR GEN-GEN in slices of (leading GEN) pT
@@ -1357,13 +1375,16 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 GP1=genParticles.iloc[0]
                 GP2=genParticles.iloc[1]
                 GPleading=GP1 if GP1.pt>GP2.pt else GP2
-                dR=float(np.sqrt((GP1.phi-GP2.phi)**2+(GP1.eta-GP2.eta)**2))
+                dR=deltar(GP1.eta, GP1.phi, GP2.eta, GP2.phi)
                 ipT=0
                 while ipT<len(pT_intervals)-1:
                     if GPleading.pt>=float(pT_intervals[ipT]) and GPleading.pt<float(pT_intervals[ipT+1]):
                         interv=str(pT_intervals[ipT]) + "_" + str(pT_intervals[ipT+1])
                         getattr(self.h_custom["HMvDR_GEN"],"h_dR_GENGENpt_%s"%interv).Fill(dR)
                     ipT+=1
+
+
+
 
 
 
