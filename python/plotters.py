@@ -1310,9 +1310,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
             getattr(self.h_custom["HMvDR_GEN"],"h_nsimtracks").Fill(len(genParticles.index))
             getattr(self.h_custom["HMvDR_GEN"],"h_nclusters").Fill(len(trigger3DClusters.index))
 
-            # print "\nnew event!"
-
-
             for iGP, GP in genParticles.iterrows():
                 nclusters_dR =  {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
                 pt_dR =         {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
@@ -1357,7 +1354,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                     getattr(self.h_custom["HMvDR_GEN"],"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(pt_dR[k]/GP.pt))
 
 
-                # nClusters per SimTrack in slides of GEN pt
+                # nClusters per SimTrack in slices of GEN pt
                 ipT=0
                 while ipT<len(pT_intervals)-1:
                     if GP.pt>=float(pT_intervals[ipT]) and GP.pt<float(pT_intervals[ipT+1]):
@@ -1473,7 +1470,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
 
     def fill_histos(self, debug=False):
         # print "================== new event =================="
-
         for tp_sel in self.tp_selections:
             tcs = self.tp_set.tc_df
             cl2Ds = self.tp_set.cl2d_df
