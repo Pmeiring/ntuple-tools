@@ -1288,8 +1288,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
             # print "comparing the two SimTracks"
             # print "\tdR = %s"%(dR)
             self.h_dRs[targethist].h_dR_SimTracks.Fill(dR)
-        elif len(genParticles.index)>2:
-            print "FOUND AN EVENT WITH NTRACKS>2"
+
 
         # Compute dR between the simtrack and any 3D cluster 
         # Use this loop also to compute dR between a simtrack and the best matching 3D cluster
@@ -1303,8 +1302,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                     if iCL==best_match_indexes[iGP]:
                         self.h_dRs[targethist].h_dR_BestInCone.Fill(dR)
 
-        # print len(genParticles.index), "SimTracks"
-
         # Fill the "custom Hists"
         if "_all_GENEtaBCD" in targethist:
             getattr(self.h_custom["HMvDR_GEN"],"h_nsimtracks").Fill(len(genParticles.index))
@@ -1316,11 +1313,13 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 pT_intervals = [0,5,10,20,30,40,50,1000]
                 nClusters_pT = 0
 
+                getattr(self.h_custom["HMvDR_GEN"],"h_fBrem_vs_ptGEN").Fill(GP.pt,GP.fbrem)
+
                 for iCL,CL in trigger3DClusters.iterrows():
                     dR=deltar(CL.eta, CL.phi, GP.eta, GP.phi)
 
                     # Count the number of clusters around this GP.
-                    if dR<1.0: nClusters_pT+=1
+                    if dR<0.2: nClusters_pT+=1
 
                     # nClusters and pt in slices of dR
                     for k,v in nclusters_dR.iteritems():
@@ -1332,7 +1331,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                                 if iCL==best_match_indexes[iGP]:
                                     dr = k.replace(".","p")
                                     getattr(self.h_custom["HMvDR_GEN"],"h_ptBestCl_over_ptGEN_vs_ptGEN_dR%s"%dr).Fill(GP.pt,(CL.pt/GP.pt))
-
 
                     # dR in slices of GEN pT
                     ipT=0
@@ -1350,7 +1348,8 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 for k,v in nclusters_dR.iteritems():
                     dR = k.replace(".","p")
                     getattr(self.h_custom["HMvDR_GEN"],"h_nclusters_dR%s"%dR).Fill(v)
-                    getattr(self.h_custom["HMvDR_GEN"],"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(pt_dR[k]/GP.pt))
+                    if iGP in best_match_indexes: # only take the matched simtracks
+                        getattr(self.h_custom["HMvDR_GEN"],"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(pt_dR[k]/GP.pt))
 
 
                 # nClusters per SimTrack in slices of GEN pt
