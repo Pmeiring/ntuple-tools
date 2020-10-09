@@ -1,7 +1,7 @@
 
 common:
-  input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
-  # input_dir:  /eos/cms/store/user/pmeiring/TRG/
+  # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
+  input_dir:  /eos/cms/store/user/pmeiring/TRG/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
@@ -16,11 +16,11 @@ collections:
     file_label:
       eg
     samples:
-      # - ele_flat2to100_PU0_test
-      - ele_flat2to100_PU200_test
+      - ele_flat2to100_PU0_test
+      # - ele_flat2to100_PU200_test
     priorities:
-      # ele_flat2to100_PU0_test: 1
-      ele_flat2to100_PU200_test: 1
+      ele_flat2to100_PU0_test: 1
+      # ele_flat2to100_PU200_test: 1
     htc_jobflavor:
       workday
     plotters:
