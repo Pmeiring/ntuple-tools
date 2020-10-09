@@ -302,7 +302,8 @@ gen_debug = [Selection('all', '', '')]
 
 MC_selections = [Selection('all', '', '')]
 
-gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) & (reachedEE == 2))'.format(PID.electron, PID.electron))]
+# gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) & (reachedEE == 2))'.format(PID.electron, PID.electron))]
+gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) )'.format(PID.electron, PID.electron))]
 # gen_ele_sel = [Selection('GEN', '', '((abs(pid) == {}))'.format(PID.electron))]
 
 gen_ee_sel = [#Selection('all'),
