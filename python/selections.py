@@ -302,9 +302,14 @@ gen_debug = [Selection('all', '', '')]
 
 MC_selections = [Selection('all', '', '')]
 
+gen_photon_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) & (reachedEE == 2))'.format(PID.photon, PID.photon))]
+
 # gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) & (reachedEE == 2))'.format(PID.electron, PID.electron))]
 gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) )'.format(PID.electron, PID.electron))]
-# gen_ele_sel = [Selection('GEN', '', '((abs(pid) == {}))'.format(PID.electron))]
+
+
+
+
 
 gen_ee_sel = [#Selection('all'),
               Selection('END', 'ECAll', 'reachedEE>=1 '),
@@ -349,6 +354,20 @@ gen_e_sel = add_selections(gen_e_sel, gen_eta_selections)
 gen_e_sel = add_selections(gen_pt_selections, gen_eta_selections)
 # gen_e_sel = add_selections(gen_e_sel, [Selection('all', '', '')])
 gen_e_sel += add_selections(gen_ele_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
+# gen_e_sel = gen_ele_sel
+
+
+gen_g_sel = add_selections(gen_photon_sel, gen_pt_selections)
+gen_g_sel = add_selections(gen_g_sel, gen_eta_selections)
+gen_g_sel = add_selections(gen_pt_selections, gen_eta_selections)
+# gen_e_sel = add_selections(gen_e_sel, [Selection('all', '', '')])
+gen_g_sel += add_selections(gen_photon_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
+
+
+
+# END OF MYSTUFF
+
+
 # gen_e_pt_sel= add_selections(gen_e_sel, gen_pt_selections)
 # gen_e_pteta_sel = add_selections(gen_e_pt_sel, gen_eta_selections)
 

@@ -1329,6 +1329,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 pT_intervals = [0,5,10,20,30,40,50,1000]
                 nClusters_pT = 0
 
+                # print iGP, GP.reachedEE
 
                 getattr(self.h_custom["HMvDR_GEN"],"h_fBrem_vs_ptGEN").Fill(GP.pt,GP.fbrem)
 
@@ -1388,6 +1389,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 GP2=genParticles.iloc[1]
                 GPleading=GP1 if GP1.pt>GP2.pt else GP2
                 dR=deltar(GP1.eta, GP1.phi, GP2.eta, GP2.phi)
+                print dR
                 ipT=0
                 while ipT<len(pT_intervals)-1:
                     if GPleading.pt>=float(pT_intervals[ipT]) and GPleading.pt<float(pT_intervals[ipT+1]):

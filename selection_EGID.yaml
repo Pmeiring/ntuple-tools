@@ -1,30 +1,52 @@
 
 common:
-  input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
-  # input_dir:  /eos/cms/store/user/pmeiring/TRG/
+  # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
+  input_dir:  /eos/cms/store/user/pmeiring/TRG/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v43
+  plot_version: v44
   run_clustering: False
   run_density_computation: False
 
 
 collections:
-  PetersSecondTest:
+  # SingleE_FlatPt-2to100:
+  #   file_label:
+  #     eg
+  #   samples:
+  #     - ele_flat2to100_PU0_test
+  #     - ele_flat2to100_PU200_test
+  #   priorities:
+  #     ele_flat2to100_PU0_test: 1
+  #     ele_flat2to100_PU200_test: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tp2genParts
+
+  SinglePhoton_FlatPt-8to150:
     file_label:
       eg
     samples:
-      # - ele_flat2to100_PU0_test
-      - ele_flat2to100_PU200_test
+      - photon_flat8to150_PU0
     priorities:
-      # ele_flat2to100_PU0_test: 1
-      ele_flat2to100_PU200_test: 1
+      photon_flat8to150_PU0: 1
     htc_jobflavor:
       workday
     plotters:
       - tp2genParts
+
+
+
+
+
+
+
+
+
+
 
   # BDT_input_sig:
   #   file_label:
@@ -76,11 +98,9 @@ samples:
     input_sample_dir: NeutrinoGun_E_10GeV/NuGunAllEta_PU200_v1/200420_130535/0000/
     events_per_job : 200
  
- 
   ele_flat2to100_PU200_test:
     input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v1/200407_080301/0000/
     events_per_job : 200
-
 
   pion_flat2to100_PU200:
     input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v7/200525_095544/0000/
@@ -89,4 +109,18 @@ samples:
   ele_flat2to100_PU0_test:
     input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU0_newsetup_v7/200826_102525/0000/
     events_per_job : 200
+
+  photon_flat8to150_PU0:
+    input_sample_dir: SinglePhoton_FlatPt-8to150/SinglePhoton_FlatPt-2to100_PU0_newsetup_v_debug/201020_103901/0000/
+    events_per_job : 200
+
+
+
+
+
+
+
+
+
+
 
