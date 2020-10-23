@@ -1272,10 +1272,11 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         best_match_indexes = {}
         allmatches = {}
         if not trigger3DClusters.empty:
-            best_match_indexes, allmatches = utils.match_etaphi(genParticles[['eta', 'phi']],
-                                                                trigger3DClusters[['eta', 'phi']],
-                                                                trigger3DClusters['pt'],
-                                                                deltaR=0.2)
+            best_match_indexes, allmatches = utils.custom_match(genParticles[['eta','phi']],
+                                                            genParticles['pt'],
+                                                            trigger3DClusters[['eta', 'phi']],
+                                                            trigger3DClusters['pt'],
+                                                            deltaR=0.2)
 
         dummysplit = histoGen.name_.split("_")
         targethist = dummysplit[2]+"_"+dummysplit[3]+"_"+dummysplit[4]
@@ -1313,7 +1314,8 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 dummy_BMI={}
                 dummy_AM ={}
                 if not trigger3DClusters.empty:
-                    dummy_BMI, dummy_AM = utils.match_etaphi(genParticles[['eta','phi']],
+                    dummy_BMI, dummy_AM = utils.custom_match(genParticles[['eta','phi']],
+                                                            genParticles['pt'],
                                                             trigger3DClusters[['eta', 'phi']],
                                                             trigger3DClusters['pt'],
                                                             deltaR=dR)
@@ -1389,7 +1391,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 GP2=genParticles.iloc[1]
                 GPleading=GP1 if GP1.pt>GP2.pt else GP2
                 dR=deltar(GP1.eta, GP1.phi, GP2.eta, GP2.phi)
-                print dR
+                # print dR
                 ipT=0
                 while ipT<len(pT_intervals)-1:
                     if GPleading.pt>=float(pT_intervals[ipT]) and GPleading.pt<float(pT_intervals[ipT+1]):

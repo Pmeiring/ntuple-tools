@@ -235,7 +235,7 @@ class CustomHistos(BaseHistos):
             self.h_dR_GENpt_20_30 = ROOT.TH1F(name+'_dR_GENpt_20_30','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
             self.h_dR_GENpt_30_40 = ROOT.TH1F(name+'_dR_GENpt_30_40','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
             self.h_dR_GENpt_40_50 = ROOT.TH1F(name+'_dR_GENpt_40_50','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
-            self.h_dR_GENpt_50_1000 = ROOT.TH1F(name+'_dR_GENpt_50_1000','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
+            self.h_dR_GENpt_50_1000 = ROOT.TH1F(name+'_dR_GENpt_50_1000','#Delta R (SimTrack, Best matched 3DCluster)',1000,0,10)
             self.h_dR_any_GENpt_0_5   = ROOT.TH1F(name+'_dR_any_GENpt_0_5',  '#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
             self.h_dR_any_GENpt_5_10  = ROOT.TH1F(name+'_dR_any_GENpt_5_10', '#Delta R (SimTrack, Any 3DCluster)',1000,0,10)
             self.h_dR_any_GENpt_10_20 = ROOT.TH1F(name+'_dR_any_GENpt_10_20','#Delta R (SimTrack, Any 3DCluster)',1000,0,10)

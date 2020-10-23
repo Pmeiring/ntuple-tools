@@ -36,6 +36,47 @@ def match_etaphi(ref_etaphi, trigger_etaphi, trigger_pt, deltaR=0.2):
     # print all_matches_indices
     return best_match_indices, all_matches_indices
 
+def custom_match(ref_etaphi, ref_pt, trigger_etaphi, trigger_pt, deltaR=0.2):
+    kdtree = cKDTree(trigger_etaphi)
+    best_match_indices = {}
+    all_matches_indices = {}
+    for index, row in ref_etaphi.iterrows():
+        # print "GP ",index
+
+        matched = kdtree.query_ball_point([row.eta, row.phi], deltaR)
+        # print "first matched", matched
+        closest_dr = kdtree.query([row.eta, row.phi])
+        matched_mindr=[closest_dr[1]] if closest_dr[0]<deltaR else []
+
+        # not this in an integer of the index of the array not the index in the pandas meaning: hence to beused with iloc
+        # Handle the -pi pi transition
+        matched_sym = kdtree.query_ball_point([row.eta, row.phi-np.sign(row.phi)*2.*m.pi], deltaR)
+        # print "sym matched", matched_sym
+        closest_drsym = kdtree.query([row.eta, row.phi-np.sign(row.phi)*2.*m.pi])
+        matched_mindrsym=[closest_drsym[1]] if closest_drsym[0]<deltaR else []
+
+        # Find the unique entries
+        matched = np.unique(np.concatenate((matched, matched_sym))).astype(int)
+        matched_mindr= np.unique(np.concatenate((matched_mindr, matched_mindrsym))).astype(int)
+
+        if (len(matched) != 0):
+            # print matched
+            dpT = abs(trigger_pt-ref_pt[index])
+            # print row.eta, row.phi, ref_pt[index]
+            # print trigger_etaphi
+            # print trigger_pt
+
+            best_match = np.argmax(trigger_pt.iloc[matched])
+            best_match2 = np.argmin(dpT.iloc[matched])
+            best_match3 = matched_mindr[0]
+
+            # print "bestmatch = ",best_match, best_match2, best_match3
+
+            best_match_indices[index] = best_match3
+            all_matches_indices[index] = trigger_pt.iloc[matched].index.values
+    # print best_match_indices
+    # print all_matches_indices
+    return best_match_indices, all_matches_indices
 
 def debugPrintOut(level, name, toCount, toPrint):
     if level == 0:
