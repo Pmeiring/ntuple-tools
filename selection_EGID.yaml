@@ -1,6 +1,6 @@
 
 common:
-  # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
+  input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
   input_dir:  /eos/cms/store/user/pmeiring/TRG/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger

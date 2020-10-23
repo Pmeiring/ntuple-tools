@@ -1314,6 +1314,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 dummy_BMI={}
                 dummy_AM ={}
                 if not trigger3DClusters.empty:
+                    # print "Looking for clusters in dR = ",dR
                     dummy_BMI, dummy_AM = utils.custom_match(genParticles[['eta','phi']],
                                                             genParticles['pt'],
                                                             trigger3DClusters[['eta', 'phi']],
