@@ -1,12 +1,12 @@
 
 common:
-  input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
-  # input_dir:  /eos/cms/store/user/pmeiring/TRG/
+  # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
+  input_dir:  /eos/cms/store/user/pmeiring/TRG/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v46
+  plot_version: v47
   run_clustering: False
   run_density_computation: False
 
