@@ -308,6 +308,8 @@ gen_photon_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_p
 gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) & (reachedEE == 2))'.format(PID.electron, PID.electron))]
 # gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) )'.format(PID.electron, PID.electron))]
 
+gen_pion_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) & (reachedEE == 2))'.format(PID.pion, PID.pion,))]
+# gen_ele_sel = [Selection('GEN', '', '((abs(pdgid) == {}) & (abs(firstmother_pdgid) == {}) )'.format(PID.electron, PID.electron))]
 
 
 
@@ -364,6 +366,11 @@ gen_g_sel = add_selections(gen_pt_selections, gen_eta_selections)
 # gen_e_sel = add_selections(gen_e_sel, [Selection('all', '', '')])
 gen_g_sel += add_selections(gen_photon_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
 
+gen_p_sel = add_selections(gen_pion_sel, gen_pt_selections)
+gen_p_sel = add_selections(gen_p_sel, gen_eta_selections)
+gen_p_sel = add_selections(gen_pt_selections, gen_eta_selections)
+# gen_p_sel = add_selections(gen_p_sel, [Selection('all', '', '')])
+gen_p_sel += add_selections(gen_pion_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
 
 
 # END OF MYSTUFF

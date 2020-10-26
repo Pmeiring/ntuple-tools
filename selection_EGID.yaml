@@ -6,7 +6,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v52
+  plot_version: v53
   run_clustering: False
   run_density_computation: False
 
@@ -26,18 +26,29 @@ collections:
   #   plotters:
   #     - tp2genParts
 
-  SinglePhoton_FlatPt-8to150:
+  # SinglePhoton_FlatPt-8to150:
+  #   file_label:
+  #     eg
+  #   samples:
+  #     - photon_flat8to150_PU0
+  #   priorities:
+  #     photon_flat8to150_PU0: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tp2genParts
+
+  SinglePion_FlatPt-2to100:
     file_label:
       eg
     samples:
-      - photon_flat8to150_PU0
+      - pion_flat2to100_PU0
     priorities:
-      photon_flat8to150_PU0: 1
+      pion_flat2to100_PU0: 1
     htc_jobflavor:
       workday
     plotters:
       - tp2genParts
-
 
   # BDT_input_sig:
   #   file_label:
@@ -103,6 +114,10 @@ samples:
 
   photon_flat8to150_PU0:
     input_sample_dir: SinglePhoton_FlatPt-8to150/SinglePhoton_FlatPt-2to100_PU0_newsetup_v_debug/201020_103901/0000/
+    events_per_job : 200
+
+  pion_flat2to100_PU0:
+    input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU0_newsetup_v_debug/201021_075012/0000/
     events_per_job : 200
 
 
