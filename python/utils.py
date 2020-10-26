@@ -90,7 +90,7 @@ def custom_match(ref_etaphi, ref_pt, trigger_etaphi, trigger_pt, deltaR=0.2):
             # print trigger_pt/ref_pt[index]
             # print "bestmatch = ",best_match, best_match2, best_match3
 
-            best_match_indices[index] = best_match3
+            best_match_indices[index] = best_match
             all_matches_indices[index] = trigger_pt.iloc[matched].index.values
     # print best_match_indices
     # print all_matches_indices

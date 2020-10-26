@@ -1,42 +1,42 @@
 
 common:
-  input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
-  # input_dir:  /eos/cms/store/user/pmeiring/TRG/
+  # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
+  input_dir:  /eos/cms/store/user/pmeiring/TRG/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v46
+  plot_version: v49
   run_clustering: False
   run_density_computation: False
 
 
 collections:
-  SingleE_FlatPt-2to100:
-    file_label:
-      eg
-    samples:
-      - ele_flat2to100_PU0_test
-      - ele_flat2to100_PU200_test
-    priorities:
-      ele_flat2to100_PU0_test: 1
-      ele_flat2to100_PU200_test: 1
-    htc_jobflavor:
-      workday
-    plotters:
-      - tp2genParts
-
-  # SinglePhoton_FlatPt-8to150:
+  # SingleE_FlatPt-2to100:
   #   file_label:
   #     eg
   #   samples:
-  #     - photon_flat8to150_PU0
+  #     - ele_flat2to100_PU0_test
+  #     - ele_flat2to100_PU200_test
   #   priorities:
-  #     photon_flat8to150_PU0: 1
+  #     ele_flat2to100_PU0_test: 1
+  #     ele_flat2to100_PU200_test: 1
   #   htc_jobflavor:
   #     workday
   #   plotters:
   #     - tp2genParts
+
+  SinglePhoton_FlatPt-8to150:
+    file_label:
+      eg
+    samples:
+      - photon_flat8to150_PU0
+    priorities:
+      photon_flat8to150_PU0: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      - tp2genParts
 
 
   # BDT_input_sig:
