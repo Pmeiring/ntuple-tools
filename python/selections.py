@@ -126,6 +126,8 @@ def prune(selection_list):
     return ret
 
 # TP selections
+no_selections = [Selection('all', '', '')]    
+
 tp_id_selections = [
                     Selection('all', '', ''),
                     ##COMMENT FOR TEST Selection('Em', 'EGId', 'quality >0'),

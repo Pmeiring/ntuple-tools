@@ -176,7 +176,8 @@ def analyze(params, batch_idx=0):
             tc_geom_tree.PrintCacheStats()
         print ('...done')
 
-    tree_name = 'hgcalTriggerNtuplizer/HGCalTriggerNtuple'
+    tree_name = 'l1CaloTriggerNtuplizer_egOnly/HGCalTriggerNtuple'
+    # tree_name = 'hgcalTriggerNtuplizer/HGCalTriggerNtuple'
     input_files = []
     range_ev = (0, params.maxEvents)
 

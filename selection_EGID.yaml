@@ -6,25 +6,25 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v56
+  plot_version: v57
   run_clustering: False
   run_density_computation: False
 
 
 collections:
-  # SingleE_FlatPt-2to100:
-  #   file_label:
-  #     eg
-  #   samples:
-  #     - ele_flat2to100_PU0_test
-  #     - ele_flat2to100_PU200_test
-  #   priorities:
-  #     ele_flat2to100_PU0_test: 1
-  #     ele_flat2to100_PU200_test: 1
-  #   htc_jobflavor:
-  #     workday
-  #   plotters:
-  #     - tp2genParts
+  SingleE_FlatPt-2to100:
+    file_label:
+      eg
+    samples:
+      - ele_flat2to100_PU0_HLTTDR
+      # - ele_flat2to100_PU200_test
+    priorities:
+      ele_flat2to100_PU0_HLTTDR: 1
+      # ele_flat2to100_PU200_test: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      - tp2genParts
 
   # SinglePhoton_FlatPt-8to150:
   #   file_label:
@@ -38,17 +38,17 @@ collections:
   #   plotters:
   #     - tp2genParts
 
-  SinglePion_FlatPt-2to100:
-    file_label:
-      eg
-    samples:
-      - pion_flat2to100_PU0
-    priorities:
-      pion_flat2to100_PU0: 1
-    htc_jobflavor:
-      workday
-    plotters:
-      - tp2genParts
+  # SinglePion_FlatPt-2to100:
+  #   file_label:
+  #     eg
+  #   samples:
+  #     - pion_flat2to100_PU0
+  #   priorities:
+  #     pion_flat2to100_PU0: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tp2genParts
 
   # BDT_input_sig:
   #   file_label:
@@ -120,7 +120,9 @@ samples:
     input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU0_newsetup_v_debug/201021_075012/0000/
     events_per_job : 200
 
-
+  ele_flat2to100_PU0_HLTTDR:
+    input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU0_CMSSW1116_v_2/210113_135659/0000/
+    events_per_job : 200
 
 
 
