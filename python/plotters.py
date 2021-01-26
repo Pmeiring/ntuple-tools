@@ -1222,7 +1222,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         self.h_tpset = {}
         self.h_resoset = {}
         self.h_effset = {}
-        self.h_dRs = {}
         self.h_custom = {}
         # self.h_conecluster = {}
         super(Cluster3DGenMatchPlotter, self).__init__(tp_set, tp_selections, gen_set, gen_selections)
@@ -1281,27 +1280,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         dummysplit = histoGen.name_.split("_")
         targethist = dummysplit[2]+"_"+dummysplit[3]+"_"+dummysplit[4]
 
-        # Compute dR between the two simtracks
-        # if len(genParticles.index)==2:
-        #     GP1=genParticles.iloc[0]
-        #     GP2=genParticles.iloc[1]
-        #     dR=deltar(GP1.eta, GP1.phi, GP2.eta, GP2.phi)
-        #     # print "comparing the two SimTracks"
-        #     # print "\tdR = %s"%(dR)
-        #     self.h_dRs[targethist].h_dR_SimTracks.Fill(dR)
-
-
-        # # Compute dR between the simtrack and any 3D cluster 
-        # # Use this loop also to compute dR between a simtrack and the best matching 3D cluster
-        # for iGP,GP in genParticles.iterrows():
-        #     for iCL,CL in trigger3DClusters.iterrows():
-        #         dR=deltar(CL.eta, CL.phi, GP.eta, GP.phi)
-        #         self.h_dRs[targethist].h_dR_AnyInCone.Fill(dR)
-        #         # Check if Simtrack iGP has a "bestmatch"
-        #         if iGP in best_match_indexes:
-        #             # Check if the cluster index corresponds to the best matched cluster
-        #             if iCL==best_match_indexes[iGP]:
-        #                 self.h_dRs[targethist].h_dR_BestInCone.Fill(dR)
 
         # Fill the "custom Hists"
         if "_all_GENEtaBCD" in targethist:
@@ -1452,14 +1430,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                     print ('Matched to 3D cluster:')
                     print (matched3DCluster)
 
-                    #print ('3D cluster energy: {}'.format(matched3DCluster.energy.sum()))
-                    #print ('3D cluster pt: {}'.format(matched3DCluster.pt.sum()))
-                    #calib_factor = 1.084
-                    #print ('sum 2D cluster energy: {}'.format(matchedClusters.energy.sum()*calib_factor))
-                    # print ('sum 2D cluster pt: {}'.format(matchedClusters.pt.sum()*calib_factor))
-                    #print ('sum TC energy: {}'.format(matchedTriggerCells.energy.sum()))
-                    #print ('Sum of matched clusters in cone:')
-                    #print (clustersInCone)
+
             else:
                 if debug >= 5:
                     print ('==== Warning no match found for algo {}, idx {} ======================'.format(algoname,
@@ -1481,7 +1452,6 @@ class Cluster3DGenMatchPlotter(BasePlotter):
                 self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
                 #self.h_resoset[histo_name] = histos.HistoSetReso(histo_name)
                 self.h_effset[histo_name] = histos.HistoSetEff(histo_name)
-                # self.h_dRs[histo_name] = histos.dRHistos(histo_name)
                 # self.h_conecluster[histo_name] = histos.ClusterConeHistos(histo_name)
 
         # Custom histograms that will be filled using all simtracks/3dclusters

@@ -139,10 +139,8 @@ tp_rate_id_selections = [Selection('all', '', ''),
 
 
 tp_pt_selections = [Selection('all', '', ''),
-                    #Selection('Pt10', 'p_{T}^{L1}>10GeV', 'pt > 10'),
-                    #Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20'),
-                    #Selection('Pt5to20', '5 <= p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt >= 5)'),
-                    #Selection('Pt5to30', '5 <= p_{T}^{L1} <= 30GeV', '(pt <= 30) & (pt >= 5)')
+                    Selection('Pt0to10', 'p_{T}^{L1}<10GeV', 'pt < 10'),
+                    Selection('Pt10toINF', 'p_{T}^{L1}>=10GeV', 'pt >= 10')
                     # Selection('Pt25', 'p_{T}^{L1}>=25GeV', 'pt >= 25'),
                     ##COMMENTFORTESTSelection('Pt30', 'p_{T}^{L1}>=30GeV', 'pt >= 30')
                     ]
@@ -184,21 +182,21 @@ tp_eta_selections = [#Selection('all', '', ''),
                      # Selection('EtaB', '1.52 < |#eta^{L1}| <= 1.7', '1.52 < abs(eta) <= 1.7'),
                      # Selection('EtaC', '1.7 < |#eta^{L1}| <= 2.4', '1.7 < abs(eta) <= 2.4'),
                      #Selection('EtaD', '2.4 < |#eta^{L1}| <= 2.7', '2.4 < abs(eta) <= 2.7'),
-                     Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3.0', '2.7 < abs(eta) <= 3.0'),
+                     # Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3.0', '2.7 < abs(eta) <= 3.0'),
                      # Selection('EtaE', '|#eta^{L1}| > 2.8', 'abs(eta) > 2.8'),
                      # Selection('EtaAB', '|#eta^{L1}| <= 1.7', 'abs(eta) <= 1.7'),
                      # Selection('EtaABC', '|#eta^{L1}| <= 2.4', 'abs(eta) <= 2.4'),
-                     Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7'),
-                     #Selection('EtaBCD', '1.52 < |#eta^{L1}| <= 2.8', '1.52 < abs(eta) <= 2.8'),
+                     # Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7'),
+                     Selection('EtaBCD', '1.52 < |#eta^{L1}| <= 2.8', '1.52 < abs(eta) <= 2.8'),
                      #Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52 < abs(eta) < 3')
                      ]
 
 tp_rate_selections = add_selections(tp_rate_id_selections, tp_eta_selections)
 
 #MY SELECTIONS
-tp_match_selections = tp_pt_selections
+# tp_match_selections = tp_pt_selections
 #tp_match_selections += add_selections(tp_id_selections, tp_pt_selections) 
-#tp_match_selections += add_selections(tp_pt_selections, tp_eta_selections)
+tp_match_selections = add_selections(tp_pt_selections, tp_eta_selections)
 
 tp_calib_selections = tp_id_selections
 
@@ -345,6 +343,10 @@ gen_part_selections_debug = []
 gen_part_selections_debug = add_selections(gen_part_ee_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
 
 #MYSTUFF
+
+# += adds as a seperate selection 
+# add_selection combines the selections in arguments into one or more
+
 #gen_part_selections = gen_debug
 gen_part_selections = gen_part_ee_sel#gen_selections
 gen_part_selections += gen_part_ee_pt_sel
@@ -354,12 +356,12 @@ gen_part_selections += gen_part_ee_pt_sel
 # gen_e_sel = gen_ele_sel
 # gen_e_sel+= gen_pt_selections
 # gen_e_sel+= gen_eta_selections
-gen_e_sel = add_selections(gen_ele_sel, gen_pt_selections)
-gen_e_sel = add_selections(gen_e_sel, gen_eta_selections)
-gen_e_sel = add_selections(gen_pt_selections, gen_eta_selections)
+# gen_e_sel = add_selections(gen_ele_sel, gen_pt_selections)
+# gen_e_sel = add_selections(gen_e_sel, gen_eta_selections)
+# gen_e_sel = add_selections(gen_pt_selections, gen_eta_selections)
 # gen_e_sel = add_selections(gen_e_sel, [Selection('all', '', '')])
-gen_e_sel += add_selections(gen_ele_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
-# gen_e_sel = gen_ele_sel
+gen_e_sel = add_selections(gen_ele_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
+# gen_e_sel += gen_ele_sel
 
 
 gen_g_sel = add_selections(gen_photon_sel, gen_pt_selections)

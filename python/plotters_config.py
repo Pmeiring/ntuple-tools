@@ -1,4 +1,5 @@
 import plotters
+import extraplotters
 import collections
 import selections
 
@@ -360,6 +361,9 @@ tp_matched2_MC_plotter =  [plotters.Cluster3DMCMatchPlotter(collections.tp_hm_vd
                                             selections.tp_match_selections,
                                             selections.gen_MC_selections)]
 
-tp_cluster_plotter = [plotters.Cluster3DPlotter(collections.tp_hm_vdr, selections.tp_match_selections),]
+tp_cluster_plotter = [extraplotters.Cluster3DPlotter_AddL1Tracks(collections.tp_hm_vdr, collections.l1Trks, selections.tp_match_selections),]
 
 
+tp_matched2_genParts_addedL1Tracks_plotter =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(collections.tp_hm_vdr, collections.l1Trks ,collections.gen_parts,
+                                            selections.tp_match_selections,
+                                            selections.gen_e_sel)]

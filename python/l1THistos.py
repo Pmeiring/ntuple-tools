@@ -2,7 +2,7 @@ import ROOT
 import root_numpy as rnp
 import numpy as np
 from array import array
-# import pandas as pd
+import pandas as pd
 import uuid
 import math
 
@@ -171,9 +171,9 @@ class GenPartHistos(BaseHistos):
 class GenParticleHistos(BaseHistos):
     def __init__(self, name, root_file=None, debug=False):
         if not root_file:
+            self.h_pt = ROOT.TH1F(name+'_pt', 'Gen Part P_{T} (GeV); p_{T}^{GEN} [GeV];', 50, 0, 100)
             self.h_eta = ROOT.TH1F(name+'_eta', 'Gen Part eta; #eta^{GEN};', 50, -3, 3)
             self.h_abseta = ROOT.TH1F(name+'_abseta', 'Gen Part |eta|; |#eta^{GEN}|;', 40, 0, 4)
-            self.h_pt = ROOT.TH1F(name+'_pt', 'Gen Part P_{T} (GeV); p_{T}^{GEN} [GeV];', 50, 0, 100)
             self.h_energy = ROOT.TH1F(name+'_energy', 'Gen Part Energy (GeV); E [GeV];', 100, 0, 1000)
             self.h_reachedEE = ROOT.TH1F(name+'_reachedEE', 'Gen Part reachedEE', 4, 0, 4)
             self.h_fBrem = ROOT.TH1F(name+'_fBrem', 'Brem. p_{T} fraction', 30, 0, 1)
@@ -276,6 +276,35 @@ class CustomHistos(BaseHistos):
     #                   array=particles.eta,
     #                   weights=particles.weight)
 
+
+class TrackMatchingHistos(BaseHistos):
+    def __init__(self, name, root_file=None, debug=False):
+        self.name=name
+        if not root_file:
+            self.h_nsimtracks = ROOT.TH1F(name+'_nsimtracks','Number of SimTracks',20,0,20)
+            self.h_nl1tracks = ROOT.TH1F(name+'_nl1tracks','Number of L1Tracks',20,0,20)
+            self.h_nclusters = ROOT.TH1F(name+'_nclusters','Number of 3DClusters',20,0,20)
+        BaseHistos.__init__(self, name, root_file, debug)
+
+    def fill(self, simtracks, l1tracks, clusters):
+        self.h_nsimtracks.Fill(len(simtracks))
+        self.h_nl1tracks.Fill(len(l1tracks))
+        self.h_nclusters.Fill(len(clusters))
+
+    def write(self):
+        if self.__class__.__name__ not in ROOT.gDirectory.GetListOfKeys():
+            ROOT.gDirectory.mkdir(self.__class__.__name__)
+        plotterdir = ROOT.gDirectory.GetDirectory(self.__class__.__name__)
+        plotterdir.cd()
+
+        if self.name not in ROOT.gDirectory.GetListOfKeys():
+            ROOT.gDirectory.mkdir(self.name)
+        seldir = ROOT.gDirectory.GetDirectory(self.name)
+        seldir.cd()
+
+        for histo in [a for a in dir(self) if a.startswith('h_')]:
+            getattr(self, histo).Write()
+        ROOT.gDirectory.cd('../..')
 
 
 class DigiHistos(BaseHistos):
@@ -393,13 +422,17 @@ class Cluster3DHistos(BaseHistos):
         if not root_file:
             # self.data = []
             # self.reference = []
-            self.t_values = ROOT.TNtuple(name, name, 'pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg')
+            # variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg'
+            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:tttrack_pt:tttrack_eta:tttrack_phi:tttrack_chi2:tttrack_nStubs'
+            self.t_values = ROOT.TNtuple(name, name, variables)
         BaseHistos.__init__(self, name, root_file, debug)
 
-    def fill(self, cl3ds):
-       energy_fill = []
+    def fill(self, cl3ds, track1=pd.DataFrame(), track2=pd.DataFrame()):
+        energy_fill = []
 
-       if not cl3ds.empty:
+        # print "filling ",cl3ds.tttrack_pt
+
+        if not cl3ds.empty:
            energy_fill.append(cl3ds.pt)
            energy_fill.append(cl3ds.eta)
            energy_fill.append(abs(cl3ds.eta))
@@ -427,17 +460,36 @@ class Cluster3DHistos(BaseHistos):
            energy_fill.append(cl3ds.ntc90)
            energy_fill.append(cl3ds.hoe)
            energy_fill.append(cl3ds.bdteg)
-       else:
-           for i in range(0,27):
+           energy_fill.append(cl3ds.tttrack_pt)
+           energy_fill.append(cl3ds.tttrack_eta)
+           energy_fill.append(cl3ds.tttrack_phi)
+           energy_fill.append(cl3ds.tttrack_chi2)
+           energy_fill.append(cl3ds.tttrack_nStubs)
+        else:
+           for i in range(0,32):
                energy_fill.append(-999)       
        
-       self.t_values.Fill(array('f', energy_fill))
+        # # if track1==None:
+        # if track1.empty:
+        #     energy_fill.extend([0,0,0,0,0])
+        # else:
+        #     energy_fill.append(track1.pt)
+        #     energy_fill.append(track1.eta)
+        #     energy_fill.append(track1.phi)
+        #     energy_fill.append(track1.chi2)
+        #     energy_fill.append(track1.nStubs)
+
+
+        self.t_values.Fill(array('f', energy_fill))
 
     def write(self):
-        if self.__class__.__name__ not in ROOT.gDirectory.GetListOfKeys():
-            ROOT.gDirectory.mkdir(self.__class__.__name__)
-        newdir = ROOT.gDirectory.GetDirectory(self.__class__.__name__)
+        # treeName = self.__class__.__name__
+        treeName = "L1Trees"
+        if treeName not in ROOT.gDirectory.GetListOfKeys():
+            ROOT.gDirectory.mkdir(treeName)
+        newdir = ROOT.gDirectory.GetDirectory(treeName)
         newdir.cd()
+
         self.t_values.Write()
         ROOT.gDirectory.cd('..')
         return

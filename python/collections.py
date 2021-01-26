@@ -241,6 +241,14 @@ def cl3d_fixtures(clusters, tcs):
 
         clusters['bdt_pi'] = rnptmva.evaluate_reader(
             classifiers.mva_pi_classifier_builder(), 'BDT', clusters[['pt', 'eta', 'maxlayer', 'hoe', 'emaxe', 'szz']])
+
+    clusters['tttrack_pt'] = -999.
+    clusters['tttrack_eta'] = -999.
+    clusters['tttrack_phi'] = -999.
+    clusters['tttrack_chi2'] = -999.
+    clusters['tttrack_nStubs'] = -999.
+
+
     return clusters
 
 
@@ -803,6 +811,11 @@ egs_all = DFCollection(name='EGALL', label='EG all',
                        print_function=lambda df: df[['energy', 'pt', 'eta', 'hwQual']].sort_values(by='hwQual', ascending=False)[:10],
                        debug=0,
                        depends_on=[egs, egs_brl])
+
+l1Trks = DFCollection(name='l1Trk', label='l1Trk',
+                      filler_function=lambda event: event.getDataFrame(prefix='l1Trk'), debug=0,
+                      print_function=lambda df: df[['pt', 'eta', 'phi']].sort_values(by='pt', ascending=False))
+l1Trks.activate()
 
 tracks = DFCollection(name='L1Trk', label='L1Track',
                       filler_function=lambda event: event.getDataFrame(prefix='l1track'), debug=0)
