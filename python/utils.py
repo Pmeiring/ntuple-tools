@@ -46,10 +46,10 @@ def custom_match(ref_etaphi, ref_pt, trigger_etaphi, trigger_pt, deltaR=0.2):
     # Loop over the reference particles and search for the (best) matching trigger objects
     for index, row in ref_etaphi.iterrows():
 
-        matched = kdtree.query_ball_point([row.eta, row.phi], deltaR)
+        matched = kdtree.query_ball_point([row.exeta, row.exphi], deltaR)
         # note this in an integer of the index of the array not the index in the pandas meaning: hence to beused with iloc
         # Handle the -pi pi transition
-        matched_sym = kdtree.query_ball_point([row.eta, row.phi-np.sign(row.phi)*2.*m.pi], deltaR)
+        matched_sym = kdtree.query_ball_point([row.exeta, row.exphi-np.sign(row.exphi)*2.*m.pi], deltaR)
         # Find the unique entries
         matched = np.unique(np.concatenate((matched, matched_sym))).astype(int)
 
