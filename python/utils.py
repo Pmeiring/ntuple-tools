@@ -119,7 +119,7 @@ def debugPrintOut(level, name, toCount, toPrint):
         print(toPrint)
 
 
-def do_all_matches(GP, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
+def do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords=False):
 
     L1Objects_etaphi = L1Objects[['eta','phi']]
     L1Objects_pt = L1Objects['pt']
@@ -131,36 +131,37 @@ def do_all_matches(GP, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
         GP_eta=GP.exeta
         GP_phi=GP.exphi
 
-    idx_closestDRL1object=-1
-    idx_closestPTL1object=-1 
-    idx_highestPTL1object=-1
+    idx_closestDRL1object=[-1] * len(dR_cones)
+    idx_closestPTL1object=[-1] * len(dR_cones) 
+    idx_highestPTL1object=[-1] * len(dR_cones)
+    matched              =[[]  * len(dR_cones)]
+    for i,dR_cone in enumerate(dR_cones):
 
+        # Match with dR cone and take care of +pi -pi transition
+        _matched = kdtree.query_ball_point([GP_eta, GP_phi], dR_cone)
+        _matched_sym = kdtree.query_ball_point([GP_eta, GP_phi-np.sign(GP_phi)*2.*m.pi], dR_cone)
+        matched[i] = np.unique(np.concatenate((_matched, matched))).astype(int)
 
-    # Match with dR cone and take care of +pi -pi transition
-    matched = kdtree.query_ball_point([GP_eta, GP_phi], dR_cone)
-    matched_sym = kdtree.query_ball_point([GP_eta, GP_phi-np.sign(GP_phi)*2.*m.pi], dR_cone)
-    matched = np.unique(np.concatenate((matched, matched_sym))).astype(int)
+        # Best match = highest pT L1 Object matched to GEN
+        if (len(matched[i]) != 0):
+            idx_highestPTL1object[i] = np.argmax(L1Objects_pt.iloc[matched[i]])
 
-    # Best match = highest pT L1 Object matched to GEN
-    if (len(matched) != 0):
-        idx_highestPTL1object = np.argmax(L1Objects_pt.iloc[matched])
-
-    # Best match = closest dR L1 Object matched to GEN OR
-    # Best match = closest pT L1 Object matched to GEN 
-    mindR = 10000
-    mindPt= 10000
-    for idx_L1Object, L1Object in L1Objects_etaphi.iterrows():
-        if not idx_L1Object in matched: continue
-        dR1 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-GP_phi),2) )
-        dR2 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-np.sign(L1Object.phi)*2.*m.pi-GP_phi),2) )
-        dR = min(dR1,dR2)
-        dPt = abs(L1Objects_pt[idx_L1Object]/GP.pt - 1)
-        # print "matched cluster pT, dpT, dR, eta, phi = ", L1Objects_pt[idx_L1Object], dPt, dR, L1Object.eta, L1Object.phi
-        if dR<mindR:
-            mindR = dR
-            idx_closestDRL1object = idx_L1Object
-        if dPt<mindPt:
-            mindPt= dPt
-            idx_closestPTL1object = idx_L1Object
+        # Best match = closest dR L1 Object matched to GEN OR
+        # Best match = closest pT L1 Object matched to GEN 
+        mindR = 10000
+        mindPt= 10000
+        for idx_L1Object, L1Object in L1Objects_etaphi.iterrows():
+            if not idx_L1Object in matched: continue
+            dR1 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-GP_phi),2) )
+            dR2 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-np.sign(L1Object.phi)*2.*m.pi-GP_phi),2) )
+            dR = min(dR1,dR2)
+            dPt = abs(L1Objects_pt[idx_L1Object]/GP.pt - 1)
+            # print "matched cluster pT, dpT, dR, eta, phi = ", L1Objects_pt[idx_L1Object], dPt, dR, L1Object.eta, L1Object.phi
+            if dR<mindR:
+                mindR = dR
+                idx_closestDRL1object[i] = idx_L1Object
+            if dPt<mindPt:
+                mindPt= dPt
+                idx_closestPTL1object[i] = idx_L1Object
 
     return matched, idx_closestDRL1object, idx_highestPTL1object, idx_closestPTL1object
