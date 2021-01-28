@@ -815,7 +815,7 @@ egs_all = DFCollection(name='EGALL', label='EG all',
 l1Trks = DFCollection(name='l1Trk', label='l1Trk',
                       filler_function=lambda event: event.getDataFrame(prefix='l1Trk'), debug=0,
                       print_function=lambda df: df[['pt', 'eta', 'phi']].sort_values(by='pt', ascending=False))
-l1Trks.activate()
+# l1Trks.activate()
 
 tracks = DFCollection(name='L1Trk', label='L1Track',
                       filler_function=lambda event: event.getDataFrame(prefix='l1track'), debug=0)

@@ -65,8 +65,6 @@ def match_3Dcluster_L1Tk(cluster_etaphi, cluster_pt, L1tk_etaphi, L1tk_pt, delta
     best_match_indices = {}
     matches_indices = {}
 
-    # print "cluster ",cluster_etaphi.eta,cluster_etaphi.phi
-
     # Loop over the reference particles and search for the (best) matching trigger objects
     # for index, row in cluster_etaphi.iterrows():
 
@@ -119,3 +117,50 @@ def debugPrintOut(level, name, toCount, toPrint):
         print('# {}: {}'.format(name, len(toCount)))
     if level >= 4 and not toPrint.empty:
         print(toPrint)
+
+
+def do_all_matches(GP, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
+
+    L1Objects_etaphi = L1Objects[['eta','phi']]
+    L1Objects_pt = L1Objects['pt']
+    kdtree = cKDTree(L1Objects_etaphi)
+
+    GP_eta=GP.eta
+    GP_phi=GP.phi
+    if useExtrapolatedGenCoords:
+        GP_eta=GP.exeta
+        GP_phi=GP.exphi
+
+    idx_closestDRL1object=-1
+    idx_closestPTL1object=-1 
+    idx_highestPTL1object=-1
+
+
+    # Match with dR cone and take care of +pi -pi transition
+    matched = kdtree.query_ball_point([GP_eta, GP_phi], dR_cone)
+    matched_sym = kdtree.query_ball_point([GP_eta, GP_phi-np.sign(GP_phi)*2.*m.pi], dR_cone)
+    matched = np.unique(np.concatenate((matched, matched_sym))).astype(int)
+
+    # Best match = highest pT L1 Object matched to GEN
+    if (len(matched) != 0):
+        idx_highestPTL1object = np.argmax(L1Objects_pt.iloc[matched])
+
+    # Best match = closest dR L1 Object matched to GEN OR
+    # Best match = closest pT L1 Object matched to GEN 
+    mindR = 10000
+    mindPt= 10000
+    for idx_L1Object, L1Object in L1Objects_etaphi.iterrows():
+        if not idx_L1Object in matched: continue
+        dR1 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-GP_phi),2) )
+        dR2 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-np.sign(L1Object.phi)*2.*m.pi-GP_phi),2) )
+        dR = min(dR1,dR2)
+        dPt = abs(L1Objects_pt[idx_L1Object]/GP.pt - 1)
+        # print "matched cluster pT, dpT, dR, eta, phi = ", L1Objects_pt[idx_L1Object], dPt, dR, L1Object.eta, L1Object.phi
+        if dR<mindR:
+            mindR = dR
+            idx_closestDRL1object = idx_L1Object
+        if dPt<mindPt:
+            mindPt= dPt
+            idx_closestPTL1object = idx_L1Object
+
+    return matched, idx_closestDRL1object, idx_highestPTL1object, idx_closestPTL1object

@@ -7,6 +7,7 @@ import clusterTools as clAlgo
 import selections as selections
 import math
 from plotters import *
+import extrafunctions as extrafunc
 
 def wasMatchedToGEN(match_indices, clusteridx):
     print match_indices
@@ -151,109 +152,6 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                                                             trigger3DClusters['pt'],
                                                             deltaR=0.2)
 
-        # =====================================================================================================================================
-        # =====================================================================================================================================
-        # Fill the "custom Hists"
-        dummysplit = histoGen.name_.split("_")
-        targethist = dummysplit[2]+"_"+dummysplit[3]+"_"+dummysplit[4]
-        # print histoGen.name_, targethist
-        if "_EtaBCD_GENEtaBCD" in targethist:
-
-            # perform the GP->Cluster matching with each dR cone
-            best_match_indexes_dR = {"0.025":{}, "0.05":{}, "0.1":{}, "0.2":{}, "0.3":{}, "0.4":{}, "1.0":{}, "100":{}}
-            for k,v in best_match_indexes_dR.iteritems():
-                dR=float(k)
-                dummy_BMI={}
-                dummy_AM ={}
-                if not trigger3DClusters.empty:
-                    dummy_BMI, dummy_AM = utils.custom_match(genParticles[['exeta','exphi']],
-                                                            genParticles['pt'],
-                                                            trigger3DClusters[['eta', 'phi']],
-                                                            trigger3DClusters['pt'],
-                                                            deltaR=dR)
-                best_match_indexes_dR[k]=dummy_BMI
-                # print dR, dummy_BMI
-
-            getattr(self.h_custom["HMvDR_GEN"],"h_nsimtracks").Fill(len(genParticles.index))
-            getattr(self.h_custom["HMvDR_GEN"],"h_nclusters").Fill(len(trigger3DClusters.index))
-
-            for iGP, GP in genParticles.iterrows():
-                nclusters_dR =  {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
-                pt_dR =         {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
-                pT_intervals = [0,5,10,20,30,40,50,1000]
-                nClusters_pT = 0
-
-                # print iGP, GP.reachedEE
-
-                getattr(self.h_custom["HMvDR_GEN"],"h_fBrem_vs_ptGEN").Fill(GP.pt,GP.fbrem)
-
-                for iCL,CL in trigger3DClusters.iterrows():
-                    dR=deltar(CL.eta, CL.phi, GP.eta, GP.phi)
-
-                    # Count the number of clusters around this GP.
-                    if dR<0.2: nClusters_pT+=1
-
-                    # nClusters and pt in slices of dR
-                    for k,v in nclusters_dR.iteritems():
-                        if dR<float(k): 
-                            nclusters_dR[k]+=int(1)
-                            pt_dR[k]+=CL.pt
-                            # Check if this cluster is the best match to the simtrack
-                            if iGP in best_match_indexes_dR[k]:
-                                # print "best_match_indexes_dR[%s] = "%k, best_match_indexes_dR[k], "iGP=",iGP," iCL=",iCL
-                                if iCL==best_match_indexes_dR[k][iGP]:
-                                    # print "found it"
-                                    dr = k.replace(".","p")
-                                    getattr(self.h_custom["HMvDR_GEN"],"h_ptBestCl_over_ptGEN_vs_ptGEN_dR%s"%dr).Fill(GP.pt,(CL.pt/GP.pt))
-
-                    # dR in slices of GEN pT
-                    ipT=0
-                    while ipT<len(pT_intervals)-1:
-                        if GP.pt>=float(pT_intervals[ipT]) and GP.pt<float(pT_intervals[ipT+1]):
-                            interv=str(pT_intervals[ipT]) + "_" + str(pT_intervals[ipT+1])
-                            getattr(self.h_custom["HMvDR_GEN"],"h_dR_any_GENpt_%s"%interv).Fill(dR)
-
-                            if iGP in best_match_indexes:
-                                if iCL==best_match_indexes[iGP]:
-                                    getattr(self.h_custom["HMvDR_GEN"],"h_dR_GENpt_%s"%interv).Fill(dR)
-                        ipT+=1
-
-                # nClusters per SimTrack in slices of dR
-                for k,v in nclusters_dR.iteritems():
-                    dR = k.replace(".","p")
-                    getattr(self.h_custom["HMvDR_GEN"],"h_nclusters_dR%s"%dR).Fill(v)
-                    # print iGP, best_match_indexes_dR[k]
-                    if iGP in best_match_indexes_dR[k]: # only take the matched simtracks
-                        # print "filling dR%s with "%dR,pt_dR[k]/GP.pt, " where GP.pt = ",GP.pt
-                        getattr(self.h_custom["HMvDR_GEN"],"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(pt_dR[k]/GP.pt))
-
-
-                # nClusters per SimTrack in slices of GEN pt
-                ipT=0
-                while ipT<len(pT_intervals)-1:
-                    if GP.pt>=float(pT_intervals[ipT]) and GP.pt<float(pT_intervals[ipT+1]):
-                        interv=str(pT_intervals[ipT]) + "_" + str(pT_intervals[ipT+1])
-                        getattr(self.h_custom["HMvDR_GEN"],"h_nclusters_pt_%s"%interv).Fill(nClusters_pT)
-                    ipT+=1
-
-
-            # dR GEN-GEN in slices of (leading GEN) pT
-            if len(genParticles.index)==2:
-                GP1=genParticles.iloc[0]
-                GP2=genParticles.iloc[1]
-                GPleading=GP1 if GP1.pt>GP2.pt else GP2
-                dR=deltar(GP1.eta, GP1.phi, GP2.eta, GP2.phi)
-                # print dR
-                ipT=0
-                while ipT<len(pT_intervals)-1:
-                    if GPleading.pt>=float(pT_intervals[ipT]) and GPleading.pt<float(pT_intervals[ipT+1]):
-                        interv=str(pT_intervals[ipT]) + "_" + str(pT_intervals[ipT+1])
-                        getattr(self.h_custom["HMvDR_GEN"],"h_dR_GENGENpt_%s"%interv).Fill(dR)
-                    ipT+=1
-        # =====================================================================================================================================
-        # =====================================================================================================================================
-
-
         # FILL HISTOGRAMS
         if histoGen is not None: 
             histoGen.fill(genParticles) 
@@ -290,43 +188,14 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                     All3DClusters.loc[idx,"tttrack_chi2"]=L1tracks.loc[L1Tk_best_match_idx].chi2
                     All3DClusters.loc[idx,"tttrack_nStubs"]=L1tracks.loc[L1Tk_best_match_idx].nStubs
 
+
         # FIND ALL CLUSTERS THAT DID NOT MATCH TO A GENPARTICLE
         for match in allmatches.values():
             for k in match:
                 All3DClusters = All3DClusters.drop(k)
         unmatchedClusters = All3DClusters
-
-        # LOOP OVER ALL CLUSTERS
-        # for index,row in All3DClusters.iterrows():
-        #     # IF IT MATCHED TO GEN (WE HAVE TO FILL THE MATCHEDHISTO)
-        #     if wasMatchedToGEN(allmatches, index):
-        #         # IF IT MATCHED TO 0 L1TRACKS
-        #         if len(L1Tk_match_indices)==0:
-        #             histo3DClMatch.fill(row)
-        #         # IF IT MATCHED TO 1 L1TRACKS
-        #         if len(L1Tk_match_indices)==1:
-        #             histo3DClMatch.fill(row, L1tracks.iloc[L1Tk_match_indices[index][0]])
-        #         # ELSE
-        #         if len(L1Tk_match_indices)>1:
-        #             histo3DClMatch.fill(row, L1tracks.iloc[L1Tk_match_indices[index][0]], L1tracks.iloc[L1Tk_match_indices[index][0]])
-        #     # ELSE (WE HAVE TO FILL THE UNMATCHEDHIST)
-        #     else:
-        #         # IF IT MATCHED TO 0 L1TRACKS
-        #         if len(L1Tk_match_indices)==0:
-        #             histo3DClNOMatch.fill(row)
-        #         # IF IT MATCHED TO 1 L1TRACKS
-        #         if len(L1Tk_match_indices)==1:
-        #             histo3DClNOMatch.fill(row, L1tracks.iloc[L1Tk_match_indices[index][0]])
-        #         # ELSE
-        #         if len(L1Tk_match_indices)>1:
-        #             histo3DClNOMatch.fill(row, L1tracks.iloc[L1Tk_match_indices[index][0]], L1tracks.iloc[L1Tk_match_indices[index][0]])
-
-
-####################################################### add here as argument the first three l1tracks #######################################################        
         for index, row in unmatchedClusters.iterrows():
             histo3DClNOMatch.fill(row)
-#############################################################################################################################################################
-
 
 
         for idx, genParticle in genParticles.iterrows():
@@ -346,10 +215,8 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                 matched3DCluster['iso0p2'] = iso_df.energy
                 matched3DCluster['isoRel0p2'] = iso_df.pt/matched3DCluster.pt
 
-####################################################### add here as argument the first three l1tracks #######################################################
                 # fill the plots
                 histo3DClMatch.fill(matched3DCluster)
-#############################################################################################################################################################
 
 
                 if histoGenMatched is not None: 
@@ -374,6 +241,7 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
     def book_histos(self):
         self.gen_set.activate()
         self.tp_set.activate()
+        self.l1track_set.activate()        
         for tp_sel in self.tp_selections:
             for gen_sel in self.gen_selections:
                 histo_name = '{}_{}_{}'.format(self.tp_set.name,
@@ -390,7 +258,8 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
         # To do so (for now) check that the selection indeed takes simply all objects (when filling the histograms)
         histname = '{}_{}'.format(self.tp_set.name,self.gen_set.name)
         self.h_custom[histname] = histos.CustomHistos(histname)
-
+        histname = '{}_{}'.format(self.l1track_set.name,self.gen_set.name)
+        self.h_custom[histname] = histos.CustomHistos(histname)
 
 
 
@@ -402,32 +271,29 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
             cl3Ds = self.tp_set.cl3d_df
             l1tks = self.l1track_set.df
 
-            # print self.l1track_set
-            # print self.l1track_set.df
-
             if not tp_sel.all:
                 cl3Ds = self.tp_set.cl3d_df.query(tp_sel.selection)
             for gen_sel in self.gen_selections:
-                histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
-                histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
+                
                 genReference = self.gen_set.df[(self.gen_set.df.gen > 0)] 
-                # genReference = self.gen_set.df
-                # for ig,g in genReference.iterrows():
-                #     print g.gen
                 if not gen_sel.all:
                     genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection) 
-                    # print gen_sel.selection
-                    # genReference = self.gen_set.df.query(gen_sel.selection) 
-                    # FIXME: this doesn't work for pizeros since they are never listed in the genParticles...we need a working solution
-                    # elif  particle.pdgid == PID.pizero:
-                    #     genReference = genParts[(genParts.pid == particle.pdgid)]
-                # for ig,g in genReference.iterrows():
-                    # print "gen value is ",g.gen
+                
+                # Fill the custom histograms used to study matching and preselection
+                if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCD" and gen_sel.name=="GENEtaBCD":
+                    h_custom = self.h_custom["HMvDR_GEN"]
+                    extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, cl3Ds, 0.2, useExtrapolatedGenCoords=True)
+                if self.l1track_set.name=="l1Trk" and tp_sel.name=="EtaBCD" and gen_sel.name=="GENEtaBCD":
+                    h_custom = self.h_custom["l1Trk_GEN"]
+                    extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, l1tks, 0.2, useExtrapolatedGenCoords=False)
+
+                # Fill all other histograms and ntuples
+                histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
+                histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
                 h_tpset_match = self.h_tpset[histo_name]
                 h_tpset_NOmatch = self.h_tpset[histo_name_NOMATCH]
                 h_genseleff = self.h_effset[histo_name]
                 h_trackmatching = self.h_trackmatching[histo_name]
-
                 self.plot3DMatch(genReference,
                                         cl3Ds,
                                         cl2Ds,
