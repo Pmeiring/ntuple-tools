@@ -6,7 +6,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v59
+  plot_version: v60
   run_clustering: False
   run_density_computation: False
 

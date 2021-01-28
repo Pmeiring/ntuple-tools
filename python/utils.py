@@ -134,13 +134,14 @@ def do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords=False):
     idx_closestDRL1object=[-1] * len(dR_cones)
     idx_closestPTL1object=[-1] * len(dR_cones) 
     idx_highestPTL1object=[-1] * len(dR_cones)
-    matched              =[[]  * len(dR_cones)]
+    matched              =[[]  for x in range(len(dR_cones))]
     for i,dR_cone in enumerate(dR_cones):
 
         # Match with dR cone and take care of +pi -pi transition
         _matched = kdtree.query_ball_point([GP_eta, GP_phi], dR_cone)
         _matched_sym = kdtree.query_ball_point([GP_eta, GP_phi-np.sign(GP_phi)*2.*m.pi], dR_cone)
-        matched[i] = np.unique(np.concatenate((_matched, matched))).astype(int)
+        matched[i] = np.unique(np.concatenate((_matched, _matched_sym))).astype(int)
+        # note this in an integer of the index of the array not the index in the pandas meaning: hence to be used with iloc
 
         # Best match = highest pT L1 Object matched to GEN
         if (len(matched[i]) != 0):
@@ -151,7 +152,11 @@ def do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords=False):
         mindR = 10000
         mindPt= 10000
         for idx_L1Object, L1Object in L1Objects_etaphi.iterrows():
-            if not idx_L1Object in matched: continue
+
+            idx = L1Objects_etaphi.iloc[matched[i]].index.values
+
+            # print "indices of matched objects with dR=",dR_cone," are ",matched[i]," and this is object ",idx_L1Object,"/",len(L1Objects)
+            if not idx_L1Object in idx: continue
             dR1 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-GP_phi),2) )
             dR2 = np.sqrt( pow((L1Object.eta-GP_eta),2) + pow((L1Object.phi-np.sign(L1Object.phi)*2.*m.pi-GP_phi),2) )
             dR = min(dR1,dR2)

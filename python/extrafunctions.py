@@ -16,7 +16,7 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
 
     if L1Objects.empty: return
 
-    print "\n\n === NEW EVENT ==="
+    # print "\n\n === NEW EVENT ==="
 
     getattr(h_custom,"h_nsimtracks").Fill(len(genParticles))
     getattr(h_custom,"h_nL1Objects").Fill(len(L1Objects))
@@ -36,7 +36,7 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
 
         # PERFORM THE GEN-L1OBJECT MATCHING
         idx_allmatches, idx_closestDRL1object, idx_highestPTL1object, idx_closestPTL1object = utils.do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords)
-        # nclusters_dR =    {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
+        nclusters_dR =    {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
         sumL1ObjectPT_dR ={"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
 
         for idx_L1Object, L1Object in L1Objects.iterrows():
@@ -48,7 +48,7 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
             # nClusters and pt in slices of dR
             for k,v in sumL1ObjectPT_dR.iteritems():
                 if dR<float(k): 
-                    # nclusters_dR[k]    +=int(1)
+                    nclusters_dR[k]    +=int(1)
                     sumL1ObjectPT_dR[k]+=L1Object.pt
             
             # FILL HISTOGRAMS WITH EACH L1 OBJECT
@@ -64,15 +64,25 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
         getattr(h_custom,"h_nL1Objects_pt_%s"%pT_range).Fill(len(idx_allmatches[3])) #dR=0.2
 
         # nClusters per SimTrack in slices of dR
-        for k,v in nclusters_dR.iteritems():
-            dR = k.replace(".","p")
-            getattr(h_custom,"h_nclusters_dR%s"%dR).Fill(v)
+        # ikey=0
+        for idR, dR_cone in enumerate(dR_cones):
+        # for k,v in nclusters_dR.iteritems():
+            dR = str(dR_cone).replace(".","p")
 
+            # print "GP",iGP," has ",len(idx_allmatches[idR]), " matches within dR=",dR
+            # print "idx_highestPTL1object = ",idx_highestPTL1object[idR]
+            # print "idx_closestPTL1object = ",idx_closestPTL1object[idR]
+            # print "idx_closestDRL1object = ",idx_closestDRL1object[idR]
 
-            if len(idx_allmatches[k])!=0# only take the matched simtracks
-                # print "filling dR%s with "%dR,pt_dR[k]/GP.pt, " where GP.pt = ",GP.pt
-                getattr(self.h_custom["HMvDR_GEN"],"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(sumL1ObjectPT_dR[k]/GP.pt))
+            getattr(h_custom,"h_nL1Objects_dR%s"%dR).Fill(nclusters_dR[str(dR_cone)])
 
+            if len(idx_allmatches[idR])!=0:# only take the matched simtracks
+                getattr(h_custom,"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(sumL1ObjectPT_dR[str(dR_cone)] / GP.pt))
+                getattr(h_custom,"h_ptHighestPT_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
+                getattr(h_custom,"h_ptClosestPT_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,( L1Objects.loc[ idx_closestPTL1object[idR] ]['pt'] / GP.pt))
+                getattr(h_custom,"h_ptClosestDR_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,( L1Objects.loc[ idx_closestDRL1object[idR] ]['pt'] / GP.pt))
+
+            # ikey+=1
 
 
 
