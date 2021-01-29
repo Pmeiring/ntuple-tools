@@ -14,12 +14,12 @@ def getPTinterval(pt):
 # There's freedom in which h_custom is passed (i.e. corresponding to specific objects/cases)
 def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
 
-    if L1Objects.empty: return
-
     # print "\n\n === NEW EVENT ==="
 
     getattr(h_custom,"h_nsimtracks").Fill(len(genParticles))
     getattr(h_custom,"h_nL1Objects").Fill(len(L1Objects))
+    if L1Objects.empty: return
+
     dR_cones = [0.025, 0.05, 0.1, 0.2, 0.3, 0.4, 1.0, 100]
 
     for iGP, GP in genParticles.iterrows():
