@@ -18,7 +18,7 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
 
     getattr(h_custom,"h_nsimtracks").Fill(len(genParticles))
     getattr(h_custom,"h_nL1Objects").Fill(len(L1Objects))
-    if L1Objects.empty: return
+    # if L1Objects.empty: return
 
     dR_cones = [0.025, 0.05, 0.1, 0.2, 0.3, 0.4, 1.0, 100]
 
@@ -60,13 +60,11 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
             if idx_L1Object == idx_closestPTL1object[3]: #dR=0.2
                 getattr(h_custom,"h_dR_closestPT_GENpt_%s"%pT_range).Fill(dR)                
 
-        # L1Object multiplicity in slices of GEN pt 
-        getattr(h_custom,"h_nL1Objects_pt_%s"%pT_range).Fill(len(idx_allmatches[3])) #dR=0.2
+        # L1Object multiplicity within dR=0.2 of GEN, in slices of GEN pt 
+        getattr(h_custom,"h_nL1Objects_pt_%s"%pT_range).Fill(len(idx_allmatches[3])) 
 
         # nClusters per SimTrack in slices of dR
-        # ikey=0
         for idR, dR_cone in enumerate(dR_cones):
-        # for k,v in nclusters_dR.iteritems():
             dR = str(dR_cone).replace(".","p")
 
             # print "GP",iGP," has ",len(idx_allmatches[idR]), " matches within dR=",dR
@@ -81,8 +79,6 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
                 getattr(h_custom,"h_ptHighestPT_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
                 getattr(h_custom,"h_ptClosestPT_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,( L1Objects.loc[ idx_closestPTL1object[idR] ]['pt'] / GP.pt))
                 getattr(h_custom,"h_ptClosestDR_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,( L1Objects.loc[ idx_closestDRL1object[idR] ]['pt'] / GP.pt))
-
-            # ikey+=1
 
 
 

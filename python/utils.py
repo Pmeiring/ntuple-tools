@@ -121,6 +121,13 @@ def debugPrintOut(level, name, toCount, toPrint):
 
 def do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords=False):
 
+    idx_closestDRL1object=[-1] * len(dR_cones)
+    idx_closestPTL1object=[-1] * len(dR_cones) 
+    idx_highestPTL1object=[-1] * len(dR_cones)
+    matched              =[[]  for x in range(len(dR_cones))]
+    if L1Objects.empty:
+        return matched, idx_closestDRL1object, idx_highestPTL1object, idx_closestPTL1object
+
     L1Objects_etaphi = L1Objects[['eta','phi']]
     L1Objects_pt = L1Objects['pt']
     kdtree = cKDTree(L1Objects_etaphi)
@@ -131,10 +138,6 @@ def do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords=False):
         GP_eta=GP.exeta
         GP_phi=GP.exphi
 
-    idx_closestDRL1object=[-1] * len(dR_cones)
-    idx_closestPTL1object=[-1] * len(dR_cones) 
-    idx_highestPTL1object=[-1] * len(dR_cones)
-    matched              =[[]  for x in range(len(dR_cones))]
     for i,dR_cone in enumerate(dR_cones):
 
         # Match with dR cone and take care of +pi -pi transition
