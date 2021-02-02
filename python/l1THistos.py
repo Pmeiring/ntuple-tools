@@ -304,6 +304,11 @@ class CustomHistos(BaseHistos):
             self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR1p0   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR1p0',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
             self.h_ptAllCl_over_ptGEN_vs_ptGEN_dR100   = ROOT.TH2F(name+'_ptAllCl_over_ptGEN_vs_ptGEN_dR100',  'Mismatch in pt of SimTrack and sum of pt of 3DClusters within #Delta R = X of SimTrack',1000,0,200,1000,0,10)
             
+            self.h_nL1Objects_HighestPT_dR0p2  = ROOT.TH2F(name+'_nL1Objects_HighestPT_dR0p2',  'Number of L1Objects within #Delta R = 0.2 of highest pT L1Object',1000,0,200,1000,0,100)
+            self.h_nL1Objects_ClosestPT_dR0p2  = ROOT.TH2F(name+'_nL1Objects_ClosestPT_dR0p2',  'Number of L1Objects within #Delta R = 0.2 of closest pT L1Object',1000,0,200,1000,0,100)
+            self.h_nL1Objects_ClosestdR_dR0p2  = ROOT.TH2F(name+'_nL1Objects_ClosestDR_dR0p2',  'Number of L1Objects within #Delta R = 0.2 of closest pT L1Object',1000,0,200,1000,0,100)
+
+
             # self.h_fBrem_vs_ptGEN   = ROOT.TH2F(name+'_fBrem_vs_ptGEN',  'Brem pT fraction as function of SimTrack pT',1000,0,200,1000,-2,2)
         BaseHistos.__init__(self, name, root_file, debug)
 
