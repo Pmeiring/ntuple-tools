@@ -177,7 +177,7 @@ def analyze(params, batch_idx=0):
         print ('...done')
 
     tree_name = 'l1CaloTriggerNtuplizer_egOnly/HGCalTriggerNtuple'
-    # tree_name = 'hgcalTriggerNtuplizer/HGCalTriggerNtuple'
+    # tree_name = 'l1CaloTriggerNtuplizer/HGCalTriggerNtuple'
     input_files = []
     range_ev = (0, params.maxEvents)
 

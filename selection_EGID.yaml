@@ -2,11 +2,12 @@
 common:
   # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
   input_dir:  /eos/cms/store/user/pmeiring/TRG/
+  # input_dir:  /eos/cms/store/cmst3/group/l1tr/cerminar/hgcal/CMSSW1110pre6/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v63
+  plot_version: v64
   run_clustering: False
   run_density_computation: False
 
@@ -17,8 +18,12 @@ collections:
       eg
     samples:
       - ele_flat2to100_PU0_HLTTDR
+      # - gianluca_singleE_200PU
+      - ele_flat2to100_PU200_HLTTDR
     priorities:
       ele_flat2to100_PU0_HLTTDR: 1
+      # gianluca_singleE_200PU: 1
+      ele_flat2to100_PU200_HLTTDR: 1
     htc_jobflavor:
       workday
     plotters:
@@ -135,13 +140,17 @@ samples:
     input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU0_CMSSW1116_v_5/210120_181637/0000/
     events_per_job : 200
 
+  ele_flat2to100_PU200_HLTTDR:
+    input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU200_CMSSW1116_v_6/210125_095600/0000/
+    events_per_job : 200
+
   minbias_PU0_HLTTDR:
     input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU0_CMSSW1116_v_6/210121_093155/0000/
     events_per_job : 200
 
-
-
-
+  gianluca_singleE_200PU:
+    input_sample_dir: DoubleElectron_FlatPt-1To100/DoubleElectron_FlatPt-1To100_PU200_v63H/210115_153303/0000/
+    events_per_job : 200
 
 
 

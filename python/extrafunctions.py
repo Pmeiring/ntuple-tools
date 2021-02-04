@@ -29,8 +29,12 @@ def getnObjectsinCone(L1Objects, dR_cone, refindex):
 
 # There's freedom in which h_custom is passed (i.e. corresponding to specific objects/cases)
 def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
+    # print L1Objects
 
-    # print "\n\n === NEW EVENT ==="
+    # print "==================="
+    # print "\n\n==== NEW EVENT ===="
+    # print "==================="
+    # print('{:^8} {:^8} {:^8} {:^8} {:^8} {:^8} {:^8} {:^9} {:^9} {:^8}'.format("type","index", "pT", "eta", "phi", "dR", "z0", "chi2", "chi2red", "nStubs"))
 
     getattr(h_custom,"h_nsimtracks").Fill(len(genParticles))
     getattr(h_custom,"h_nL1Objects").Fill(len(L1Objects))
@@ -39,7 +43,9 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
     dR_cones = [0.025, 0.05, 0.1, 0.2, 0.3, 0.4, 1.0, 100]
 
     for iGP, GP in genParticles.iterrows():
-        # print 'GEN ', iGP, ' pT,eta,phi = ',GP.pt, GP.eta, GP.phi
+        # print "-------------------"
+        # print "==================="
+        # print('{:^8} {:^8} {:8.3f} {:> 8.4f} {:> 8.4f}'.format("SimTrk",iGP, GP.pt, GP.eta, GP.phi))
         # print('GEN   {:>2d}: pT = {:7.3f}  eta = {:> .4f}  phi = {:> .4f}'.format(iGP, GP.pt, GP.eta, GP.phi))
 
         # FOR THE USE OF GEN VARIABLES EXTRAPOLATED TO CALOSURFACE
@@ -50,6 +56,7 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
             GP_phi=GP.exphi
         pT_range = getPTinterval(GP.pt)
 
+        getattr(h_custom,"h_simtrack_pT").Fill(GP.pt)
 
         # PERFORM THE GEN-L1OBJECT MATCHING
         idx_allmatches, idx_closestDRL1object, idx_highestPTL1object, idx_closestPTL1object = utils.do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords)
@@ -68,8 +75,12 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
                     nclusters_dR[k]    +=int(1)
                     sumL1ObjectPT_dR[k]+=L1Object.pt
 
+            if iGP==0:
+                getattr(h_custom,"h_L1Object_pT").Fill(L1Object.pt)
+
             # if (dR<1): 
-            #     print('L1Obj {:>2d}: pT = {:7.3f}  eta = {:> .4f}  phi = {:> .4f}  dR = {:> .4f}  z0 = {:> .4f} n = '.format(idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.nStubs))
+            #     # print('L1Obj {:>2d}: pT = {:7.3f}  eta = {:> .4f}  phi = {:> .4f}  dR = {:> .4f}  z0 = {:> .4f} n = '.format(idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.nStubs))
+            #     print('{:^8} {:^8} {:8.4f} {:> 8.5f} {:> 8.5f} {:> 8.4f} {:> 8.4f} {:> 9.3f} {:> 9.4f} {:> 8.0f}'.format("Track",idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.chi2, L1Object.chi2Red, L1Object.nStubs))
             
             # FILL HISTOGRAMS WITH EACH L1 OBJECT
             getattr(h_custom,"h_dR_any_GENpt_%s"%pT_range).Fill(dR)

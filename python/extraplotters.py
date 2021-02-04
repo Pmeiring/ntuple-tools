@@ -294,18 +294,18 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                 h_tpset_NOmatch = self.h_tpset[histo_name_NOMATCH]
                 h_genseleff = self.h_effset[histo_name]
                 h_trackmatching = self.h_trackmatching[histo_name]
-                self.plot3DMatch(genReference,
-                                        cl3Ds,
-                                        cl2Ds,
-                                        tcs,
-                                        l1tks,
-                                        h_genseleff.h_den,
-                                        h_genseleff.h_num,
-                                        h_tpset_match.hcl3d,
-                                        h_tpset_NOmatch.hcl3d,
-                                        h_trackmatching,
-                                        self.tp_set.name,
-                                        debug)
+                # self.plot3DMatch(genReference,
+                #                         cl3Ds,
+                #                         cl2Ds,
+                #                         tcs,
+                #                         l1tks,
+                #                         h_genseleff.h_den,
+                #                         h_genseleff.h_num,
+                #                         h_tpset_match.hcl3d,
+                #                         h_tpset_NOmatch.hcl3d,
+                #                         h_trackmatching,
+                #                         self.tp_set.name,
+                #                         debug)
 
     def __repr__(self):
         return '<{} tps: {}, tps_s: {}, gen:{}, gen_s:{}> '.format(self.__class__.__name__,

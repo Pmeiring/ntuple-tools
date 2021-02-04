@@ -212,6 +212,9 @@ class CustomHistos(BaseHistos):
     def __init__(self, name, root_file=None, debug=False):
         if not root_file:
             self.h_nsimtracks = ROOT.TH1F(name+'_nsimtracks','Number of SimTracks',5000,0,5000)
+
+            self.h_simtrack_pT = ROOT.TH1F(name+'_simtrack_pT','p_{T}^{SimTracks}',5000,0,500)
+            self.h_L1Object_pT = ROOT.TH1F(name+'_L1Object_pT','p_{T}^{L1Object}' ,5000,0,500)
             
             self.h_nL1Objects_dR0p025 = ROOT.TH1F(name+'_nL1Objects_dR0p025','Number of 3DClusters within #Delta R = X of SimTrack',5000,0,5000)
             self.h_nL1Objects_dR0p05 = ROOT.TH1F(name+'_nL1Objects_dR0p05','Number of 3DClusters within #Delta R = X of SimTrack',5000,0,5000)
