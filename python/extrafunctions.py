@@ -29,8 +29,6 @@ def getnObjectsinCone(L1Objects, dR_cone, refindex):
 
 # There's freedom in which h_custom is passed (i.e. corresponding to specific objects/cases)
 def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
-    # print L1Objects
-
     # print "==================="
     # print "\n\n==== NEW EVENT ===="
     # print "==================="
@@ -46,7 +44,6 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
         # print "-------------------"
         # print "==================="
         # print('{:^8} {:^8} {:8.3f} {:> 8.4f} {:> 8.4f}'.format("SimTrk",iGP, GP.pt, GP.eta, GP.phi))
-        # print('GEN   {:>2d}: pT = {:7.3f}  eta = {:> .4f}  phi = {:> .4f}'.format(iGP, GP.pt, GP.eta, GP.phi))
 
         # FOR THE USE OF GEN VARIABLES EXTRAPOLATED TO CALOSURFACE
         GP_eta=GP.eta
@@ -79,8 +76,7 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
                 getattr(h_custom,"h_L1Object_pT").Fill(L1Object.pt)
 
             # if (dR<1): 
-            #     # print('L1Obj {:>2d}: pT = {:7.3f}  eta = {:> .4f}  phi = {:> .4f}  dR = {:> .4f}  z0 = {:> .4f} n = '.format(idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.nStubs))
-            #     print('{:^8} {:^8} {:8.4f} {:> 8.5f} {:> 8.5f} {:> 8.4f} {:> 8.4f} {:> 9.3f} {:> 9.4f} {:> 8.0f}'.format("Track",idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.chi2, L1Object.chi2Red, L1Object.nStubs))
+            #     print('{:^8} {:^8} {:8.3f} {:> 8.4f} {:> 8.4f} {:> 8.4f} {:> 8.4f} {:> 9.3f} {:> 9.4f} {:> 8.0f}'.format("Track",idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.chi2, L1Object.chi2Red, L1Object.nStubs))
             
             # FILL HISTOGRAMS WITH EACH L1 OBJECT
             getattr(h_custom,"h_dR_any_GENpt_%s"%pT_range).Fill(dR)
@@ -88,10 +84,20 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
                 getattr(h_custom,"h_dR_closestdR_GENpt_%s"%pT_range).Fill(dR)
             if idx_L1Object == idx_highestPTL1object[3]: #dR=0.2
                 getattr(h_custom,"h_dR_highestPT_GENpt_%s"%pT_range).Fill(dR)
-                # getattr(h_custom,"h_nL1Objects_HighestPT_dR0p2").Fill(L1Object.pt, getnObjectsinCone(L1Objects, 0.2, idx_L1Object))            
             if idx_L1Object == idx_closestPTL1object[3]: #dR=0.2
                 getattr(h_custom,"h_dR_closestPT_GENpt_%s"%pT_range).Fill(dR)                
-                # getattr(h_custom,"h_nL1Objects_ClosestPT_dR0p2").Fill(L1Object.pt, getnObjectsinCone(L1Objects, 0.2, idx_L1Object))            
+      
+            # Do this only for the L1Tracks
+            if not useExtrapolatedGenCoords:
+                if dR<0.05:
+                   getattr(h_custom,"h_nStubs_allTracks_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.nStubs) 
+                   getattr(h_custom,"h_chi2Red_allTracks_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.chi2Red) 
+                   getattr(h_custom,"h_ptresolution_allTracks_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.pt / GP.pt) 
+                if idx_L1Object == idx_highestPTL1object[1]: #dR=0.05
+                   getattr(h_custom,"h_nStubs_highestPT_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.nStubs) 
+                   getattr(h_custom,"h_chi2Red_highestPT_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.chi2Red) 
+                   getattr(h_custom,"h_ptresolution_highestPT_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.pt / GP.pt)                 
+
 
         # L1Object multiplicity within dR=0.2 of GEN, in slices of GEN pt 
         getattr(h_custom,"h_nL1Objects_pt_%s"%pT_range).Fill(len(idx_allmatches[3])) 
@@ -100,12 +106,10 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
         for idR, dR_cone in enumerate(dR_cones):
             dR = str(dR_cone).replace(".","p")
 
-            # print "GP",iGP," has ",len(idx_allmatches[idR]), " matches within dR=",dR
-            # print "idx_highestPTL1object = ",idx_highestPTL1object[idR]
-            # print "idx_closestPTL1object = ",idx_closestPTL1object[idR]
-            # print "idx_closestDRL1object = ",idx_closestDRL1object[idR]
-
             getattr(h_custom,"h_nL1Objects_dR%s"%dR).Fill(nclusters_dR[str(dR_cone)])
+            if dR=="0p05":
+                getattr(h_custom,"h_nL1Objects_dR0p05_vs_ptGEN").Fill(   GP.pt,    nclusters_dR[str(dR_cone)] )
+                getattr(h_custom,"h_nL1Objects_dR0p05_vs_fbremGEN").Fill(GP.fbrem, nclusters_dR[str(dR_cone)] )
 
             if len(idx_allmatches[idR])!=0:# only take the matched simtracks
                 getattr(h_custom,"h_ptAllCl_over_ptGEN_vs_ptGEN_dR%s"%dR).Fill(GP.pt,(sumL1ObjectPT_dR[str(dR_cone)] / GP.pt))
@@ -118,3 +122,9 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
                     getattr(h_custom,"h_nL1Objects_ClosestdR_dR0p2").Fill( L1Objects.loc[ idx_closestDRL1object[idR] ]['pt'] , nclusters_dR[str(dR_cone)])
                     getattr(h_custom,"h_nL1Objects_HighestPT_dR0p2").Fill( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] , nclusters_dR[str(dR_cone)])
                     getattr(h_custom,"h_nL1Objects_ClosestPT_dR0p2").Fill( L1Objects.loc[ idx_closestPTL1object[idR] ]['pt'] , nclusters_dR[str(dR_cone)])
+
+                if idR==1: #dR=0.5
+                    getattr(h_custom,"h_ptresponse_dR0p05_ptGEN").Fill(     GP.pt                     ,( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
+                    getattr(h_custom,"h_ptresponse_dR0p05_fbremGEN").Fill(  GP.fbrem                  ,( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
+                    getattr(h_custom,"h_ptresponse_dR0p05_nL1Objects").Fill(nclusters_dR[str(dR_cone)],( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
+
