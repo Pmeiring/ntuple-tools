@@ -7,7 +7,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v67
+  plot_version: v68
   run_clustering: False
   run_density_computation: False
 
@@ -18,24 +18,26 @@ collections:
       eg
     samples:
       - ele_flat2to100_PU0_HLTTDR
-      # - gianluca_singleE_200PU
+      # - gianluca_doubleE_200PU
       - ele_flat2to100_PU200_HLTTDR
     priorities:
       ele_flat2to100_PU0_HLTTDR: 1
-      # gianluca_singleE_200PU: 1
+      # gianluca_doubleE_200PU: 1
       ele_flat2to100_PU200_HLTTDR: 1
     htc_jobflavor:
       workday
     plotters:
-      - tp2genParts_L1Tracks #for signal (SinglEl)
+      - tp2genParts #for signal (SinglEl)
 
   minBias:
     file_label:
       eg
     samples:
       - minbias_PU0_HLTTDR
+      - minbias_PU200_HLTTDR
     priorities:
       minbias_PU0_HLTTDR: 1
+      minbias_PU200_HLTTDR: 1
     htc_jobflavor:
       workday
     plotters:
@@ -148,7 +150,11 @@ samples:
     input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU0_CMSSW1116_v_6/210121_093155/0000/
     events_per_job : 200
 
-  gianluca_singleE_200PU:
+  minbias_PU200_HLTTDR:
+    input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU200_CMSSW1116_v_7/210127_102656/0000/
+    events_per_job : 200
+
+  gianluca_doubleE_200PU:
     input_sample_dir: DoubleElectron_FlatPt-1To100/DoubleElectron_FlatPt-1To100_PU200_v63H/210115_153303/0000/
     events_per_job : 200
 
