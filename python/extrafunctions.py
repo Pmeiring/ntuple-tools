@@ -29,10 +29,10 @@ def getnObjectsinCone(L1Objects, dR_cone, refindex):
 
 # There's freedom in which h_custom is passed (i.e. corresponding to specific objects/cases)
 def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
-    print "==================="
-    print "\n\n==== NEW EVENT ===="
-    print "==================="
-    print('{:^8} {:^8} {:^8} {:^8} {:^8} {:^8} {:^8} {:^9} {:^9} {:^8}'.format("type","index", "pT", "eta", "phi", "dR", "z0", "chi2", "chi2red", "nStubs"))
+    # print "==================="
+    # print "\n\n==== NEW EVENT ===="
+    # print "==================="
+    # print('{:^8} {:^8} {:^8} {:^8} {:^8} {:^8} {:^8} {:^9} {:^9} {:^8}'.format("type","index", "pT", "eta", "phi", "dR", "z0", "chi2", "chi2red", "nStubs"))
 
     getattr(h_custom,"h_nsimtracks").Fill(len(genParticles))
     getattr(h_custom,"h_nL1Objects").Fill(len(L1Objects))
@@ -41,10 +41,10 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
     dR_cones = [0.025, 0.05, 0.1, 0.2, 0.3, 0.4, 1.0, 100]
 
     for iGP, GP in genParticles.iterrows():
-        print "-------------------"
-        print "==================="
-        print('{:^8} {:^8} {:8.3f} {:> 8.4f} {:> 8.4f}'.format("SimTrk",iGP, GP.pt, GP.eta, GP.phi))
-        print len(genParticles), GP.fbrem
+        # print "-------------------"
+        # print "==================="
+        # print('{:^8} {:^8} {:8.3f} {:> 8.4f} {:> 8.4f}'.format("SimTrk",iGP, GP.pt, GP.eta, GP.phi))
+        # print len(genParticles), GP.fbrem
 
         # FOR THE USE OF GEN VARIABLES EXTRAPOLATED TO CALOSURFACE
         GP_eta=GP.eta
@@ -76,8 +76,8 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
             if iGP==0:
                 getattr(h_custom,"h_L1Object_pT").Fill(L1Object.pt)
 
-            if (dR<1): 
-                print('{:^8} {:^8} {:8.3f} {:> 8.4f} {:> 8.4f} {:> 8.4f} {:> 8.4f} {:> 9.3f} {:> 9.4f} {:> 8.0f}'.format("Track",idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.chi2, L1Object.chi2Red, L1Object.nStubs))
+            # if (dR<1): 
+            #     print('{:^8} {:^8} {:8.3f} {:> 8.4f} {:> 8.4f} {:> 8.4f} {:> 8.4f} {:> 9.3f} {:> 9.4f} {:> 8.0f}'.format("Track",idx_L1Object, L1Object.pt, L1Object.eta, L1Object.phi, dR, L1Object.z0, L1Object.chi2, L1Object.chi2Red, L1Object.nStubs))
             
             # FILL HISTOGRAMS WITH EACH L1 OBJECT
             getattr(h_custom,"h_dR_any_GENpt_%s"%pT_range).Fill(dR)
@@ -94,11 +94,28 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
                    getattr(h_custom,"h_nStubs_allTracks_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.nStubs) 
                    getattr(h_custom,"h_chi2Red_allTracks_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.chi2Red) 
                    getattr(h_custom,"h_ptresolution_allTracks_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.pt / GP.pt) 
+                   getattr(h_custom,"h_chi2Red_allTracks_dR0p05_vs_fbremGEN").Fill(   GP.fbrem, L1Object.chi2Red) 
+                   getattr(h_custom,"h_nStubs_allTracks_dR0p05_vs_fbremGEN").Fill(    GP.fbrem, L1Object.nStubs) 
+                   getattr(h_custom,"h_ptresponse_allTracks_dR0p05_vs_fbremGEN").Fill(GP.fbrem, L1Object.pt / GP.pt) 
+                   getattr(h_custom,"h_dR_allTracks_dR0p05_vs_fbremGEN").Fill(        GP.fbrem, dR) 
+                   if L1Object.pt>5.:
+                       getattr(h_custom,"h_chi2Red_allTracks_dR0p05_pt5_vs_fbremGEN").Fill(   GP.fbrem, L1Object.chi2Red) 
+                       getattr(h_custom,"h_nStubs_allTracks_dR0p05_pt5_vs_fbremGEN").Fill(    GP.fbrem, L1Object.nStubs) 
+                       getattr(h_custom,"h_ptresponse_allTracks_dR0p05_pt5_vs_fbremGEN").Fill(GP.fbrem, L1Object.pt / GP.pt) 
+                       getattr(h_custom,"h_dR_allTracks_dR0p05_pt5_vs_fbremGEN").Fill(        GP.fbrem, dR)                    
                 if idx_L1Object == idx_highestPTL1object[1]: #dR=0.05
                    getattr(h_custom,"h_nStubs_highestPT_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.nStubs) 
                    getattr(h_custom,"h_chi2Red_highestPT_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.chi2Red) 
                    getattr(h_custom,"h_ptresolution_highestPT_dR0p05_GENpt_%s"%pT_range).Fill(L1Object.pt / GP.pt)                 
-
+                   getattr(h_custom,"h_chi2Red_highestPT_dR0p05_vs_fbremGEN").Fill(   GP.fbrem, L1Object.chi2Red) 
+                   getattr(h_custom,"h_nStubs_highestPT_dR0p05_vs_fbremGEN").Fill(    GP.fbrem, L1Object.nStubs) 
+                   getattr(h_custom,"h_ptresponse_highestPT_dR0p05_vs_fbremGEN").Fill(GP.fbrem, L1Object.pt / GP.pt) 
+                   getattr(h_custom,"h_dR_highestPT_dR0p05_vs_fbremGEN").Fill(        GP.fbrem, dR)
+                   if L1Object.pt>5.:            
+                       getattr(h_custom,"h_chi2Red_highestPT_dR0p05_pt5_vs_fbremGEN").Fill(   GP.fbrem, L1Object.chi2Red) 
+                       getattr(h_custom,"h_nStubs_highestPT_dR0p05_pt5_vs_fbremGEN").Fill(    GP.fbrem, L1Object.nStubs) 
+                       getattr(h_custom,"h_ptresponse_highestPT_dR0p05_pt5_vs_fbremGEN").Fill(GP.fbrem, L1Object.pt / GP.pt) 
+                       getattr(h_custom,"h_dR_highestPT_dR0p05_pt5_vs_fbremGEN").Fill(        GP.fbrem, dR)                    
 
         # L1Object multiplicity within dR=0.2 of GEN, in slices of GEN pt 
         getattr(h_custom,"h_nL1Objects_pt_%s"%pT_range).Fill(len(idx_allmatches[3])) 
@@ -128,4 +145,3 @@ def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useE
                     getattr(h_custom,"h_ptresponse_dR0p05_ptGEN").Fill(     GP.pt                     ,( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
                     getattr(h_custom,"h_ptresponse_dR0p05_fbremGEN").Fill(  GP.fbrem                  ,( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
                     getattr(h_custom,"h_ptresponse_dR0p05_nL1Objects").Fill(nclusters_dR[str(dR_cone)],( L1Objects.loc[ idx_highestPTL1object[idR] ]['pt'] / GP.pt))
-

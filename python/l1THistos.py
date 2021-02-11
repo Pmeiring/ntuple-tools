@@ -318,6 +318,25 @@ class CustomHistos(BaseHistos):
             self.h_nL1Objects_dR0p05_vs_ptGEN     = ROOT.TH2F(name+'_nL1Objects_dR0p05_vs_ptGEN',     'Number of L1Objects within #Delta R = 0.05 of SimTrack vs SimTrack pT',1000,0,200,1000,0,100)
             self.h_nL1Objects_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_nL1Objects_dR0p05_vs_fbremGEN',  'Number of L1Objects within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,1000,0,100)
 
+            # chi2, nstubs, dR, ptreso of highestPT (or all) tracks in dR<0.05 of SimTracks vs fbrem
+            self.h_chi2Red_highestPT_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_chi2Red_highestPT_dR0p05_vs_fbremGEN',  'chi2Red of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,1000)
+            self.h_chi2Red_allTracks_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_chi2Red_allTracks_dR0p05_vs_fbremGEN',  'chi2Red of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,1000)
+            self.h_nStubs_highestPT_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_nStubs_highestPT_dR0p05_vs_fbremGEN',  'nStubs of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,100,0,100)
+            self.h_nStubs_allTracks_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_nStubs_allTracks_dR0p05_vs_fbremGEN',  'nStubs of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,100,0,100)
+            self.h_ptresponse_highestPT_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_ptresponse_highestPT_dR0p05_vs_fbremGEN',  'pt response of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,1000,0,10)
+            self.h_ptresponse_allTracks_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_ptresponse_allTracks_dR0p05_vs_fbremGEN',  'pt response of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,1000,0,10)
+            self.h_dR_highestPT_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_dR_highestPT_dR0p05_vs_fbremGEN',  'dR of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,10)
+            self.h_dR_allTracks_dR0p05_vs_fbremGEN  = ROOT.TH2F(name+'_dR_allTracks_dR0p05_vs_fbremGEN',  'dR of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,10)
+            
+            self.h_chi2Red_highestPT_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_chi2Red_highestPT_dR0p05_pt5_vs_fbremGEN',  'chi2Red of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,1000)
+            self.h_chi2Red_allTracks_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_chi2Red_allTracks_dR0p05_pt5_vs_fbremGEN',  'chi2Red of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,1000)
+            self.h_nStubs_highestPT_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_nStubs_highestPT_dR0p05_pt5_vs_fbremGEN',  'nStubs of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,100,0,100)
+            self.h_nStubs_allTracks_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_nStubs_allTracks_dR0p05_pt5_vs_fbremGEN',  'nStubs of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,100,0,100)
+            self.h_ptresponse_highestPT_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_ptresponse_highestPT_dR0p05_pt5_vs_fbremGEN',  'pt response of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,1000,0,10)
+            self.h_ptresponse_allTracks_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_ptresponse_allTracks_dR0p05_pt5_vs_fbremGEN',  'pt response of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,1000,0,10)
+            self.h_dR_highestPT_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_dR_highestPT_dR0p05_pt5_vs_fbremGEN',  'dR of highest pT track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,10)
+            self.h_dR_allTracks_dR0p05_pt5_vs_fbremGEN  = ROOT.TH2F(name+'_dR_allTracks_dR0p05_pt5_vs_fbremGEN',  'dR of any track within #Delta R = 0.05 of SimTrack vs SimTrack fbrem',1000,0,10,10000,0,10)
+
 
             self.h_nStubs_allTracks_dR0p05_GENpt_0_5   = ROOT.TH1F(name+'_nStubs_allTracks_dR0p05_GENpt_0_5',  'nStubs of any track within dR<0p05',100,0,100)
             self.h_nStubs_allTracks_dR0p05_GENpt_5_10  = ROOT.TH1F(name+'_nStubs_allTracks_dR0p05_GENpt_5_10', 'nStubs of any track within dR<0p05',100,0,100)

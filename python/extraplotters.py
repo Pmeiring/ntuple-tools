@@ -280,9 +280,9 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                     genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection) 
                 
                 # Fill the custom histograms used to study matching and preselection
-                # if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCD" and gen_sel.name=="GENEtaBCD":
-                #     h_custom = self.h_custom["HMvDR_GEN"]
-                #     extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, cl3Ds, 0.2, useExtrapolatedGenCoords=True)
+                if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCD" and gen_sel.name=="GENEtaBCD":
+                    h_custom = self.h_custom["HMvDR_GEN"]
+                    extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, cl3Ds, 0.2, useExtrapolatedGenCoords=True)
                 if self.l1track_set.name=="l1Trk" and tp_sel.name=="EtaBCD" and gen_sel.name=="GENEtaBCD":
                     h_custom = self.h_custom["l1Trk_GEN"]
                     extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, l1tks, 0.2, useExtrapolatedGenCoords=False)
