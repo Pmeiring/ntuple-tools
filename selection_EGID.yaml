@@ -1,13 +1,13 @@
 
 common:
   # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
-  input_dir:  /eos/cms/store/user/pmeiring/TRG/
+  input_dir:  /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/Phase2/EG/pmeiring/
   # input_dir:  /eos/cms/store/cmst3/group/l1tr/cerminar/hgcal/CMSSW1110pre6/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v71
+  plot_version: v73
   run_clustering: False
   run_density_computation: False
 
@@ -42,6 +42,7 @@ collections:
       workday
     plotters:
       - tpPlotter   #for backgr (MinBias)
+      - tpRate
 
   # SinglePhoton_FlatPt-8to150:
   #   file_label:
@@ -109,9 +110,10 @@ collections:
 
 plotters:
   tp2genParts: !!python/name:python.plotters_config.tp_matched2_genParts_plotter
-  tp2genParts_L1Tracks: !!python/name:python.plotters_config.tp_matched2_genParts_addedL1Tracks_plotter
+  tp2genParts_L1Tracks: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters
   tp2MC : !!python/name:python.plotters_config.tp_matched2_MC_plotter
   tpPlotter : !!python/name:python.plotters_config.tp_cluster_plotter
+  tpRate: !!python/name:python.plotters_config.myrate_plotters
 
 samples:
   # nugun_10_PU200:

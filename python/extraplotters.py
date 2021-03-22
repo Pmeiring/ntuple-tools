@@ -248,18 +248,27 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                                                tp_sel.name,
                                                gen_sel.name)
                 histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
+
+                # Exclude some combinations of GENsel and TPsel
+                if "Pt10" in tp_sel.name and "Pt20" not in gen_sel.name: continue
+                if "Pt5to30" in tp_sel.name and "Pt5to20" not in gen_sel.name: continue
+                if "Pt" not in tp_sel.name and "Pt" in gen_sel.name: continue
+
                 self.h_tpset[histo_name] = histos.HistoSet3DClusters(histo_name)
                 self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
                 #self.h_resoset[histo_name] = histos.HistoSetReso(histo_name)
                 self.h_effset[histo_name] = histos.HistoSetEff(histo_name)
-                self.h_trackmatching[histo_name] = histos.TrackMatchingHistos(histo_name)
+                # self.h_trackmatching[histo_name] = histos.TrackMatchingHistos(histo_name)
                
-        # Custom histograms that will be filled using all simtracks/3dclusters
-        # To do so (for now) check that the selection indeed takes simply all objects (when filling the histograms)
-        histname = '{}_{}'.format(self.tp_set.name,self.gen_set.name)
-        self.h_custom[histname] = histos.CustomHistos(histname)
-        histname = '{}_{}'.format(self.l1track_set.name,self.gen_set.name)
-        self.h_custom[histname] = histos.CustomHistos(histname)
+                # Custom histograms that will be filled using all simtracks/3dclusters
+                # To do so (for now) check that the selection indeed takes simply all objects (when filling the histograms)
+                if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GEN":
+
+                # histname = '{}_{}'.format(self.tp_set.name,self.gen_set.name)
+                    self.h_custom["HMvDR_GEN"] = histos.CustomHistos("HMvDR_GEN")
+                    self.h_custom["l1Trk_GEN"] = histos.CustomHistos("l1Trk_GEN")
+                # histname = '{}_{}'.format(self.l1track_set.name,self.gen_set.name)
+                # self.h_custom[histname] = histos.CustomHistos(histname)
 
 
 
@@ -279,11 +288,16 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                 if not gen_sel.all:
                     genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection) 
                 
+                # Exclude some combinations of GENsel and TPsel
+                if "Pt10" in tp_sel.name and "Pt20" not in gen_sel.name: continue
+                if "Pt5to30" in tp_sel.name and "Pt5to20" not in gen_sel.name: continue
+                if "Pt" not in tp_sel.name and "Pt" in gen_sel.name: continue
+
                 # Fill the custom histograms used to study matching and preselection
-                if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCD" and gen_sel.name=="GENEtaBCD":
+                if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GEN":
                     h_custom = self.h_custom["HMvDR_GEN"]
                     extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, cl3Ds, 0.2, useExtrapolatedGenCoords=True)
-                if self.l1track_set.name=="l1Trk" and tp_sel.name=="EtaBCD" and gen_sel.name=="GENEtaBCD":
+                if self.l1track_set.name=="l1Trk" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GENEtaBCD":
                     h_custom = self.h_custom["l1Trk_GEN"]
                     extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, l1tks, 0.2, useExtrapolatedGenCoords=False)
 
@@ -293,21 +307,23 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                 h_tpset_match = self.h_tpset[histo_name]
                 h_tpset_NOmatch = self.h_tpset[histo_name_NOMATCH]
                 h_genseleff = self.h_effset[histo_name]
-                h_trackmatching = self.h_trackmatching[histo_name]
-                # self.plot3DMatch(genReference,
-                #                         cl3Ds,
-                #                         cl2Ds,
-                #                         tcs,
-                #                         l1tks,
-                #                         h_genseleff.h_den,
-                #                         h_genseleff.h_num,
-                #                         h_tpset_match.hcl3d,
-                #                         h_tpset_NOmatch.hcl3d,
-                #                         h_trackmatching,
-                #                         self.tp_set.name,
-                #                         debug)
+                # h_trackmatching = self.h_trackmatching[histo_name]
+                self.plot3DMatch(genReference,
+                                        cl3Ds,
+                                        cl2Ds,
+                                        tcs,
+                                        l1tks,
+                                        h_genseleff.h_den,
+                                        h_genseleff.h_num,
+                                        h_tpset_match.hcl3d,
+                                        h_tpset_NOmatch.hcl3d,
+                                        None,
+                                        self.tp_set.name,
+                                        debug)
 
     def __repr__(self):
+        for sel in self.tp_selections:
+            print sel
         return '<{} tps: {}, tps_s: {}, gen:{}, gen_s:{}> '.format(self.__class__.__name__,
                                                                    self.tp_set.name,
                                                                    [sel.name for sel in self.tp_selections],

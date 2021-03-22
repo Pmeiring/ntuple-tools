@@ -352,7 +352,7 @@ tp_cluster_tc_match_plotters = [plotters.ClusterTCGenMatchPlotter(collections.tp
                                                                   data_selections=selections.tp_tccluster_match_selections,
                                                                   gen_selections=selections.gen_part_ee_eta_brem_sel)]
 
-
+# 
 tp_matched2_genParts_plotter =  [plotters.Cluster3DGenMatchPlotter(collections.tp_hm_vdr, collections.gen_parts,
                                             selections.tp_match_selections_forBDT_sig,
                                             selections.gen_e_sel_forBDT_sig)]
@@ -360,10 +360,20 @@ tp_matched2_genParts_plotter =  [plotters.Cluster3DGenMatchPlotter(collections.t
 tp_matched2_MC_plotter =  [plotters.Cluster3DMCMatchPlotter(collections.tp_hm_vdr, collections.gen,
                                             selections.tp_match_selections,
                                             selections.gen_MC_selections)]
-
+# 
 tp_cluster_plotter = [extraplotters.Cluster3DPlotter(collections.tp_hm_vdr, selections.tp_match_selections_forBDT_bkg)]
 
-
+# 
 tp_matched2_genParts_addedL1Tracks_plotter =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(collections.tp_hm_vdr, collections.l1Trks ,collections.gen_parts,
                                             selections.tp_match_selections,
                                             selections.gen_e_sel)]
+# 
+mymatch_GenTrackCluster_plotters =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(
+                                            collections.tp_hm_vdr, 
+                                            collections.l1Trks ,
+                                            collections.gen_parts,
+                                            selections.mytp_match_selection_sig,
+                                            selections.gen_e_sel_forBDT_sig)
+]
+
+myrate_plotters = [plotters.RatePlotter(collections.tp_hm_vdr, selections.mytp_match_selection_bkg)]

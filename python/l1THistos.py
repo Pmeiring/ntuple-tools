@@ -53,6 +53,7 @@ class BaseHistos():
             file_dir = root_file.GetDirectory(self.__class__.__name__)
             # print '# keys in dir: {}'.format(len(file_dir.GetListOfKeys()))
             # file_dir.cd()
+            print "file_dir = ",file_dir
             selhistos = [(histo.ReadObj(), histo.GetName())
                          for histo in file_dir.GetListOfKeys()
                          if histo.GetName().startswith(name+'_')]
@@ -543,7 +544,7 @@ class Cluster3DHistos(BaseHistos):
             # self.data = []
             # self.reference = []
             # variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg'
-            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:tttrack_pt:tttrack_eta:tttrack_phi:tttrack_chi2:tttrack_nStubs'
+            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh:tttrack_pt:tttrack_eta:tttrack_phi:tttrack_chi2:tttrack_nStubs'
             self.t_values = ROOT.TNtuple(name, name, variables)
         BaseHistos.__init__(self, name, root_file, debug)
 
@@ -580,13 +581,17 @@ class Cluster3DHistos(BaseHistos):
            energy_fill.append(cl3ds.ntc90)
            energy_fill.append(cl3ds.hoe)
            energy_fill.append(cl3ds.bdteg)
+           energy_fill.append(cl3ds.newBDTlowlow)
+           energy_fill.append(cl3ds.newBDTlowhigh)
+           energy_fill.append(cl3ds.newBDThighlow)
+           energy_fill.append(cl3ds.newBDThighhigh)
            energy_fill.append(cl3ds.tttrack_pt)
            energy_fill.append(cl3ds.tttrack_eta)
            energy_fill.append(cl3ds.tttrack_phi)
            energy_fill.append(cl3ds.tttrack_chi2)
            energy_fill.append(cl3ds.tttrack_nStubs)
         else:
-           for i in range(0,32):
+           for i in range(0,36):
                energy_fill.append(-999)       
        
         # # if track1==None:
@@ -1098,7 +1103,7 @@ class HistoSetReso():
 
 class HistoEff():
     def __init__(self, passed, total, rebin=None, debug=False):
-        # print dir(total)
+        print total, dir(total)
         for histo in [a for a in dir(total) if a.startswith('h_')]:
             if debug:
                 print histo
@@ -1132,7 +1137,7 @@ class HistoSetEff():
         self.h_den.fill(particles)
 
     def computeEff(self, rebin=None, debug=False):
-        # print "Computing eff"
+        print "Computing eff"
         if self.h_eff is None or rebin is not None:
             self.h_eff = HistoEff(passed=self.h_num, total=self.h_den, rebin=rebin, debug=debug)
 
