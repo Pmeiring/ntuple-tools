@@ -376,4 +376,4 @@ mymatch_GenTrackCluster_plotters =  [extraplotters.GENto3DClusterMatch_AddL1Trac
                                             selections.gen_e_sel_forBDT_sig)
 ]
 
-myrate_plotters = [plotters.RatePlotter(collections.tp_hm_vdr, selections.mytp_match_selection_bkg)]
+myrate_plotters = [plotters.RatePlotter(collections.tp_hm_vdr, selections.mytp_match_selection_forRate_bkg)]

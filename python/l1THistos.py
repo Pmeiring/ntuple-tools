@@ -53,15 +53,19 @@ class BaseHistos():
             file_dir = root_file.GetDirectory(self.__class__.__name__)
             # print '# keys in dir: {}'.format(len(file_dir.GetListOfKeys()))
             # file_dir.cd()
+            for histo in file_dir.GetListOfKeys():
+                print histo.GetName()
             print "file_dir = ",file_dir
+            print "name = ",name
             selhistos = [(histo.ReadObj(), histo.GetName())
                          for histo in file_dir.GetListOfKeys()
                          if histo.GetName().startswith(name+'_')]
                          # if name+'_' in histo.GetName()]
             if debug:
-                print selhistos
+                print "selhistos ",selhistos
             for hinst, histo_name in selhistos:
                 attr_name = 'h_'+histo_name.split(name+'_')[1]
+                print "attr_name ",attr_name
                 setattr(self, attr_name, hinst)
 #            self.h_test = root_file.Get('h_EleReso_ptRes')
             # print 'XXXXXX'+str(self.h_test)
@@ -450,7 +454,10 @@ class RateHistos(BaseHistos):
         BaseHistos.__init__(self, name, root_file, debug)
 
         if root_file is not None or True:
+            # for attr in dir(self):
+            #     print "HERE11111 ",attr
             for attr_1d in [attr for attr in dir(self) if (attr.startswith('h_') and 'TH1' in getattr(self, attr).ClassName())]:
+                # print "HERE ",attr_1d
                 setattr(self, attr_1d+'_graph', GraphBuilder(self, attr_1d))
 
             # self.h_simenergy = ROOT.TH1F(name+'_energy', 'Digi sim-energy (GeV)', 100, 0, 2)
