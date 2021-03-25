@@ -231,10 +231,10 @@ tp_match_selections_forBDT_sig = add_selections(tp_pt_selections_forBDT_sig, tp_
 
 
 # SIGNAL DEFINITIONS, WITH OR WITHOUT BDT ID APPLIED
-sig_lowptloweta = add_selections([Selection('Pt5to30', '5 <= p_{T}^{L1} <= 30GeV', '(pt <= 30) & (pt >= 5)')],[Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
-sig_lowpthigheta= add_selections([Selection('Pt5to30', '5 <= p_{T}^{L1} <= 30GeV', '(pt <= 30) & (pt >= 5)')],[Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
-sig_highptloweta= add_selections([Selection('Pt10', 'p_{T}^{L1}>=10GeV', 'pt >= 10')],                        [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
-sig_highpthigheta=add_selections([Selection('Pt10', 'p_{T}^{L1}>=10GeV', 'pt >= 10')],                        [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+sig_lowptloweta = add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],[Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+sig_lowpthigheta= add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],[Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+sig_highptloweta= add_selections([Selection('Pt15', 'p_{T}^{L1}>=15GeV', 'pt >= 15')],                        [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+sig_highpthigheta=add_selections([Selection('Pt15', 'p_{T}^{L1}>=15GeV', 'pt >= 15')],                        [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
 tp_match_selections_forBDT_sig_noID = sig_lowptloweta+sig_lowpthigheta+sig_highptloweta+sig_highpthigheta
 
 sig_lowptloweta_IDtpg = add_selections(sig_lowptloweta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
@@ -254,10 +254,10 @@ mytp_match_selection_sig = [Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52
 
 
 # BACKGROUND DEFINITIONS, WITH OR WITHOUT BDT ID APPLIED
-bkg_lowptloweta =  add_selections( [Selection('Pt5to20', '5 < p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt > 5)')], [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
-bkg_lowpthigheta = add_selections( [Selection('Pt5to20', '5 < p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt > 5)')], [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
-bkg_highptloweta = add_selections( [Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20')],                         [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
-bkg_highpthigheta= add_selections( [Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20')],                         [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+bkg_lowptloweta = add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],[Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+bkg_lowpthigheta= add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],[Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+bkg_highptloweta= add_selections([Selection('Pt15', 'p_{T}^{L1}>=15GeV', 'pt >= 15')],                        [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+bkg_highpthigheta=add_selections([Selection('Pt15', 'p_{T}^{L1}>=15GeV', 'pt >= 15')],                        [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
 tp_match_selections_forBDT_bkg_noID = bkg_lowptloweta + bkg_lowpthigheta + bkg_highptloweta + bkg_highpthigheta
 
 bkg_loweta = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')]
@@ -298,7 +298,7 @@ mytp_match_selection_forRate_bkg = tp_match_selections_forRate_bkg_noID+tp_match
 
 
 
-tp_match_selections_forBDT_bkg = add_selections(tp_pt_selections_forBDT_bkg, tp_eta_selections_forBDT)
+# tp_match_selections_forBDT_bkg = add_selections(tp_pt_selections_forBDT_bkg, tp_eta_selections_forBDT)
 
 tp_calib_selections = tp_id_selections
 
@@ -384,9 +384,11 @@ gen_pt_sel = [Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt >= 15'),
                      Selection('Pt40', 'p_{T}^{GEN}>=40GeV', 'pt >= 40')]
 
 gen_pt_sel_forBDT_sig = [Selection('all', '', ''),
-                     Selection('Pt5to20', '5 #leq p_{T}^{GEN} <= 20GeV', '(pt >= 5) & (pt <= 20)'),
-                     Selection('Pt20', 'p_{T}^{GEN}>=20GeV', 'pt > 20'),
-                     ]
+                     # Selection('Pt5to20', '5 #leq p_{T}^{GEN} <= 20GeV', '(pt >= 5) & (pt <= 20)'),
+                     # Selection('Pt20', 'p_{T}^{GEN}>=20GeV', 'pt > 20'),
+                     Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt > 15'),
+                     Selection('Pt30', 'p_{T}^{GEN}<=30GeV', 'pt < 30'),
+]
 
 # gen_part_selections = [Selection('GEN', '', '(abs(pdgid) == {}) | (abs(pdgid) == {}) | (abs(pdgid) == {})'.format(PID.electron, PID.photon, PID.pion))]
 # gen_part_selections = [Selection('GEN', '', '(abs(pdgid) == {}) & (firstmother_pdgid == {})'.format(PID.electron, PID.electron))]

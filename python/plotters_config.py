@@ -361,7 +361,7 @@ tp_matched2_MC_plotter =  [plotters.Cluster3DMCMatchPlotter(collections.tp_hm_vd
                                             selections.tp_match_selections,
                                             selections.gen_MC_selections)]
 # 
-tp_cluster_plotter = [extraplotters.Cluster3DPlotter(collections.tp_hm_vdr, selections.tp_match_selections_forBDT_bkg)]
+tp_cluster_plotter = [extraplotters.Cluster3DPlotter(collections.tp_hm_vdr, selections.tp_match_selections_forBDT_bkg_noID)]
 
 # 
 tp_matched2_genParts_addedL1Tracks_plotter =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(collections.tp_hm_vdr, collections.l1Trks ,collections.gen_parts,
@@ -372,7 +372,7 @@ mymatch_GenTrackCluster_plotters =  [extraplotters.GENto3DClusterMatch_AddL1Trac
                                             collections.tp_hm_vdr, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.mytp_match_selection_sig,
+                                            selections.tp_match_selections_forBDT_sig_noID,
                                             selections.gen_e_sel_forBDT_sig)
 ]
 
