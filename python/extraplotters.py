@@ -194,8 +194,8 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
             for k in match:
                 All3DClusters = All3DClusters.drop(k)
         unmatchedClusters = All3DClusters
-        for index, row in unmatchedClusters.iterrows():
-            histo3DClNOMatch.fill(row)
+        # for index, row in unmatchedClusters.iterrows():
+        #     histo3DClNOMatch.fill(row)
 
 
         for idx, genParticle in genParticles.iterrows():
@@ -216,7 +216,7 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                 matched3DCluster['isoRel0p2'] = iso_df.pt/matched3DCluster.pt
 
                 # fill the plots
-                histo3DClMatch.fill(matched3DCluster)
+                # histo3DClMatch.fill(matched3DCluster)
 
 
                 if histoGenMatched is not None: 
@@ -256,8 +256,9 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
 
                 self.h_tpset[histo_name] = histos.HistoSet3DClusters(histo_name)
                 self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
-                #self.h_resoset[histo_name] = histos.HistoSetReso(histo_name)
                 self.h_effset[histo_name] = histos.HistoSetEff(histo_name)
+
+                #self.h_resoset[histo_name] = histos.HistoSetReso(histo_name)
                 # self.h_trackmatching[histo_name] = histos.TrackMatchingHistos(histo_name)
                
                 # Custom histograms that will be filled using all simtracks/3dclusters

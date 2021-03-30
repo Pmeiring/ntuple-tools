@@ -243,13 +243,13 @@ def cl3d_fixtures(clusters, tcs):
         #     classifiers.mva_pi_classifier_builder(), 'BDT', clusters[['pt', 'eta', 'maxlayer', 'hoe', 'emaxe', 'szz']])
 
     clusters['newBDTlowlow'] = rnptmva.evaluate_reader(
-        classifiers.MVA_classifier_builder_lowlow(), 'BDT', clusters[['layer90', 'hoe', 'srrtot', 'ntc67', 'ntc90', 'coreshowerlength', 'seetot', 'layer50', 'spptot']])
+        classifiers.MVA_classifier_builder_lowlow(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
     clusters['newBDTlowhigh'] = rnptmva.evaluate_reader(
-        classifiers.MVA_classifier_builder_lowhigh(), 'BDT', clusters[['seetot', 'layer90', 'meanz', 'hoe', 'ntc90', 'ntc67', 'spptot', 'layer10', 'emaxe']])
+        classifiers.MVA_classifier_builder_lowhigh(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
     clusters['newBDThighlow'] = rnptmva.evaluate_reader(
-        classifiers.MVA_classifier_builder_highlow(), 'BDT', clusters[['hoe', 'srrtot', 'firstlayer', 'ntc67', 'ntc90', 'layer50', 'seetot', 'layer10', 'emaxe']])
+        classifiers.MVA_classifier_builder_highlow(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
     clusters['newBDThighhigh'] = rnptmva.evaluate_reader(
-        classifiers.MVA_classifier_builder_highhigh(), 'BDT', clusters[['hoe', 'ntc67', 'srrtot', 'spptot', 'ntc90', 'emaxe', 'layer90', 'szz', 'layer50']])
+        classifiers.MVA_classifier_builder_highhigh(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
 
     clusters['tttrack_pt'] = -999.
     clusters['tttrack_eta'] = -999.

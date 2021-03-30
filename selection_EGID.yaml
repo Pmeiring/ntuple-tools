@@ -7,7 +7,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v76
+  plot_version: v77
   run_clustering: False
   run_density_computation: False
 
@@ -41,8 +41,8 @@ collections:
     htc_jobflavor:
       workday
     plotters:
-      - tpPlotter   #for backgr (MinBias)
-      # - tpRate
+      # - tpPlotter   #for backgr (MinBias)
+      - tpRate
 
   # SinglePhoton_FlatPt-8to150:
   #   file_label:
