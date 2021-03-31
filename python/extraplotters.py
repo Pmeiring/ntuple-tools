@@ -250,8 +250,8 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                 histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
 
                 # Exclude some combinations of GENsel and TPsel
-                if "Pt15" in tp_sel.name and "Pt15" not in gen_sel.name: continue
-                if "Pt5to25" in tp_sel.name and "Pt30" not in gen_sel.name: continue
+                if ("Pt15" in tp_sel.name or "Pt20"in tp_sel.name) and "Pt15" not in gen_sel.name: continue
+                if ("Pt5to25" in tp_sel.name or "Pt5to20"in tp_sel.name) and "Pt30" not in gen_sel.name: continue
                 if "Pt" not in tp_sel.name and "Pt" in gen_sel.name: continue
 
                 self.h_tpset[histo_name] = histos.HistoSet3DClusters(histo_name)
@@ -290,8 +290,8 @@ class GENto3DClusterMatch_AddL1Tracks(BasePlotter):
                     genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection) 
                 
                 # Exclude some combinations of GENsel and TPsel
-                if "Pt15" in tp_sel.name and "Pt15" not in gen_sel.name: continue
-                if "Pt5to25" in tp_sel.name and "Pt30" not in gen_sel.name: continue
+                if ("Pt15" in tp_sel.name or "Pt20"in tp_sel.name) and "Pt15" not in gen_sel.name: continue
+                if ("Pt5to25" in tp_sel.name or "Pt5to20"in tp_sel.name) and "Pt30" not in gen_sel.name: continue
                 if "Pt" not in tp_sel.name and "Pt" in gen_sel.name: continue
 
                 # Fill the custom histograms used to study matching and preselection

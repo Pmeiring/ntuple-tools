@@ -253,6 +253,35 @@ mytp_match_selection_sig = [Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52
     
 
 
+# SIGNAL DEFINITIONS for efficiency plots, WITH OR WITHOUT BDT ID APPLIED
+sig_lowptloweta_eval = add_selections([Selection('Pt5to20', '5 <= p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt >= 5)')],   [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+sig_lowpthigheta_eval= add_selections([Selection('Pt5to20', '5 <= p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt >= 5)')],   [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+sig_highptloweta_eval= add_selections([Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20')], [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+sig_highpthigheta_eval=add_selections([Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20')], [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+tp_match_selections_forEval_sig_noID = sig_lowptloweta_eval+sig_lowpthigheta_eval+sig_highptloweta_eval+sig_highpthigheta_eval
+
+sig_lowptloweta_IDtpg_eval = add_selections(sig_lowptloweta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
+sig_lowpthigheta_IDtpg_eval= add_selections(sig_lowpthigheta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
+sig_highptloweta_IDtpg_eval= add_selections(sig_highptloweta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
+sig_highpthigheta_IDtpg_eval=add_selections(sig_highpthigheta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
+tp_match_selections_forEval_sig_IDtpg = sig_lowptloweta_IDtpg_eval+sig_lowpthigheta_IDtpg_eval+sig_highptloweta_IDtpg_eval+sig_highpthigheta_IDtpg_eval
+
+sig_lowptloweta_IDnew_eval = add_selections(sig_lowptloweta_eval, [Selection('newID975', 'passed ID WP975', 'newBDTlowlow>-0.9838970')])
+sig_lowpthigheta_IDnew_eval= add_selections(sig_lowpthigheta_eval, [Selection('newID975', 'passed ID WP975', 'newBDTlowhigh>-0.9733922')])
+sig_highptloweta_IDnew_eval= add_selections(sig_highptloweta_eval, [Selection('newID975', 'passed ID WP975', 'newBDThighlow>0.9685824')])
+sig_highpthigheta_IDnew_eval= add_selections(sig_highpthigheta_eval, [Selection('newID975', 'passed ID WP975', 'newBDThighhigh>0.9722701')])
+tp_match_selections_forEval_sig_IDnew = sig_lowptloweta_IDnew_eval+sig_lowpthigheta_IDnew_eval+sig_highptloweta_IDnew_eval+sig_highpthigheta_IDnew_eval
+
+mytp_match_selection_sig_foreff = [Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52 < abs(eta) < 3')]+tp_match_selections_forEval_sig_noID+tp_match_selections_forEval_sig_IDtpg+tp_match_selections_forEval_sig_IDnew
+    
+
+
+
+
+
+
+
+
 # BACKGROUND DEFINITIONS, WITH OR WITHOUT BDT ID APPLIED
 bkg_lowptloweta = add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],[Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
 bkg_lowpthigheta= add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],[Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])

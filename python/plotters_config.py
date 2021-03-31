@@ -372,9 +372,17 @@ mymatch_GenTrackCluster_plotters =  [extraplotters.GENto3DClusterMatch_AddL1Trac
                                             collections.tp_hm_vdr, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            # selections.tp_match_selections_forBDT_sig_noID,
                                             selections.mytp_match_selection_sig,
                                             selections.gen_e_sel_forBDT_sig)
 ]
+
+mymatch_GenTrackCluster_plotters_eff =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(
+                                            collections.tp_hm_vdr, 
+                                            collections.l1Trks ,
+                                            collections.gen_parts,
+                                            selections.mytp_match_selection_sig_foreff,
+                                            selections.gen_e_sel_forBDT_sig)
+]
+
 
 myrate_plotters = [plotters.RatePlotter(collections.tp_hm_vdr, selections.mytp_match_selection_forRate_bkg)]

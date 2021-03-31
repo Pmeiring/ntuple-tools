@@ -7,7 +7,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v77
+  plot_version: v78
   run_clustering: False
   run_density_computation: False
 
@@ -27,7 +27,8 @@ collections:
     htc_jobflavor:
       workday
     plotters:
-      - tp2genParts_L1Tracks #for signal (SinglEl)
+      # - tp2genParts_L1Tracks #for signal (SinglEl) in BDT training
+      - tp2genParts_L1Tracks_eff # for evaluating eff.
 
   minBias:
     file_label:
@@ -111,6 +112,7 @@ collections:
 plotters:
   tp2genParts: !!python/name:python.plotters_config.tp_matched2_genParts_plotter
   tp2genParts_L1Tracks: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters
+  tp2genParts_L1Tracks_eff: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters_eff
   tp2MC : !!python/name:python.plotters_config.tp_matched2_MC_plotter
   tpPlotter : !!python/name:python.plotters_config.tp_cluster_plotter
   tpRate: !!python/name:python.plotters_config.myrate_plotters
