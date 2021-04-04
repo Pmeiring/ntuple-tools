@@ -237,16 +237,16 @@ sig_highptloweta= add_selections([Selection('Pt15', 'p_{T}^{L1}>=15GeV', 'pt >= 
 sig_highpthigheta=add_selections([Selection('Pt15', 'p_{T}^{L1}>=15GeV', 'pt >= 15')],                        [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
 tp_match_selections_forBDT_sig_noID = sig_lowptloweta+sig_lowpthigheta+sig_highptloweta+sig_highpthigheta
 
-sig_lowptloweta_IDtpg = add_selections(sig_lowptloweta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
-sig_lowpthigheta_IDtpg= add_selections(sig_lowpthigheta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
-sig_highptloweta_IDtpg= add_selections(sig_highptloweta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
-sig_highpthigheta_IDtpg=add_selections(sig_highpthigheta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
+sig_lowptloweta_IDtpg = add_selections(sig_lowptloweta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>0.03496629')])
+sig_lowpthigheta_IDtpg= add_selections(sig_lowpthigheta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>-0.03698097')])
+sig_highptloweta_IDtpg= add_selections(sig_highptloweta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>0.03496629')])
+sig_highpthigheta_IDtpg=add_selections(sig_highpthigheta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>-0.03698097')])
 tp_match_selections_forBDT_sig_IDtpg = sig_lowptloweta_IDtpg+sig_lowpthigheta_IDtpg+sig_highptloweta_IDtpg+sig_highpthigheta_IDtpg
 
-sig_lowptloweta_IDnew = add_selections(sig_lowptloweta, [Selection('newID975', 'passed ID WP975', 'newBDTlowlow>-0.9838970')])
-sig_lowpthigheta_IDnew= add_selections(sig_lowpthigheta, [Selection('newID975', 'passed ID WP975', 'newBDTlowhigh>-0.9733922')])
-sig_highptloweta_IDnew= add_selections(sig_highptloweta, [Selection('newID975', 'passed ID WP975', 'newBDThighlow>0.9685824')])
-sig_highpthigheta_IDnew=add_selections(sig_highpthigheta, [Selection('newID975', 'passed ID WP975', 'newBDThighhigh>0.9722701')])
+sig_lowptloweta_IDnew = add_selections(sig_lowptloweta, [Selection('newID900', 'passed ID WP900', 'newBDTlowlow>-0.9838970')])
+sig_lowpthigheta_IDnew= add_selections(sig_lowpthigheta, [Selection('newID900', 'passed ID WP900', 'newBDTlowhigh>-0.9733922')])
+sig_highptloweta_IDnew= add_selections(sig_highptloweta, [Selection('newID900', 'passed ID WP900', 'newBDThighlow>0.9685824')])
+sig_highpthigheta_IDnew=add_selections(sig_highpthigheta, [Selection('newID900', 'passed ID WP900', 'newBDThighhigh>0.9722701')])
 tp_match_selections_forBDT_sig_IDnew = sig_lowptloweta_IDnew+sig_lowpthigheta_IDnew+sig_highptloweta_IDnew+sig_highpthigheta_IDnew
 
 mytp_match_selection_sig = [Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52 < abs(eta) < 3')]+tp_match_selections_forBDT_sig_noID+tp_match_selections_forBDT_sig_IDtpg+tp_match_selections_forBDT_sig_IDnew
@@ -254,22 +254,22 @@ mytp_match_selection_sig = [Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52
 
 
 # SIGNAL DEFINITIONS for efficiency plots, WITH OR WITHOUT BDT ID APPLIED
-sig_lowptloweta_eval = add_selections([Selection('Pt5to20', '5 <= p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt >= 5)')],   [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
-sig_lowpthigheta_eval= add_selections([Selection('Pt5to20', '5 <= p_{T}^{L1} <= 20GeV', '(pt <= 20) & (pt >= 5)')],   [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
-sig_highptloweta_eval= add_selections([Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20')], [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
-sig_highpthigheta_eval=add_selections([Selection('Pt20', 'p_{T}^{L1}>20GeV', 'pt > 20')], [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+sig_lowptloweta_eval = add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],   [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+sig_lowpthigheta_eval= add_selections([Selection('Pt5to25', '5 <= p_{T}^{L1} <= 25GeV', '(pt <= 25) & (pt >= 5)')],   [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
+sig_highptloweta_eval= add_selections([Selection('Pt15', 'p_{T}^{L1}>15GeV', 'pt > 15')], [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')])
+sig_highpthigheta_eval=add_selections([Selection('Pt15', 'p_{T}^{L1}>15GeV', 'pt > 15')], [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')])
 tp_match_selections_forEval_sig_noID = sig_lowptloweta_eval+sig_lowpthigheta_eval+sig_highptloweta_eval+sig_highpthigheta_eval
 
-sig_lowptloweta_IDtpg_eval = add_selections(sig_lowptloweta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
-sig_lowpthigheta_IDtpg_eval= add_selections(sig_lowpthigheta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
-sig_highptloweta_IDtpg_eval= add_selections(sig_highptloweta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
-sig_highpthigheta_IDtpg_eval=add_selections(sig_highpthigheta_eval, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
+sig_lowptloweta_IDtpg_eval = add_selections(sig_lowptloweta_eval, [Selection('tpgID900', 'passed ID WP900', 'bdteg>-0.9986912')])
+sig_lowpthigheta_IDtpg_eval= add_selections(sig_lowpthigheta_eval, [Selection('tpgID900', 'passed ID WP900', 'bdteg>-0.9989494')])
+sig_highptloweta_IDtpg_eval= add_selections(sig_highptloweta_eval, [Selection('tpgID900', 'passed ID WP900', 'bdteg>0.9963733')])
+sig_highpthigheta_IDtpg_eval=add_selections(sig_highpthigheta_eval, [Selection('tpgID900', 'passed ID WP900', 'bdteg>0.9972339')])
 tp_match_selections_forEval_sig_IDtpg = sig_lowptloweta_IDtpg_eval+sig_lowpthigheta_IDtpg_eval+sig_highptloweta_IDtpg_eval+sig_highpthigheta_IDtpg_eval
 
-sig_lowptloweta_IDnew_eval = add_selections(sig_lowptloweta_eval, [Selection('newID975', 'passed ID WP975', 'newBDTlowlow>-0.9838970')])
-sig_lowpthigheta_IDnew_eval= add_selections(sig_lowpthigheta_eval, [Selection('newID975', 'passed ID WP975', 'newBDTlowhigh>-0.9733922')])
-sig_highptloweta_IDnew_eval= add_selections(sig_highptloweta_eval, [Selection('newID975', 'passed ID WP975', 'newBDThighlow>0.9685824')])
-sig_highpthigheta_IDnew_eval= add_selections(sig_highpthigheta_eval, [Selection('newID975', 'passed ID WP975', 'newBDThighhigh>0.9722701')])
+sig_lowptloweta_IDnew_eval = add_selections(sig_lowptloweta_eval, [Selection('newID900', 'passed ID WP900', 'newBDTlowlow>-0.9335719')])
+sig_lowpthigheta_IDnew_eval= add_selections(sig_lowpthigheta_eval, [Selection('newID900', 'passed ID WP900', 'newBDTlowhigh>-0.8875059')])
+sig_highptloweta_IDnew_eval= add_selections(sig_highptloweta_eval, [Selection('newID900', 'passed ID WP900', 'newBDThighlow>0.9975260')])
+sig_highpthigheta_IDnew_eval= add_selections(sig_highpthigheta_eval, [Selection('newID900', 'passed ID WP900', 'newBDThighhigh>0.9986873')])
 tp_match_selections_forEval_sig_IDnew = sig_lowptloweta_IDnew_eval+sig_lowpthigheta_IDnew_eval+sig_highptloweta_IDnew_eval+sig_highpthigheta_IDnew_eval
 
 mytp_match_selection_sig_foreff = [Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52 < abs(eta) < 3')]+tp_match_selections_forEval_sig_noID+tp_match_selections_forEval_sig_IDtpg+tp_match_selections_forEval_sig_IDnew
@@ -293,24 +293,24 @@ bkg_loweta = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <
 bkg_higheta= [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')]
 tp_match_selections_forRate_bkg_noID = bkg_loweta + bkg_higheta
 
-bkg_lowptloweta_IDtpg = add_selections(bkg_loweta, [Selection('tpgID975_lowpt', 'passed ID WP975', 'bdteg>0.03496629')])
-bkg_lowpthigheta_IDtpg= add_selections(bkg_higheta, [Selection('tpgID975_lowpt', 'passed ID WP975', 'bdteg>-0.03698097')])
-bkg_highptloweta_IDtpg= add_selections(bkg_loweta, [Selection('tpgID975_highpt', 'passed ID WP975', 'bdteg>0.03496629')])
-bkg_highpthigheta_IDtpg=add_selections(bkg_higheta, [Selection('tpgID975_highpt', 'passed ID WP975', 'bdteg>-0.03698097')])
-# bkg_lowptloweta_IDtpg = add_selections(bkg_lowptloweta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
-# bkg_lowpthigheta_IDtpg= add_selections(bkg_lowpthigheta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
-# bkg_highptloweta_IDtpg= add_selections(bkg_highptloweta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>0.03496629')])
-# bkg_highpthigheta_IDtpg=add_selections(bkg_highpthigheta, [Selection('tpgID975', 'passed ID WP975', 'bdteg>-0.03698097')])
+bkg_lowptloweta_IDtpg = add_selections(bkg_loweta, [Selection('tpgID900_lowpt', 'passed ID WP900', 'bdteg>-0.9986912')])
+bkg_lowpthigheta_IDtpg= add_selections(bkg_higheta, [Selection('tpgID900_lowpt', 'passed ID WP900', 'bdteg>-0.9989494')])
+bkg_highptloweta_IDtpg= add_selections(bkg_loweta, [Selection('tpgID900_highpt', 'passed ID WP900', 'bdteg>0.9963733')])
+bkg_highpthigheta_IDtpg=add_selections(bkg_higheta, [Selection('tpgID900_highpt', 'passed ID WP900', 'bdteg>0.9972339')])
+# bkg_lowptloweta_IDtpg = add_selections(bkg_lowptloweta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>0.03496629')])
+# bkg_lowpthigheta_IDtpg= add_selections(bkg_lowpthigheta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>-0.03698097')])
+# bkg_highptloweta_IDtpg= add_selections(bkg_highptloweta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>0.03496629')])
+# bkg_highpthigheta_IDtpg=add_selections(bkg_highpthigheta, [Selection('tpgID900', 'passed ID WP900', 'bdteg>-0.03698097')])
 tp_match_selections_forRate_bkg_IDtpg = bkg_lowptloweta_IDtpg+bkg_lowpthigheta_IDtpg+bkg_highptloweta_IDtpg+bkg_highpthigheta_IDtpg
 
-bkg_lowptloweta_IDnew = add_selections(bkg_loweta, [Selection('newID975_lowpt', 'passed ID WP975', 'newBDTlowlow>-0.9838970')])
-bkg_lowpthigheta_IDnew= add_selections(bkg_higheta, [Selection('newID975_lowpt', 'passed ID WP975', 'newBDTlowhigh>-0.9733922')])
-bkg_highptloweta_IDnew= add_selections(bkg_loweta, [Selection('newID975_highpt', 'passed ID WP975', 'newBDThighlow>0.9685824')])
-bkg_highpthigheta_IDnew=add_selections(bkg_higheta, [Selection('newID975_highpt', 'passed ID WP975', 'newBDThighhigh>0.9722701')])
-# bkg_lowptloweta_IDnew = add_selections(bkg_lowptloweta, [Selection('newID975', 'passed ID WP975', 'newBDTlowlow>-0.9878453')])
-# bkg_lowpthigheta_IDnew= add_selections(bkg_lowpthigheta, [Selection('newID975', 'passed ID WP975', 'newBDTlowhigh>-0.9872169')])
-# bkg_highptloweta_IDnew= add_selections(bkg_highptloweta, [Selection('newID975', 'passed ID WP975', 'newBDThighlow>0.7768822')])
-# bkg_highpthigheta_IDnew=add_selections(bkg_highpthigheta, [Selection('newID975', 'passed ID WP975', 'newBDThighhigh>0.9467015')])
+bkg_lowptloweta_IDnew = add_selections(bkg_loweta, [Selection('newID900_lowpt', 'passed ID WP900', 'newBDTlowlow>-0.9335719')])
+bkg_lowpthigheta_IDnew= add_selections(bkg_higheta, [Selection('newID900_lowpt', 'passed ID WP900', 'newBDTlowhigh>-0.8875059')])
+bkg_highptloweta_IDnew= add_selections(bkg_loweta, [Selection('newID900_highpt', 'passed ID WP900', 'newBDThighlow>0.9975260')])
+bkg_highpthigheta_IDnew=add_selections(bkg_higheta, [Selection('newID900_highpt', 'passed ID WP900', 'newBDThighhigh>0.9986873')])
+# bkg_lowptloweta_IDnew = add_selections(bkg_lowptloweta, [Selection('newID900', 'passed ID WP900', 'newBDTlowlow>-0.9878453')])
+# bkg_lowpthigheta_IDnew= add_selections(bkg_lowpthigheta, [Selection('newID900', 'passed ID WP900', 'newBDTlowhigh>-0.9872169')])
+# bkg_highptloweta_IDnew= add_selections(bkg_highptloweta, [Selection('newID900', 'passed ID WP900', 'newBDThighlow>0.7768822')])
+# bkg_highpthigheta_IDnew=add_selections(bkg_highpthigheta, [Selection('newID900', 'passed ID WP900', 'newBDThighhigh>0.9467015')])
 tp_match_selections_forRate_bkg_IDnew = bkg_lowptloweta_IDnew+bkg_lowpthigheta_IDnew+bkg_highptloweta_IDnew+bkg_highpthigheta_IDnew
 
 mytp_match_selection_forRate_bkg = tp_match_selections_forRate_bkg_noID+tp_match_selections_forRate_bkg_IDtpg+tp_match_selections_forRate_bkg_IDnew
