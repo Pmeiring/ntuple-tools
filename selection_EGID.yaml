@@ -1,0 +1,171 @@
+
+common:
+  # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
+  input_dir:  /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/Phase2/EG/pmeiring/
+  # input_dir:  /eos/cms/store/cmst3/group/l1tr/cerminar/hgcal/CMSSW1110pre6/
+  output_dir:
+    default: /eos/user/p/pmeiring/www/L1Trigger
+  output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
+  output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
+  plot_version: v80
+  run_clustering: False
+  run_density_computation: False
+  calib_version: calib-v134C
+
+
+collections:
+  SingleE_FlatPt-2to100:
+    file_label:
+      eg
+    samples:
+      - ele_flat2to100_PU0_HLTTDR
+      # - gianluca_doubleE_200PU
+      - ele_flat2to100_PU200_HLTTDR
+    priorities:
+      ele_flat2to100_PU0_HLTTDR: 1
+      # gianluca_doubleE_200PU: 1
+      ele_flat2to100_PU200_HLTTDR: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      # - tp2genParts_L1Tracks #for signal (SinglEl) in BDT training
+      - tp2genParts_L1Tracks_eff # for evaluating eff.
+
+  minBias:
+    file_label:
+      eg
+    samples:
+      - minbias_PU0_HLTTDR
+      - minbias_PU200_HLTTDR
+    priorities:
+      minbias_PU0_HLTTDR: 1
+      minbias_PU200_HLTTDR: 1
+    htc_jobflavor:
+      workday
+    plotters:
+      # - tpPlotter   #for backgr (MinBias)
+      - tpRate
+
+  # SinglePhoton_FlatPt-8to150:
+  #   file_label:
+  #     eg
+  #   samples:
+  #     - photon_flat8to150_PU0
+  #   priorities:
+  #     photon_flat8to150_PU0: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tp2genParts
+
+  # SinglePion_FlatPt-2to100:
+  #   file_label:
+  #     eg
+  #   samples:
+  #     - pion_flat2to100_PU0
+  #   priorities:
+  #     pion_flat2to100_PU0: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tp2genParts
+
+  # BDT_input_sig:
+  #   file_label:
+  #     eg
+  #   samples:
+  #     - ele_flat2to100_PU200
+  #     - pion_flat2to100_PU200
+  #   priorities:
+  #     ele_flat2to100_PU200: 1
+  #     pion_flat2to100_PU200: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tp2genParts
+
+  # BDT_input_BKG:
+  #   file_label:
+  #     ng_bkg
+  #   samples:
+  #     - nugun_10_PU200
+  #   priorities:
+  #     nugun_10_PU200: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tpPlotter
+
+  # BDT_input_sig_MC:
+  #   file_label:
+  #     eg_MC
+  #   samples:
+  #     - ele_flat2to100_PU200
+  #     - pion_flat2to100_PU200
+  #   priorities:
+  #     ele_flat2to100_PU200: 1
+  #     pion_flat2to100_PU200: 1
+  #   htc_jobflavor:
+  #     workday
+  #   plotters:
+  #     - tp2MC
+
+plotters:
+  # tp2genParts: !!python/name:python.plotters_config.tp_matched2_genParts_plotter
+  tp2genParts_L1Tracks: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters
+  tp2genParts_L1Tracks_eff: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters_eff
+  # tp2MC : !!python/name:python.plotters_config.tp_matched2_MC_plotter
+  # tpPlotter : !!python/name:python.plotters_config.tp_cluster_plotter
+  tpRate: !!python/name:python.plotters_config.myrate_plotters
+
+samples:
+
+  tree_name: l1CaloTriggerNtuplizer_egOnly/HGCalTriggerNtuple
+
+  # nugun_10_PU200:
+  #   input_sample_dir: NeutrinoGun_E_10GeV/NuGunAllEta_PU200_v1/200420_130535/0000/
+  #   events_per_job : 200
+ 
+  # ele_flat2to100_PU200_test:
+  #   input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v1/200407_080301/0000/
+  #   events_per_job : 200
+
+  # pion_flat2to100_PU200:
+  #   input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v7/200525_095544/0000/
+  #   events_per_job : 200
+
+  # ele_flat2to100_PU0_test:
+  #   input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU0_newsetup_v7/200826_102525/0000/
+  #   events_per_job : 200
+
+  # photon_flat8to150_PU0:
+  #   input_sample_dir: SinglePhoton_FlatPt-8to150/SinglePhoton_FlatPt-2to100_PU0_newsetup_v_debug/201020_103901/0000/
+  #   events_per_job : 200
+
+  # pion_flat2to100_PU0:
+  #   input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU0_newsetup_v_debug/201021_075012/0000/
+  #   events_per_job : 200
+
+  ele_flat2to100_PU0_HLTTDR:
+    input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU0_CMSSW1116_v_5/210120_181637/0000/
+    events_per_job : 200
+
+  ele_flat2to100_PU200_HLTTDR:
+    input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU200_CMSSW1116_v_6/210125_095600/0000/
+    events_per_job : 200
+
+  minbias_PU0_HLTTDR:
+    input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU0_CMSSW1116_v_6/210121_093155/0000/
+    events_per_job : 200
+
+  minbias_PU200_HLTTDR:
+    input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU200_CMSSW1116_v_7/210127_102656/0000/
+    events_per_job : 200
+
+  gianluca_doubleE_200PU:
+    input_sample_dir: DoubleElectron_FlatPt-1To100/DoubleElectron_FlatPt-1To100_PU200_v63H/210115_153303/0000/
+    events_per_job : 200
+
+
+
+

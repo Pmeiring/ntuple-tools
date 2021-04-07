@@ -1068,6 +1068,10 @@ egs_all = DFCollection(
     debug=0,
     depends_on=[egs, egs_brl])
 
+l1Trks = DFCollection(name='l1Trk', label='l1Trk',
+                      filler_function=lambda event: event.getDataFrame(prefix='l1Trk'), debug=0,
+                      print_function=lambda df: df[['pt', 'eta', 'phi']].sort_values(by='pt', ascending=False))
+
 tracks = DFCollection(
     name='L1Trk', label='L1Track',
     filler_function=lambda event, entry_block: event.getDataFrame(
