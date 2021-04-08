@@ -7,7 +7,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
-  plot_version: v80
+  plot_version: v81
   run_clustering: False
   run_density_computation: False
 
@@ -27,8 +27,9 @@ collections:
     htc_jobflavor:
       workday
     plotters:
-      # - tp2genParts_L1Tracks #for signal (SinglEl) in BDT training
-      - tp2genParts_L1Tracks_eff # for evaluating eff.
+      - tpEff
+      # - BDT_sig_ntuple
+
 
   minBias:
     file_label:
@@ -42,80 +43,24 @@ collections:
     htc_jobflavor:
       workday
     plotters:
-      # - tpPlotter   #for backgr (MinBias)
       - tpRate
+      # - BDT_bkg_ntuple
 
-  # SinglePhoton_FlatPt-8to150:
-  #   file_label:
-  #     eg
-  #   samples:
-  #     - photon_flat8to150_PU0
-  #   priorities:
-  #     photon_flat8to150_PU0: 1
-  #   htc_jobflavor:
-  #     workday
-  #   plotters:
-  #     - tp2genParts
-
-  # SinglePion_FlatPt-2to100:
-  #   file_label:
-  #     eg
-  #   samples:
-  #     - pion_flat2to100_PU0
-  #   priorities:
-  #     pion_flat2to100_PU0: 1
-  #   htc_jobflavor:
-  #     workday
-  #   plotters:
-  #     - tp2genParts
-
-  # BDT_input_sig:
-  #   file_label:
-  #     eg
-  #   samples:
-  #     - ele_flat2to100_PU200
-  #     - pion_flat2to100_PU200
-  #   priorities:
-  #     ele_flat2to100_PU200: 1
-  #     pion_flat2to100_PU200: 1
-  #   htc_jobflavor:
-  #     workday
-  #   plotters:
-  #     - tp2genParts
-
-  # BDT_input_BKG:
-  #   file_label:
-  #     ng_bkg
-  #   samples:
-  #     - nugun_10_PU200
-  #   priorities:
-  #     nugun_10_PU200: 1
-  #   htc_jobflavor:
-  #     workday
-  #   plotters:
-  #     - tpPlotter
-
-  # BDT_input_sig_MC:
-  #   file_label:
-  #     eg_MC
-  #   samples:
-  #     - ele_flat2to100_PU200
-  #     - pion_flat2to100_PU200
-  #   priorities:
-  #     ele_flat2to100_PU200: 1
-  #     pion_flat2to100_PU200: 1
-  #   htc_jobflavor:
-  #     workday
-  #   plotters:
-  #     - tp2MC
 
 plotters:
-  tp2genParts: !!python/name:python.plotters_config.tp_matched2_genParts_plotter
-  tp2genParts_L1Tracks: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters
-  tp2genParts_L1Tracks_eff: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters_eff
-  tp2MC : !!python/name:python.plotters_config.tp_matched2_MC_plotter
-  tpPlotter : !!python/name:python.plotters_config.tp_cluster_plotter
-  tpRate: !!python/name:python.plotters_config.myrate_plotters
+  tpRate: !!python/name:python.plotters_config.myrate_plotter
+  tpEff:  !!python/name:python.plotters_config.myeffi_plotter
+  BDT_sig_ntuple : !!python/name:python.plotters_config.myBDT_sig_ntuplizer
+  BDT_bkg_ntuple : !!python/name:python.plotters_config.myBDT_bkg_ntuplizer
+
+
+  # tp2genParts: !!python/name:python.plotters_config.tp_matched2_genParts_plotter
+  # tp2genParts_L1Tracks: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters
+  # tp2genParts_L1Tracks_eff: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters_eff
+  # tp2MC : !!python/name:python.plotters_config.tp_matched2_MC_plotter
+  # tpPlotter : !!python/name:python.plotters_config.tp_cluster_plotter
+  # tpRate: !!python/name:python.plotters_config.myrate_plotter
+  # BDT_sig_ntuple : !!python/name:python.plotters_config.myBDT_sig_ntuplizer
 
 samples:
   # nugun_10_PU200:

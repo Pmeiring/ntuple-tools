@@ -1214,7 +1214,7 @@ class ClusterTCGenMatchPlotter(BasePlotter):
 
 class Cluster3DGenMatchPlotter(BasePlotter):
     def __init__(self, tp_set, gen_set,
-                 tp_selections=[selections.Selection('all')], gen_selections=[selections.Selection('all')]):
+                 tp_selections=[selections.Selection('all')], gen_selections=[selections.Selection('all')], useExtrapolatedGenCoords=False):
         # self.tp_set = tp_set
         # self.tp_selections = tp_selections
         # self.gen_set = gen_set
@@ -1222,6 +1222,7 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         self.h_tpset = {}
         self.h_resoset = {}
         self.h_effset = {}
+        self.useExtrapolatedGenCoords=useExtrapolatedGenCoords
         # self.h_custom = {}
         # self.h_conecluster = {}
         super(Cluster3DGenMatchPlotter, self).__init__(tp_set, tp_selections, gen_set, gen_selections)
@@ -1271,7 +1272,9 @@ class Cluster3DGenMatchPlotter(BasePlotter):
         best_match_indexes = {}
         allmatches = {}
         if not trigger3DClusters.empty:
-            best_match_indexes, allmatches = utils.custom_match(genParticles[['exeta','exphi']],
+            genetavar = 'eta' if not self.useExtrapolatedGenCoords else 'exeta'
+            genphivar = 'phi' if not self.useExtrapolatedGenCoords else 'exphi'
+            best_match_indexes, allmatches = utils.custom_match(genParticles[[genetavar,genphivar]],
                                                             genParticles['pt'],
                                                             trigger3DClusters[['eta', 'phi']],
                                                             trigger3DClusters['pt'],
