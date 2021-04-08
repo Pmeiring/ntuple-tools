@@ -352,37 +352,45 @@ tp_cluster_tc_match_plotters = [plotters.ClusterTCGenMatchPlotter(collections.tp
                                                                   data_selections=selections.tp_tccluster_match_selections,
                                                                   gen_selections=selections.gen_part_ee_eta_brem_sel)]
 
-# 
-# tp_matched2_genParts_plotter =  [plotters.Cluster3DGenMatchPlotter(collections.tp_hm_vdr, collections.gen_parts,
-#                                             selections.tp_match_selections_forBDT_sig,
-#                                             selections.gen_e_sel_forBDT_sig)]
 
-# tp_matched2_MC_plotter =  [plotters.Cluster3DMCMatchPlotter(collections.tp_hm_vdr, collections.gen,
-#                                             selections.tp_match_selections,
-#                                             selections.gen_MC_selections)]
-# 
-# tp_cluster_plotter = [extraplotters.Cluster3DPlotter(collections.tp_hm_vdr, selections.tp_match_selections_forBDT_bkg_noID)]
-
-# 
-tp_matched2_genParts_addedL1Tracks_plotter =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(collections.tp_hm_vdr, collections.l1Trks ,collections.gen_parts,
-                                            selections.tp_match_selections,
-                                            selections.gen_e_sel)]
-# 
-mymatch_GenTrackCluster_plotters =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(
-                                            collections.tp_hm_vdr, 
-                                            collections.l1Trks ,
-                                            collections.gen_parts,
-                                            selections.mytp_match_selection_sig,
-                                            selections.gen_e_sel_forBDT_sig)
+# rate plotter to use for minbias sample
+myrate_plotter = [plotters.RatePlotter(     collections.tp_hm_vdr, 
+                                            selections.mytp_match_selection_forRate_bkg)
 ]
 
-mymatch_GenTrackCluster_plotters_eff =  [extraplotters.GENto3DClusterMatch_AddL1Tracks(
+# efficiency plotter to use for singleelectron sample 
+myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.tp_hm_vdr, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
                                             selections.mytp_match_selection_sig_foreff,
-                                            selections.gen_e_sel_forBDT_sig)
+                                            selections.gen_e_sel,
+                                            includeTracks=False, saveEffPlots=True, saveNtuples=False)
 ]
 
+# ntuplizer to use for minbias sample
+myBDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
+                                            collections.tp_hm_vdr, 
+                                            collections.l1Trks ,
+                                            selections.tp_match_selections_forBDT_bkg_noID,
+                                            includeTracks=False, saveEffPlots=False, saveNtuples=True)
+]
 
-myrate_plotters = [plotters.RatePlotter(collections.tp_hm_vdr, selections.mytp_match_selection_forRate_bkg)]
+# ntuplizer to use for singleelectron sample
+myBDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.tp_hm_vdr, 
+                                            collections.l1Trks ,
+                                            collections.gen_parts,
+                                            selections.mytp_match_selection_sig_foreff,
+                                            selections.gen_e_sel,
+                                            includeTracks=False, saveEffPlots=False, saveNtuples=True)
+]
+
+# object matching plotter
+mymatch_plotter = [extraplotters.CustomHistPlotter(
+                                            collections.tp_hm_vdr, 
+                                            collections.l1Trks ,
+                                            collections.gen_parts,
+                                            selections.mytp_match_selection_sig_foreff,
+                                            selections.gen_e_sel)
+]
