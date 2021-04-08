@@ -354,7 +354,7 @@ tp_cluster_tc_match_plotters = [plotters.ClusterTCGenMatchPlotter(collections.tp
 
 
 # rate plotter to use for minbias sample
-myrate_plotter = [plotters.RatePlotter(     collections.tp_hm_vdr, 
+myrate_plotter = [plotters.RatePlotter(     collections.cl3d_hm, 
                                             selections.mytp_match_selection_forRate_bkg)
 ]
 

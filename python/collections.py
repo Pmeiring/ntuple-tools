@@ -339,6 +339,23 @@ def cl3d_fixtures(clusters):
 
         clusters['bdt_pi'] = rnptmva.evaluate_reader(
             classifiers.mva_pi_classifier_builder(), 'BDT', clusters[['pt', 'eta', 'maxlayer', 'hoe', 'emaxe', 'szz']])
+    
+    clusters['newBDTlowlow'] = rnptmva.evaluate_reader(
+        classifiers.MVA_classifier_builder_lowlow(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
+    clusters['newBDTlowhigh'] = rnptmva.evaluate_reader(
+        classifiers.MVA_classifier_builder_lowhigh(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
+    clusters['newBDThighlow'] = rnptmva.evaluate_reader(
+        classifiers.MVA_classifier_builder_highlow(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
+    clusters['newBDThighhigh'] = rnptmva.evaluate_reader(
+        classifiers.MVA_classifier_builder_highhigh(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
+
+    clusters['tttrack_pt'] = -999.
+    clusters['tttrack_eta'] = -999.
+    clusters['tttrack_phi'] = -999.
+    clusters['tttrack_chi2'] = -999.
+    clusters['tttrack_nStubs'] = -999.
+
+
     return clusters
 
 

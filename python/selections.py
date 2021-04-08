@@ -71,6 +71,7 @@ class Selection:
         self.name = name
         self.label = label
         self.selection = selection
+        self.hash = hash(selection)
         self.register()
 
     def register(self):
