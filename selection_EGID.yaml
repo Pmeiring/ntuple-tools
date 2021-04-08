@@ -11,6 +11,7 @@ common:
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
+  debug: 4
 
 
 collections:

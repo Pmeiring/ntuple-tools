@@ -74,6 +74,7 @@ class EventManager(object):
             self.active_collections.append(collection)
 
         def read(self, event, debug):
+            print("here55")
             for collection in self.active_collections:
                 if debug >= 3:
                     print('[EventManager] filling collection: {}'.format(collection.name))
@@ -176,9 +177,9 @@ class DFCollection(object):
 
     def fill(self, event, weight_file=None, debug=0):
         stride = self.read_entry_block
-        # print (f'Coll: {self.name} fill for entry: {event.file_entry}')
+        print (f'Coll: {self.name} fill for entry: {event.file_entry}')
         if event.file_entry == 0 or event.file_entry == self.next_entry_read or event.global_entry == event.entry_range[0]:
-            # print ([self.read_entry_block, (event.entry_range[1]-event.global_entry), (event.tree.num_entries - event.file_entry)])
+            print ([self.read_entry_block, (event.entry_range[1]-event.global_entry), (event.tree.num_entries - event.file_entry)])
             stride = min([self.read_entry_block, (1+event.entry_range[1]-event.global_entry), (event.tree.num_entries - event.file_entry)])
             if stride == 0:
                 print ('ERROR Last event????')
@@ -192,15 +193,21 @@ class DFCollection(object):
             self.new_read = False
 
     def fill_real(self, event, stride, weight_file=None, debug=0):
+        print ("bla")
         self.clear_query_cache(debug)
+        print ("bla1")
         self.df = self.filler_function(event, stride)
+        print ("bla2")
         if self.fixture_function is not None:
             # FIXME: wouldn't this be more efficient
             # self.fixture_function(self.df)
             self.df = self.fixture_function(self.df)
+        print ("bl2")
         if self.weight_function is not None:
             self.df = self.weight_function(self.df, weight_file)
+        print ("bl3")
         self.empty_df = pd.DataFrame(columns=self.df.columns)
+        print ("bl4")
         self.entries = self.df.index.get_level_values('entry').unique()
         if debug > 2:
             print(f'read coll. {self.name} from entry: {event.file_entry} to entry: {event.file_entry+stride} (stride: {stride}), # rows: {self.df.shape[0]}, # entries: {len(self.entries)}')
@@ -285,10 +292,14 @@ def cl3d_fixtures(clusters, tcs):
         do_compute_layer_energy = True
 
     def compute_layer_energy3(cluster, do_layer_energy=True, do_hoe=False):
+        print ("in1")
         components = tcs[tcs.id.isin(cluster.clusters)]
+        print ("in2")
+        
         hist, bins = np.histogram(components.layer.values,
                                   bins=range(0, 29, 2),
                                   weights=components.energy.values)
+        print ("in3")
         results = []
         if do_layer_energy:
             results.append(hist)
@@ -297,6 +308,8 @@ def cl3d_fixtures(clusters, tcs):
             hoe = -1
             if em_energy != 0:
                 hoe = max(0, cluster.energy - em_energy)/em_energy
+            
+            print ("in4")
             results.append(hoe)
         return results
 
@@ -314,6 +327,7 @@ def cl3d_fixtures(clusters, tcs):
                 hoe = max(0, cluster.energy - em_energy)/em_energy
             cluster['hoe'] = hoe
         return cluster
+    print ("bl243")
 
     if do_compute_hoe or do_compute_layer_energy:
         # clusters = clusters.apply(lambda cl: compute_layer_energy2(cl,
@@ -329,6 +343,7 @@ def cl3d_fixtures(clusters, tcs):
                                                                                 do_compute_hoe),
                                                result_type='expand',
                                                axis=1)
+    print ("bl2443")
 
     clusters['ptem'] = clusters.pt/(1+clusters.hoe)
     clusters['eem'] = clusters.energy/(1+clusters.hoe)
