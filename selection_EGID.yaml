@@ -4,9 +4,9 @@ common:
   input_dir:  /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/Phase2/EG/pmeiring/
   # input_dir:  /eos/cms/store/cmst3/group/l1tr/cerminar/hgcal/CMSSW1110pre6/
   output_dir:
-    default: /eos/user/p/pmeiring/www/L1Trigger
-  output_dir_local: /eos/user/p/pmeiring/www/L1Trigger
-  output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger
+    default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
+  output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
+  output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   plot_version: v81
   run_clustering: False
   run_density_computation: False
