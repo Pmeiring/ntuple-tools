@@ -74,7 +74,6 @@ class EventManager(object):
             self.active_collections.append(collection)
 
         def read(self, event, debug):
-            print("here55")
             for collection in self.active_collections:
                 if debug >= 3:
                     print('[EventManager] filling collection: {}'.format(collection.name))
@@ -179,7 +178,7 @@ class DFCollection(object):
 
     def fill(self, event, weight_file=None, debug=0):
         stride = self.read_entry_block
-        print (f'Coll: {self.name} fill for entry: {event.file_entry}')
+        # print (f'Coll: {self.name} fill for entry: {event.file_entry}')
         if event.file_entry == 0 or event.file_entry == self.next_entry_read or event.global_entry == event.entry_range[0]:
             print ([self.read_entry_block, (event.entry_range[1]-event.global_entry), (event.tree.num_entries - event.file_entry)])
             stride = min([self.read_entry_block, (1+event.entry_range[1]-event.global_entry), (event.tree.num_entries - event.file_entry)])
@@ -195,21 +194,15 @@ class DFCollection(object):
             self.new_read = False
 
     def fill_real(self, event, stride, weight_file=None, debug=0):
-        print ("bla")
         self.clear_query_cache(debug)
-        print ("bla1")
         self.df = self.filler_function(event, stride)
-        print ("bla2")
         if self.fixture_function is not None:
             # FIXME: wouldn't this be more efficient
             # self.fixture_function(self.df)
             self.df = self.fixture_function(self.df)
-        print ("bl2")
         if self.weight_function is not None:
             self.df = self.weight_function(self.df, weight_file)
-        print ("bl3")
         self.empty_df = pd.DataFrame(columns=self.df.columns)
-        print ("bl4")
         self.entries = self.df.index.get_level_values('entry').unique()
         if debug > 2:
             print(f'read coll. {self.name} from entry: {event.file_entry} to entry: {event.file_entry+stride} (stride: {stride}), # rows: {self.df.shape[0]}, # entries: {len(self.entries)}')
@@ -1081,9 +1074,12 @@ egs_all = DFCollection(
     debug=0,
     depends_on=[egs, egs_brl])
 
-l1Trks = DFCollection(name='l1Trk', label='l1Trk',
-                      filler_function=lambda event: event.getDataFrame(prefix='l1Trk'), debug=0,
-                      print_function=lambda df: df[['pt', 'eta', 'phi']].sort_values(by='pt', ascending=False))
+l1Trks = DFCollection(
+    name='l1Trk', label='l1Trk',
+    filler_function=lambda event, entry_block: event.getDataFrame(
+        prefix='l1Trk', entry_block=entry_block),
+    debug=0,
+    print_function=lambda df: df[['pt', 'eta', 'phi']].sort_values(by='pt', ascending=False))
 
 tracks = DFCollection(
     name='L1Trk', label='L1Track',

@@ -1,8 +1,6 @@
 
 common:
-  # input_dir:  /eos/cms/store/user/jheikkil/TRG_EG_study/  
   input_dir:  /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/Phase2/EG/pmeiring/
-  # input_dir:  /eos/cms/store/cmst3/group/l1tr/cerminar/hgcal/CMSSW1110pre6/
   output_dir:
     default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
@@ -11,8 +9,6 @@ common:
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
-  # debug: 4
-
 
 collections:
   SingleE_FlatPt-2to100:
@@ -20,11 +16,9 @@ collections:
       eg
     samples:
       - ele_flat2to100_PU0_HLTTDR
-      # - gianluca_doubleE_200PU
       - ele_flat2to100_PU200_HLTTDR
     priorities:
       ele_flat2to100_PU0_HLTTDR: 1
-      # gianluca_doubleE_200PU: 1
       ele_flat2to100_PU200_HLTTDR: 1
     htc_jobflavor:
       workday
@@ -48,48 +42,14 @@ collections:
       # - BDT_bkg_ntuple
 
 plotters:
-  tpRate: !!python/name:python.plotters_config.myrate_plotter
-  tpEff:  !!python/name:python.plotters_config.myeffi_plotter
+  tpRate:          !!python/name:python.plotters_config.myrate_plotter
+  tpEff:           !!python/name:python.plotters_config.myeffi_plotter
   BDT_sig_ntuple : !!python/name:python.plotters_config.myBDT_sig_ntuplizer
   BDT_bkg_ntuple : !!python/name:python.plotters_config.myBDT_bkg_ntuplizer
-
-
-  # tp2genParts: !!python/name:python.plotters_config.tp_matched2_genParts_plotter
-  # tp2genParts_L1Tracks: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters
-  # tp2genParts_L1Tracks_eff: !!python/name:python.plotters_config.mymatch_GenTrackCluster_plotters_eff
-  # tp2MC : !!python/name:python.plotters_config.tp_matched2_MC_plotter
-  # tpPlotter : !!python/name:python.plotters_config.tp_cluster_plotter
-  # tpRate: !!python/name:python.plotters_config.myrate_plotter
-  # BDT_sig_ntuple : !!python/name:python.plotters_config.myBDT_sig_ntuplizer
-
 
 samples:
 
   tree_name: l1CaloTriggerNtuplizer_egOnly/HGCalTriggerNtuple
-
-  # nugun_10_PU200:
-  #   input_sample_dir: NeutrinoGun_E_10GeV/NuGunAllEta_PU200_v1/200420_130535/0000/
-  #   events_per_job : 200
- 
-  # ele_flat2to100_PU200_test:
-  #   input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU200_v1/200407_080301/0000/
-  #   events_per_job : 200
-
-  # pion_flat2to100_PU200:
-  #   input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU200_v7/200525_095544/0000/
-  #   events_per_job : 200
-
-  # ele_flat2to100_PU0_test:
-  #   input_sample_dir: SingleE_FlatPt-2to100/SingleE_FlatPt-2to100_PU0_newsetup_v7/200826_102525/0000/
-  #   events_per_job : 200
-
-  # photon_flat8to150_PU0:
-  #   input_sample_dir: SinglePhoton_FlatPt-8to150/SinglePhoton_FlatPt-2to100_PU0_newsetup_v_debug/201020_103901/0000/
-  #   events_per_job : 200
-
-  # pion_flat2to100_PU0:
-  #   input_sample_dir: SinglePion_FlatPt-2to100/SinglePion_FlatPt-2to100_PU0_newsetup_v_debug/201021_075012/0000/
-  #   events_per_job : 200
 
   ele_flat2to100_PU0_HLTTDR:
     input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU0_CMSSW1116_v_5/210120_181637/0000/

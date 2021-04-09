@@ -80,7 +80,7 @@ def pool_init(plotters):
 # @profile
 def analyze(params, batch_idx=-1):
     print (params)
-    debug = 4#int(params.debug)
+    debug = int(params.debug)
 
     # tree_name = 'hgcalTriggerNtuplizer/HGCalTriggerNtuple'
     input_files = []
@@ -156,12 +156,9 @@ def analyze(params, batch_idx=-1):
         while tree_reader.next(debug):
             
             try:
-                print("here0")
                 collection_manager.read(tree_reader, debug)
-                print("here01")
                 # processes = []
                 for plotter in plotter_collection:
-                    print("here1")
                     plotter.fill_histos_event(tree_reader.file_entry, debug=debug)
                 
                 # pool = Pool(processes=2, initializer=pool_init, initargs=(plotter_collection,))
