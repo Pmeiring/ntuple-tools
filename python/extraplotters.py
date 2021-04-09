@@ -13,9 +13,9 @@ from . import selections as selections
 
 def filter_combinations(tp_sel, gen_sel):
     isGoodCombi = True
-    if ("Pt15" in tp_sel.name or "Pt20"in tp_sel.name) and "Pt15" not in gen_sel.name: isGoodCombi=False
-    if ("Pt5to25" in tp_sel.name or "Pt5to20"in tp_sel.name) and "Pt30" not in gen_sel.name: isGoodCombi=False
-    if "Pt" not in tp_sel.name and "Pt" in gen_sel.name: isGoodCombi=False
+    # if ("Pt15" in tp_sel.name or "Pt20"in tp_sel.name) and "Pt15" not in gen_sel.name: isGoodCombi=False
+    # if ("Pt5to25" in tp_sel.name or "Pt5to20"in tp_sel.name) and "Pt30" not in gen_sel.name: isGoodCombi=False
+    # if "Pt" not in tp_sel.name and "Pt" in gen_sel.name: isGoodCombi=False
     if "EtaBC" in tp_sel.name and "EtaBC" not in gen_sel.name: isGoodCombi=False
     if "EtaDE" in tp_sel.name and "EtaDE" not in gen_sel.name: isGoodCombi=False
     return isGoodCombi

@@ -411,8 +411,8 @@ gen_pt_selections = [Selection("Pt0toINF", 'p_{T}^{GEN} #leq 0 GeV', 'pt >= 0'),
 gen_pt_sel = [Selection('all', '', ''),
                      # Selection('Pt5to20', '5 #leq p_{T}^{GEN} <= 20GeV', '(pt >= 5) & (pt <= 20)'),
                      # Selection('Pt20', 'p_{T}^{GEN}>=20GeV', 'pt > 20'),
-                     Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt > 15'),
-                     Selection('Pt30', 'p_{T}^{GEN}<=30GeV', 'pt < 30'),
+                     # Selection('Pt15', 'p_{T}^{GEN}>=15GeV', 'pt > 15'),
+                     # Selection('Pt30', 'p_{T}^{GEN}<=30GeV', 'pt < 30'),
 ]
 
 # gen_part_selections = [Selection('GEN', '', '(abs(pdgid) == {}) | (abs(pdgid) == {}) | (abs(pdgid) == {})'.format(PID.electron, PID.photon, PID.pion))]
