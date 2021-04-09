@@ -21,7 +21,7 @@ collections:
       ele_flat2to100_PU0_HLTTDR: 1
       ele_flat2to100_PU200_HLTTDR: 1
     htc_jobflavor:
-      workday
+      microcentury
     plotters:
       - tpEff
       - BDT_sig_ntuple
@@ -36,7 +36,7 @@ collections:
       minbias_PU0_HLTTDR: 1
       minbias_PU200_HLTTDR: 1
     htc_jobflavor:
-      workday
+      microcentury
     plotters:
       - tpRate
       - BDT_bkg_ntuple
@@ -53,23 +53,23 @@ samples:
 
   ele_flat2to100_PU0_HLTTDR:
     input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU0_CMSSW1116_v_5/210120_181637/0000/
-    events_per_job : 200
+    events_per_job : 1000
 
   ele_flat2to100_PU200_HLTTDR:
     input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU200_CMSSW1116_v_6/210125_095600/0000/
-    events_per_job : 200
+    events_per_job : 1000
 
   minbias_PU0_HLTTDR:
     input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU0_CMSSW1116_v_6/210121_093155/0000/
-    events_per_job : 200
+    events_per_job : 1000
 
   minbias_PU200_HLTTDR:
     input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU200_CMSSW1116_v_7/210127_102656/0000/
-    events_per_job : 200
+    events_per_job : 1000
 
   gianluca_doubleE_200PU:
     input_sample_dir: DoubleElectron_FlatPt-1To100/DoubleElectron_FlatPt-1To100_PU200_v63H/210115_153303/0000/
-    events_per_job : 200
+    events_per_job : 1000
 
 
 
