@@ -360,7 +360,7 @@ myrate_plotter = [plotters.RatePlotter(     collections.cl3d_hm,
 
 # efficiency plotter to use for singleelectron sample 
 myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
-                                            collections.tp_hm_vdr, 
+                                            collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
                                             selections.mytp_match_selection_sig_foreff,
@@ -370,7 +370,7 @@ myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
 
 # ntuplizer to use for minbias sample
 myBDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
-                                            collections.tp_hm_vdr, 
+                                            collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             selections.tp_match_selections_forBDT_bkg_noID,
                                             includeTracks=False, saveEffPlots=False, saveNtuples=True)
@@ -378,7 +378,7 @@ myBDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
 
 # ntuplizer to use for singleelectron sample
 myBDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
-                                            collections.tp_hm_vdr, 
+                                            collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
                                             selections.mytp_match_selection_sig_foreff,
@@ -388,7 +388,7 @@ myBDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
 
 # object matching plotter
 mymatch_plotter = [extraplotters.CustomHistPlotter(
-                                            collections.tp_hm_vdr, 
+                                            collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
                                             selections.mytp_match_selection_sig_foreff,

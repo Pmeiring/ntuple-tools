@@ -42,8 +42,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
     def plotObjectMatch(self,
                         genParticles,
                         objects,
-                        triggerClusters,
-                        triggerCells,
                         L1tracks,
                         h_gen,
                         h_gen_matched,
@@ -154,19 +152,13 @@ class Cluster3DGenMatchHybrid(BasePlotter):
     def fill_histos_event(self, idx, debug=0):
         # print "================== new event =================="
         for tp_sel in self.tp_selections:
-            tcs = self.tp_set.tc_df
-            cl2Ds = self.tp_set.cl2d_df
-            cl3Ds = self.tp_set.cl3d_df
-            l1tks = self.l1track_set.df
-
-            if not tp_sel.all:
-                cl3Ds = self.tp_set.cl3d_df.query(tp_sel.selection)
+            cl3Ds = self.tp_set.query_event(tp_sel, idx)
+            l1tks = self.l1track_set.query_event(selections.Selection('all'), idx)
             for gen_sel in self.gen_selections:
-                
-                genReference = self.gen_set.df[(self.gen_set.df.gen > 0)] 
-                if not gen_sel.all:
-                    genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection) 
-                
+                genReference = self.gen_set.query_event(gen_sel, idx)
+                if genReference.empty:
+                    continue
+
                 # Exclude some combinations of GENsel and TPsel
                 isGoodCombi = filter_combinations(tp_sel, gen_sel)
                 if not isGoodCombi: continue
@@ -183,8 +175,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                 h_genseleff_num =     None if not self.saveEffPlots else self.h_effset[histo_name].h_num
                 self.plotObjectMatch(genReference,
                                         cl3Ds,
-                                        cl2Ds,
-                                        tcs,
                                         l1tks,
                                         h_genseleff_den,
                                         h_genseleff_num,
@@ -221,13 +211,11 @@ class Cluster3DHybrid(BasePlotter):
         super(Cluster3DHybrid, self).__init__(tp_set, tp_selections)
 
     def plotObject(self,
-                           objects,
-                           triggerClusters,
-                           triggerCells,
-                           L1tracks,
-                           ntuple3DClNOMatch,
-                           algoname,
-                           debug):
+                   objects,
+                   L1tracks,
+                   ntuple3DClNOMatch,
+                   algoname,
+                   debug):
 
         def match3DClusterToL1Tracks(clusters, tracks):
             L1Tk_match_indices = {}
@@ -284,25 +272,23 @@ class Cluster3DHybrid(BasePlotter):
         pass
 
     def fill_histos_event(self, idx, debug=0):
+        print ("idx = ",idx)
         for tp_sel in self.tp_selections:
-            tcs = self.tp_set.tc_df
-            cl2Ds = self.tp_set.cl2d_df
-            cl3Ds = self.tp_set.cl3d_df
-            l1tks = self.l1track_set.df
+            cl3Ds = self.tp_set.query_event(tp_sel, idx)
+            l1tks = self.l1track_set.query_event(selections.Selection('all'), idx)
+            # l1tks = self.l1track_set.df
 
-            if not tp_sel.all:
-                cl3Ds = self.tp_set.cl3d_df.query(tp_sel.selection)
+            # if not tp_sel.all:
+            #     cl3Ds = cl3Ds.query(tp_sel.selection)
             
             histo_name_NOMATCH='{}_{}_noMatch'.format(self.tp_set.name, tp_sel.name)
             hcl3d_unmatched = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH].hcl3d
 
             self.plotObject(cl3Ds,
-                        cl2Ds,
-                        tcs,
-                        l1tks,
-                        hcl3d_unmatched,
-                        self.tp_set.name,
-                        debug)
+                            l1tks,
+                            hcl3d_unmatched,
+                            self.tp_set.name,
+                            debug)
 
 
 class CustomHistPlotter(BasePlotter):
@@ -351,13 +337,11 @@ class CustomHistPlotter(BasePlotter):
     def fill_histos(self, debug=False):
         # print "================== new event =================="
         for tp_sel in self.tp_selections:
-            tcs = self.tp_set.tc_df
-            cl2Ds = self.tp_set.cl2d_df
-            cl3Ds = self.tp_set.cl3d_df
+            cl3Ds = self.tp_set.df
             l1tks = self.l1track_set.df
 
             if not tp_sel.all:
-                cl3Ds = self.tp_set.cl3d_df.query(tp_sel.selection)
+                cl3Ds = cl3Ds.query(tp_sel.selection)
             for gen_sel in self.gen_selections:
                 
                 genReference = self.gen_set.df[(self.gen_set.df.gen > 0)] 

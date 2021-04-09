@@ -24,7 +24,7 @@ collections:
       workday
     plotters:
       - tpEff
-      # - BDT_sig_ntuple
+      - BDT_sig_ntuple
 
   minBias:
     file_label:
@@ -39,7 +39,7 @@ collections:
       workday
     plotters:
       - tpRate
-      # - BDT_bkg_ntuple
+      - BDT_bkg_ntuple
 
 plotters:
   tpRate:          !!python/name:python.plotters_config.myrate_plotter

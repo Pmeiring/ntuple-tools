@@ -1414,52 +1414,53 @@ class Cluster3DTuples(BaseHistos):
             self.t_values = ROOT.TNtuple(name, name, variables)
         BaseHistos.__init__(self, name, root_file, debug)
 
-    def fill(self, cl3ds):
-        energy_fill = []
+    def fill(self, clusters):
+        for index, cl3ds in clusters.iterrows():
 
-        if not cl3ds.empty:
-           energy_fill.append(cl3ds.pt)
-           energy_fill.append(cl3ds.eta)
-           energy_fill.append(abs(cl3ds.eta))
-           energy_fill.append(cl3ds.phi)
-           energy_fill.append(cl3ds.energy)
-           energy_fill.append(cl3ds.nclu)
-           energy_fill.append(cl3ds.showerlength)
-           energy_fill.append(cl3ds.coreshowerlength)
-           energy_fill.append(cl3ds.firstlayer)
-           energy_fill.append(cl3ds.maxlayer)
-           energy_fill.append(cl3ds.seetot)
-           energy_fill.append(cl3ds.seemax)
-           energy_fill.append(cl3ds.spptot)
-           energy_fill.append(cl3ds.sppmax)
-           energy_fill.append(cl3ds.srrtot)
-           energy_fill.append(cl3ds.srrmax)
-           energy_fill.append(cl3ds.srrmean)
-           energy_fill.append(cl3ds.meanz)
-           energy_fill.append(cl3ds.szz)
-           energy_fill.append(cl3ds.emaxe)
-           energy_fill.append(cl3ds.layer10)
-           energy_fill.append(cl3ds.layer50)
-           energy_fill.append(cl3ds.layer90)
-           energy_fill.append(cl3ds.ntc67)
-           energy_fill.append(cl3ds.ntc90)
-           energy_fill.append(cl3ds.hoe)
-           energy_fill.append(cl3ds.bdteg)
-           energy_fill.append(cl3ds.newBDTlowlow)
-           energy_fill.append(cl3ds.newBDTlowhigh)
-           energy_fill.append(cl3ds.newBDThighlow)
-           energy_fill.append(cl3ds.newBDThighhigh)
-           energy_fill.append(cl3ds.tttrack_pt)
-           energy_fill.append(cl3ds.tttrack_eta)
-           energy_fill.append(cl3ds.tttrack_phi)
-           energy_fill.append(cl3ds.tttrack_chi2)
-           energy_fill.append(cl3ds.tttrack_nStubs)
-        else:
-           for i in range(0,36):
-               energy_fill.append(-999)       
-       
-        energy_fill=np.array(energy_fill, dtype='f')
-        self.t_values.Fill(energy_fill)
+            energy_fill = []
+            if not cl3ds.empty:
+               energy_fill.append(cl3ds.pt)
+               energy_fill.append(cl3ds.eta)
+               energy_fill.append(abs(cl3ds.eta))
+               energy_fill.append(cl3ds.phi)
+               energy_fill.append(cl3ds.energy)
+               energy_fill.append(cl3ds.nclu)
+               energy_fill.append(cl3ds.showerlength)
+               energy_fill.append(cl3ds.coreshowerlength)
+               energy_fill.append(cl3ds.firstlayer)
+               energy_fill.append(cl3ds.maxlayer)
+               energy_fill.append(cl3ds.seetot)
+               energy_fill.append(cl3ds.seemax)
+               energy_fill.append(cl3ds.spptot)
+               energy_fill.append(cl3ds.sppmax)
+               energy_fill.append(cl3ds.srrtot)
+               energy_fill.append(cl3ds.srrmax)
+               energy_fill.append(cl3ds.srrmean)
+               energy_fill.append(cl3ds.meanz)
+               energy_fill.append(cl3ds.szz)
+               energy_fill.append(cl3ds.emaxe)
+               energy_fill.append(cl3ds.layer10)
+               energy_fill.append(cl3ds.layer50)
+               energy_fill.append(cl3ds.layer90)
+               energy_fill.append(cl3ds.ntc67)
+               energy_fill.append(cl3ds.ntc90)
+               energy_fill.append(cl3ds.hoe)
+               energy_fill.append(cl3ds.bdteg)
+               energy_fill.append(cl3ds.newBDTlowlow)
+               energy_fill.append(cl3ds.newBDTlowhigh)
+               energy_fill.append(cl3ds.newBDThighlow)
+               energy_fill.append(cl3ds.newBDThighhigh)
+               energy_fill.append(cl3ds.tttrack_pt)
+               energy_fill.append(cl3ds.tttrack_eta)
+               energy_fill.append(cl3ds.tttrack_phi)
+               energy_fill.append(cl3ds.tttrack_chi2)
+               energy_fill.append(cl3ds.tttrack_nStubs)
+            else:
+               for i in range(0,36):
+                   energy_fill.append(-999)       
+           
+            energy_fill=np.array(energy_fill, dtype='f')
+            self.t_values.Fill(energy_fill)
 
 
     def write(self):
