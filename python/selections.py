@@ -415,6 +415,14 @@ gen_pt_sel = [Selection('all', '', ''),
                      # Selection('Pt30', 'p_{T}^{GEN}<=30GeV', 'pt < 30'),
 ]
 
+gen_pt_sel_test = [Selection('Pt0to5',    '0 #leq p_{T}^{GEN} < 5GeV',  '(pt >= 0) & (pt < 5)'),
+                   Selection('Pt5to10',   '5 #leq p_{T}^{GEN} < 10GeV', '(pt >= 5) & (pt < 10)'),
+                   Selection('Pt10to15', '10 #leq p_{T}^{GEN} < 15GeV', '(pt >= 10) & (pt < 15)'),
+                   Selection('Pt15to20', '15 #leq p_{T}^{GEN} < 20GeV', '(pt >= 15) & (pt < 20)'),
+                   Selection('Pt20to25', '20 #leq p_{T}^{GEN} < 25GeV', '(pt >= 20) & (pt < 25)'),
+                   Selection('Pt25toINF', 'p_{T}^{GEN} #leq 20GeV', 'pt >= 25')
+]
+
 # gen_part_selections = [Selection('GEN', '', '(abs(pdgid) == {}) | (abs(pdgid) == {}) | (abs(pdgid) == {})'.format(PID.electron, PID.photon, PID.pion))]
 # gen_part_selections = [Selection('GEN', '', '(abs(pdgid) == {}) & (firstmother_pdgid == {})'.format(PID.electron, PID.electron))]
 # FIXME: add fabs to firstmother_if
@@ -493,7 +501,7 @@ gen_part_selections += gen_part_ee_pt_sel
 # gen_e_sel = add_selections(gen_e_sel, gen_eta_selections)
 # gen_e_sel = add_selections(gen_pt_selections, gen_eta_selections)
 # gen_e_sel = add_selections(gen_e_sel, [Selection('all', '', '')])
-gen_e_sel = add_selections(gen_ele_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
+# gen_e_sel = add_selections(gen_ele_sel, [Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8')])
 # gen_e_sel_forBDT_sig = add_selections(gen_ele_sel, gen_pt_sel_forBDT_sig)
 
 
@@ -501,7 +509,8 @@ gen_e_sel = add_selections(gen_ele_sel, gen_pt_sel)
 gen_e_sel = add_selections(gen_e_sel, gen_exeta_selections)
 
 
-
+gen_e_sel_test = add_selections(gen_ele_sel, gen_pt_sel_test)
+gen_e_sel_test = add_selections(gen_e_sel_test, gen_exeta_selections)
 
 
 

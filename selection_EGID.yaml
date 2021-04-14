@@ -5,7 +5,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
-  plot_version: v83
+  plot_version: v84
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
@@ -23,8 +23,9 @@ collections:
     htc_jobflavor:
       microcentury
     plotters:
-      - tpEff
-      - BDT_sig_ntuple
+      # - tpEff
+      # - BDT_sig_ntuple
+      - BDT_sig_sliceGenpt
 
   minBias:
     file_label:
@@ -46,6 +47,7 @@ plotters:
   tpEff:           !!python/name:python.plotters_config.myeffi_plotter
   BDT_sig_ntuple : !!python/name:python.plotters_config.myBDT_sig_ntuplizer
   BDT_bkg_ntuple : !!python/name:python.plotters_config.myBDT_bkg_ntuplizer
+  BDT_sig_sliceGenpt: !!python/name:python.plotters_config.myBDT_sig_test
 
 samples:
 
