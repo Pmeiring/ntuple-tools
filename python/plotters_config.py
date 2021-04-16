@@ -403,7 +403,7 @@ myBDT_sig_test = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.sig_lowptloweta,
+                                            selections.tp_eta_selections,
                                             selections.gen_e_sel_test,
                                             includeTracks=False, saveEffPlots=False, saveNtuples=True)
 ]

@@ -78,6 +78,8 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                         clusters.loc[idx,"tttrack_nStubs"]=tracks.loc[L1Tk_best_match_idx].nStubs
             return clusters
 
+        # print ("\n======  NEW EVENT ====== \n")
+
         gen_filler = histos.HistoLazyFiller(genParticles)
         den_sel = np.full(genParticles.shape[0], True, dtype=bool)
         num_sel = np.full(genParticles.shape[0], False, dtype=bool)
@@ -113,6 +115,10 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     obj_ismatch[objects.index.get_loc(best_match_indexes[idx])] = True
 
                 num_sel[genParticles.index.get_loc(idx)] = True
+
+                # print ("====== using as match ======")
+                # print (genParticles.pt, (obj_matched.pt))
+                # print ("============================")
 
                 # FILL THE OUTPUT NTUPLES AND HISTOGRAMS
                 if self.saveNtuples:

@@ -41,12 +41,13 @@ def match_etaphi(ref_etaphi, trigger_etaphi, trigger_pt, deltaR=0.2, return_posi
         if (len(matched) != 0):
             # print (trigger_pt.iloc[matched])
             # print (trigger_pt.iloc[matched].idxmax())
-            # print (np.argmax(trigger_pt.iloc[matched]))
 
             if return_positional:
+                # print (np.argmax(trigger_pt.iloc[matched]))
                 best_match_indices[index] = matched[np.argmax(trigger_pt.iloc[matched])]
                 all_matches_indices[index] = matched
             else:
+                # print (trigger_pt.iloc[matched].idxmax())
                 best_match = trigger_pt.iloc[matched].idxmax()
                 best_match_indices[index] = best_match
                 all_matches_indices[index] = trigger_pt.iloc[matched].index.values
@@ -57,7 +58,7 @@ def match_etaphi(ref_etaphi, trigger_etaphi, trigger_pt, deltaR=0.2, return_posi
             # all_matches_indices[index] = trigger_pt.iloc[matched].index.values
             # print (trigger_pt.iloc[matched].index.values)
 
-    # print best_match_indices
+    # print (best_match_indices)
     # print all_matches_indices
     return best_match_indices, all_matches_indices
 
