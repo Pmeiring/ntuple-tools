@@ -203,7 +203,7 @@ tp_eta_selections = [#Selection('all', '', ''),
 
 tp_eta_selections_forBDT = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7'),
                      Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3'),
-                     Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52 < abs(eta) < 3')
+                     # Selection('EtaBCDE', '1.52 < |#eta^{L1}| < 3', '1.52 < abs(eta) < 3')
                      ]
 
 # tp_BDT_selections = [Selection('BDT_tpg997', 'bdt_eg > 0.03496629')]

@@ -372,7 +372,7 @@ myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
 myBDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
-                                            selections.tp_match_selections_forBDT_bkg_noID,
+                                            selections.tp_eta_selections_forBDT,
                                             includeTracks=False, saveEffPlots=False, saveNtuples=True)
 ]
 
@@ -381,7 +381,7 @@ myBDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.tp_match_selections_forBDT_sig_noID,
+                                            selections.tp_eta_selections_forBDT,
                                             selections.gen_e_sel,
                                             includeTracks=False, saveEffPlots=False, saveNtuples=True)
 ]

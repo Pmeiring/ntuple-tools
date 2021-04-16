@@ -278,7 +278,7 @@ class Cluster3DHybrid(BasePlotter):
         pass
 
     def fill_histos_event(self, idx, debug=0):
-        print ("idx = ",idx)
+        # print ("idx = ",idx)
         for tp_sel in self.tp_selections:
             cl3Ds = self.tp_set.query_event(tp_sel, idx)
             l1tks = self.l1track_set.query_event(selections.Selection('all'), idx)
