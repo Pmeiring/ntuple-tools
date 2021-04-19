@@ -355,7 +355,7 @@ tp_cluster_tc_match_plotters = [plotters.ClusterTCGenMatchPlotter(collections.tp
 
 # rate plotter to use for minbias sample
 myrate_plotter = [plotters.RatePlotter(     collections.cl3d_hm, 
-                                            selections.mytp_match_selection_forRate_bkg)
+                                            selections.tp_selections_rateeff)
 ]
 
 # efficiency plotter to use for singleelectron sample 
@@ -363,7 +363,7 @@ myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.mytp_match_selection_sig_foreff,
+                                            selections.tp_selections_rateeff,
                                             selections.gen_e_sel,
                                             includeTracks=False, saveEffPlots=True, saveNtuples=False)
 ]
@@ -391,7 +391,7 @@ mymatch_plotter = [extraplotters.CustomHistPlotter(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.mytp_match_selection_sig_foreff,
+                                            selections.tp_eta_selections_forBDT,
                                             selections.gen_e_sel)
 ]
 
