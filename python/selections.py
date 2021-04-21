@@ -229,10 +229,10 @@ tp_IDtpg__loweta_highpt = add_selections(tp_loweta,  [Selection('tpgID900_loweta
 tp_IDtpg_higheta_highpt = add_selections(tp_higheta, [Selection('tpgID900_highetahighpt','passed old ID WP90%: high eta, high pt','bdteg>0.9972339')])
 tp_IDtpg = tp_IDtpg__loweta__lowpt + tp_IDtpg_higheta__lowpt + tp_IDtpg__loweta_highpt + tp_IDtpg_higheta_highpt
 
-tp_IDnew__loweta__lowpt = add_selections(tp_loweta,  [Selection('newID900_lowetalowpt',  'passed new ID WP90%: low eta, low pt',  'bdteg>-0.7489949')])
-tp_IDnew_higheta__lowpt = add_selections(tp_higheta, [Selection('newID900_highetalowpt', 'passed new ID WP90%: high eta, low pt', 'bdteg>-0.8880973')])
-tp_IDnew__loweta_highpt = add_selections(tp_loweta,  [Selection('newID900_lowetahighpt', 'passed new ID WP90%: low eta, high pt', 'bdteg>0.9905590')])
-tp_IDnew_higheta_highpt = add_selections(tp_higheta, [Selection('newID900_highetahighpt','passed new ID WP90%: high eta, high pt','bdteg>0.9893420')])
+tp_IDnew__loweta__lowpt = add_selections(tp_loweta,  [Selection('newID900_lowetalowpt',  'passed new ID WP90%: low eta, low pt',  'newBDTlowlow>-0.7489949')])
+tp_IDnew_higheta__lowpt = add_selections(tp_higheta, [Selection('newID900_highetalowpt', 'passed new ID WP90%: high eta, low pt', 'newBDThighlow>-0.8880973')])
+tp_IDnew__loweta_highpt = add_selections(tp_loweta,  [Selection('newID900_lowetahighpt', 'passed new ID WP90%: low eta, high pt', 'newBDTlowhigh>0.9905590')])
+tp_IDnew_higheta_highpt = add_selections(tp_higheta, [Selection('newID900_highetahighpt','passed new ID WP90%: high eta, high pt','newBDThighhigh>0.9893420')])
 tp_IDnew = tp_IDnew__loweta__lowpt + tp_IDnew_higheta__lowpt + tp_IDnew__loweta_highpt + tp_IDnew_higheta_highpt
 
 tp_selections_rateeff = tp_noID + tp_IDtpg + tp_IDnew

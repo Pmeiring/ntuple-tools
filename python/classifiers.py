@@ -48,15 +48,15 @@ def mva_pi_classifier_builder():
     return mva_pi_classifier
 
 
-MVA_classifier_lowptloweta = None
-MVA_classifier_lowpthigheta = None
-MVA_classifier_highptloweta = None
-MVA_classifier_highpthigheta = None
+MVA_classifier_lowetalowpt = None
+MVA_classifier_lowetahighpt = None
+MVA_classifier_highetalowpt = None
+MVA_classifier_highetahighpt = None
 
 def MVA_classifier_builder_lowlow():
-    global MVA_classifier_lowptloweta
-    if MVA_classifier_lowptloweta is None:
-        MVA_classifier_lowptloweta = book_MVA_classifier(model="BDT",
+    global MVA_classifier_lowetalowpt
+    if MVA_classifier_lowetalowpt is None:
+        MVA_classifier_lowetalowpt = book_MVA_classifier(model="BDT",
                                                 # weight_file='data/egid_best9_loweta_lowpt_Histomaxvardr_loweta_low.xml',
                                                 weight_file='data/egid_allvars_Histomaxvardr_loweta_low.xml',
                                                 # variables=['layer90',
@@ -70,14 +70,14 @@ def MVA_classifier_builder_lowlow():
                                                 #            'spptot'])
                                                 variables=['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe'])
                                  
-    return MVA_classifier_lowptloweta
+    return MVA_classifier_lowetalowpt
 
 
 
-def MVA_classifier_builder_lowhigh():
-    global MVA_classifier_lowpthigheta
-    if MVA_classifier_lowpthigheta is None:
-        MVA_classifier_lowpthigheta = book_MVA_classifier(model="BDT",
+def MVA_classifier_builder_highlow():
+    global MVA_classifier_highetalowpt
+    if MVA_classifier_highetalowpt is None:
+        MVA_classifier_highetalowpt = book_MVA_classifier(model="BDT",
                                                 weight_file='data/egid_allvars_Histomaxvardr_higheta_low.xml',
                                                 # variables=['seetot',
                                                 #            'layer90',
@@ -89,13 +89,13 @@ def MVA_classifier_builder_lowhigh():
                                                 #            'layer10',
                                                 #            'emaxe'])
                                                 variables=['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe'])
-    return MVA_classifier_lowpthigheta
+    return MVA_classifier_highetalowpt
 
 
-def MVA_classifier_builder_highlow():
-    global MVA_classifier_highptloweta
-    if MVA_classifier_highptloweta is None:
-        MVA_classifier_highptloweta = book_MVA_classifier(model="BDT",
+def MVA_classifier_builder_lowhigh():
+    global MVA_classifier_lowetahighpt
+    if MVA_classifier_lowetahighpt is None:
+        MVA_classifier_lowetahighpt = book_MVA_classifier(model="BDT",
                                                 weight_file='data/egid_allvars_Histomaxvardr_loweta_high.xml',
                                                 # variables=['hoe',
                                                 #            'srrtot',
@@ -107,13 +107,13 @@ def MVA_classifier_builder_highlow():
                                                 #            'layer10',
                                                 #            'emaxe'])
                                                 variables=['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe'])
-    return MVA_classifier_highptloweta    
+    return MVA_classifier_lowetahighpt    
 
 
 def MVA_classifier_builder_highhigh():
-    global MVA_classifier_highpthigheta
-    if MVA_classifier_highpthigheta is None:
-        MVA_classifier_highpthigheta = book_MVA_classifier(model="BDT",
+    global MVA_classifier_highetahighpt
+    if MVA_classifier_highetahighpt is None:
+        MVA_classifier_highetahighpt = book_MVA_classifier(model="BDT",
                                                 weight_file='data/egid_allvars_Histomaxvardr_higheta_high.xml',
                                                 # variables=['hoe',
                                                 #            'ntc67',
@@ -125,4 +125,4 @@ def MVA_classifier_builder_highhigh():
                                                 #            'szz',
                                                 #            'layer50'])
                                                 variables=['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe'])
-    return MVA_classifier_highpthigheta  
+    return MVA_classifier_highetahighpt  

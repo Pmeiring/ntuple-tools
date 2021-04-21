@@ -385,59 +385,85 @@ class ClusterHistos(BaseHistos):
 class Cluster3DHistos(BaseHistos):
     def __init__(self, name, root_file=None, debug=False):
         if not root_file:
-            self.h_npt05 = ROOT.TH1F(
-                name+'_npt05', '# 3D Cluster Pt > 0.5 GeV; # 3D clusters in cone;', 1000, 0, 1000)
-            self.h_npt20 = ROOT.TH1F(
-                name+'_npt20', '# 3D Cluster Pt > 2.0 GeV; # 3D clusters in cone;', 1000, 0, 1000)
-            self.h_pt = ROOT.TH1F(
-                name+'_pt', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            # self.h_npt05 = ROOT.TH1F(
+            #     name+'_npt05', '# 3D Cluster Pt > 0.5 GeV; # 3D clusters in cone;', 1000, 0, 1000)
+            # self.h_npt20 = ROOT.TH1F(
+            #     name+'_npt20', '# 3D Cluster Pt > 2.0 GeV; # 3D clusters in cone;', 1000, 0, 1000)
+            self.h_pt = ROOT.TH1F(name+'_pt', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+
+
+            self.h_pt_passOLDlowlowID =   ROOT.TH1F(name+'_ptpassOLDlowlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passOLDlowhighID =  ROOT.TH1F(name+'_ptpassOLDlowhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passOLDhighlowID =  ROOT.TH1F(name+'_ptpassOLDhighlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passOLDhighhighID = ROOT.TH1F(name+'_ptpassOLDhighhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+
+            self.h_pt_passNEWlowlowID =   ROOT.TH1F(name+'_ptpassNEWlowlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passNEWlowhighID =  ROOT.TH1F(name+'_ptpassNEWlowhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passNEWhighlowID =  ROOT.TH1F(name+'_ptpassNEWhighlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passNEWhighhighID = ROOT.TH1F(name+'_ptpassNEWhighhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+
             self.h_eta = ROOT.TH1F(name+'_eta', '3D Cluster eta; #eta;', 100, -4, 4)
-            self.h_energy = ROOT.TH1F(name+'_energy', '3D Cluster energy (GeV); E [GeV]', 1000, 0, 1000)
-            self.h_nclu = ROOT.TH1F(name+'_nclu', '3D Cluster # clusters; # 2D components;', 60, 0, 60)
-            self.h_ncluVpt = ROOT.TH2F(name+'_ncluVpt', '3D Cluster # clusters vs pt; # 2D components; p_{T} [GeV]', 60, 0, 60, 100, 0, 100)
-            self.h_showlenght = ROOT.TH1F(name+'_showlenght', '3D Cluster showerlenght', 60, 0, 60)
-            self.h_firstlayer = ROOT.TH1F(name+'_firstlayer', '3D Cluster first layer', 30, 0, 30)
-            self.h_sEtaEtaTot = ROOT.TH1F(name+'_sEtaEtaTot', '3D Cluster RMS Eta', 100, 0, 0.1)
-            self.h_sEtaEtaMax = ROOT.TH1F(name+'_sEtaEtaMax', '3D Cluster RMS Eta (max)', 100, 0, 0.1)
-            self.h_sPhiPhiTot = ROOT.TH1F(name+'_sPhiPhiTot', '3D Cluster RMS Phi', 100, 0, 2)
-            self.h_sPhiPhiMax = ROOT.TH1F(name+'_sPhiPhiMax', '3D Cluster RMS Phi (max)', 100, 0, 2)
-            self.h_sZZ = ROOT.TH1F(name+'_sZZ', '3D Cluster RMS Z ???', 100, 0, 10)
-            self.h_eMaxOverE = ROOT.TH1F(name+'_eMaxOverE', '3D Cluster Emax/E', 100, 0, 1)
-            self.h_HoE = ROOT.TH1F(name+'_HoE', '3D Cluster H/E', 20, 0, 2)
-            self.h_iso0p2 = ROOT.TH1F(name+'_iso0p2', '3D Cluster iso DR 0.2(GeV); Iso p_{T} [GeV];', 100, 0, 100)
-            self.h_isoRel0p2 = ROOT.TH1F(name+'_isoRel0p2', '3D Cluster relative iso DR 0.2; Rel. Iso;', 100, 0, 1)
-            self.h_bdtPU = ROOT.TH1F(name+'_bdtPU', '3D Cluster bdt PU out; BDT-PU out;', 100, -1, 1)
-            self.h_bdtPi = ROOT.TH1F(name+'_bdtPi', '3D Cluster bdt Pi out; BDT-Pi out;', 100, -1, 1)
-            self.h_bdtEg = ROOT.TH1F(name+'_bdtEg', '3D Cluster bdt Pi out; BDT-EG out;', 100, -1, 1)
+            # self.h_energy = ROOT.TH1F(name+'_energy', '3D Cluster energy (GeV); E [GeV]', 1000, 0, 1000)
+            # self.h_nclu = ROOT.TH1F(name+'_nclu', '3D Cluster # clusters; # 2D components;', 60, 0, 60)
+            # self.h_ncluVpt = ROOT.TH2F(name+'_ncluVpt', '3D Cluster # clusters vs pt; # 2D components; p_{T} [GeV]', 60, 0, 60, 100, 0, 100)
+            # self.h_showlenght = ROOT.TH1F(name+'_showlenght', '3D Cluster showerlenght', 60, 0, 60)
+            # self.h_firstlayer = ROOT.TH1F(name+'_firstlayer', '3D Cluster first layer', 30, 0, 30)
+            # self.h_sEtaEtaTot = ROOT.TH1F(name+'_sEtaEtaTot', '3D Cluster RMS Eta', 100, 0, 0.1)
+            # self.h_sEtaEtaMax = ROOT.TH1F(name+'_sEtaEtaMax', '3D Cluster RMS Eta (max)', 100, 0, 0.1)
+            # self.h_sPhiPhiTot = ROOT.TH1F(name+'_sPhiPhiTot', '3D Cluster RMS Phi', 100, 0, 2)
+            # self.h_sPhiPhiMax = ROOT.TH1F(name+'_sPhiPhiMax', '3D Cluster RMS Phi (max)', 100, 0, 2)
+            # self.h_sZZ = ROOT.TH1F(name+'_sZZ', '3D Cluster RMS Z ???', 100, 0, 10)
+            # self.h_eMaxOverE = ROOT.TH1F(name+'_eMaxOverE', '3D Cluster Emax/E', 100, 0, 1)
+            # self.h_HoE = ROOT.TH1F(name+'_HoE', '3D Cluster H/E', 20, 0, 2)
+            # self.h_iso0p2 = ROOT.TH1F(name+'_iso0p2', '3D Cluster iso DR 0.2(GeV); Iso p_{T} [GeV];', 100, 0, 100)
+            # self.h_isoRel0p2 = ROOT.TH1F(name+'_isoRel0p2', '3D Cluster relative iso DR 0.2; Rel. Iso;', 100, 0, 1)
+            # self.h_bdtPU = ROOT.TH1F(name+'_bdtPU', '3D Cluster bdt PU out; BDT-PU out;', 100, -1, 1)
+            # self.h_bdtPi = ROOT.TH1F(name+'_bdtPi', '3D Cluster bdt Pi out; BDT-Pi out;', 100, -1, 1)
+            # self.h_bdtEg = ROOT.TH1F(name+'_bdtEg', '3D Cluster bdt Pi out; BDT-EG out;', 100, -1, 1)
 
         BaseHistos.__init__(self, name, root_file, debug)
 
     def fill(self, cl3ds):
-        self.h_npt05.Fill(len(cl3ds[cl3ds.pt > 0.5].index))
-        self.h_npt20.Fill(len(cl3ds[cl3ds.pt > 2.0].index))
+        # self.h_npt05.Fill(len(cl3ds[cl3ds.pt > 0.5].index))
+        # self.h_npt20.Fill(len(cl3ds[cl3ds.pt > 2.0].index))
 
         rnp.fill_hist(self.h_pt, cl3ds.pt)
+
+        rnp.fill_hist(self.h_pt_passOLDlowlowID, cl3ds.pt[cl3ds.bdteg>-0.9969856])
+        rnp.fill_hist(self.h_pt_passOLDlowhighID, cl3ds.pt[cl3ds.bdteg>0.9967954])
+        rnp.fill_hist(self.h_pt_passOLDhighlowID, cl3ds.pt[cl3ds.bdteg>-0.9989121])
+        rnp.fill_hist(self.h_pt_passOLDhighhighID, cl3ds.pt[cl3ds.bdteg>0.9972339])
+
+        rnp.fill_hist(self.h_pt_passNEWlowlowID, cl3ds.pt[cl3ds.newBDTlowlow>-0.7489949])
+        rnp.fill_hist(self.h_pt_passNEWlowhighID, cl3ds.pt[cl3ds.newBDTlowhigh>0.9905590])
+        rnp.fill_hist(self.h_pt_passNEWhighlowID, cl3ds.pt[cl3ds.newBDThighlow>-0.8880973])
+        rnp.fill_hist(self.h_pt_passNEWhighhighID, cl3ds.pt[cl3ds.newBDThighhigh>0.9893420])
+
         rnp.fill_hist(self.h_eta, cl3ds.eta)
-        rnp.fill_hist(self.h_energy, cl3ds.energy)
-        rnp.fill_hist(self.h_nclu, cl3ds.nclu)
-        rnp.fill_hist(self.h_ncluVpt, cl3ds[['nclu', 'pt']])
-        rnp.fill_hist(self.h_showlenght, cl3ds.showerlength)
-        rnp.fill_hist(self.h_firstlayer, cl3ds.firstlayer)
-        rnp.fill_hist(self.h_sEtaEtaTot, cl3ds.seetot)
-        rnp.fill_hist(self.h_sEtaEtaMax, cl3ds.seemax)
-        rnp.fill_hist(self.h_sPhiPhiTot, cl3ds.spptot)
-        rnp.fill_hist(self.h_sPhiPhiMax, cl3ds.sppmax)
-        rnp.fill_hist(self.h_sZZ, cl3ds.szz)
-        rnp.fill_hist(self.h_eMaxOverE, cl3ds.emaxe)
-        rnp.fill_hist(self.h_HoE, cl3ds.hoe)
-        if 'iso0p2' in cl3ds.columns:
-            rnp.fill_hist(self.h_iso0p2, cl3ds.iso0p2)
-            rnp.fill_hist(self.h_isoRel0p2, cl3ds.isoRel0p2)
-        if 'bdt_pu' in cl3ds.columns:
-            rnp.fill_hist(self.h_bdtPU, cl3ds.bdt_pu)
-        if 'bdt_pi' in cl3ds.columns:
-            rnp.fill_hist(self.h_bdtPi, cl3ds.bdt_pi)
-        rnp.fill_hist(self.h_bdtEg, cl3ds.bdteg)
+        # rnp.fill_hist(self.h_energy, cl3ds.energy)
+        # rnp.fill_hist(self.h_nclu, cl3ds.nclu)
+        # rnp.fill_hist(self.h_ncluVpt, cl3ds[['nclu', 'pt']])
+        # rnp.fill_hist(self.h_showlenght, cl3ds.showerlength)
+        # rnp.fill_hist(self.h_firstlayer, cl3ds.firstlayer)
+        # rnp.fill_hist(self.h_sEtaEtaTot, cl3ds.seetot)
+        # rnp.fill_hist(self.h_sEtaEtaMax, cl3ds.seemax)
+        # rnp.fill_hist(self.h_sPhiPhiTot, cl3ds.spptot)
+        # rnp.fill_hist(self.h_sPhiPhiMax, cl3ds.sppmax)
+        # rnp.fill_hist(self.h_sZZ, cl3ds.szz)
+        # rnp.fill_hist(self.h_eMaxOverE, cl3ds.emaxe)
+        # rnp.fill_hist(self.h_HoE, cl3ds.hoe)
+        # if 'iso0p2' in cl3ds.columns:
+        #     rnp.fill_hist(self.h_iso0p2, cl3ds.iso0p2)
+        #     rnp.fill_hist(self.h_isoRel0p2, cl3ds.isoRel0p2)
+        # if 'bdt_pu' in cl3ds.columns:
+        #     rnp.fill_hist(self.h_bdtPU, cl3ds.bdt_pu)
+        # if 'bdt_pi' in cl3ds.columns:
+        #     rnp.fill_hist(self.h_bdtPi, cl3ds.bdt_pi)
+        # rnp.fill_hist(self.h_bdtEg, cl3ds.bdteg)
+
+    def fill_lazy(self, filler, sel_name):
+        filler.fill1d_lazy(self.h_pt, 'pt', sel_name)
+        filler.fill1d_lazy(self.h_eta, 'eta', sel_name)
 
 
 class EGHistos(BaseHistos):

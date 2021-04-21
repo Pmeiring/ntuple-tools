@@ -23,13 +23,16 @@ def filter_combinations(tp_sel, gen_sel):
 
 class Cluster3DGenMatchHybrid(BasePlotter):
     def __init__(self, tp_set, l1track_set, gen_set,
-                 tp_selections=[selections.Selection('all')], gen_selections=[selections.Selection('all')], includeTracks=False, saveEffPlots=False, saveNtuples=False):
+                 tp_selections=[selections.Selection('all')], gen_selections=[selections.Selection('all')], ObjectHistoClass=histos.Cluster3DHistos,
+                 includeTracks=False, saveEffPlots=False, saveNtuples=False):
         # self.tp_set = tp_set
         # self.tp_selections = tp_selections
         # self.gen_set = gen_set
         # self.gen_selections = gen_selections
+        self.ObjectHistoClass=ObjectHistoClass
         self.l1track_set=l1track_set
         self.h_tpset = {}
+        self.h_dataset= {}
         self.h_effset = {}
         self.saveNtuples = saveNtuples
         self.saveEffPlots = saveEffPlots
@@ -47,6 +50,7 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                         h_gen_matched,
                         ntuple3DClMatch,
                         ntuple3DClNOMatch,
+                        h_object_matched,
                         algoname,
                         debug):
 
@@ -92,6 +96,7 @@ class Cluster3DGenMatchHybrid(BasePlotter):
         best_match_indexes = {}
         positional = True
         if not objects.empty:
+            # obj_filler = histos.HistoLazyFiller(objects)
             obj_ismatch = np.full(objects.shape[0], False, dtype=bool)
 
             best_match_indexes, allmatches = utils.match_etaphi(
@@ -124,10 +129,18 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                 if self.saveNtuples:
                     ntuple3DClMatch.fill(obj_matched)
             
+                h_object_matched.fill(obj_matched)
+                
+            # obj_filler.add_selection('match', obj_ismatch)
+            # h_object_matched.fill_lazy(obj_filler, 'match')
+            # obj_filler.fill()
+
+
         if h_gen_matched is not None:
             gen_filler.add_selection('num', num_sel)
             h_gen_matched.fill_lazy(gen_filler, 'num')
-            gen_filler.fill()
+        
+        gen_filler.fill()
         
 
     def book_histos(self):
@@ -149,6 +162,10 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     self.h_tpset[histo_name]         = histos.HistoSet3DClusters(histo_name)
                     self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
                 if self.saveEffPlots:
+                    # self.h_efftp[histo_name] = histos.HistoSetEff(histo_name)
+                    # self.h_efftp[histo_name].h_num = histos.Cluster3DHistos('h_effNum_'+histo_name)
+                    # self.h_efftp[histo_name].h_den = histos.Cluster3DHistos('h_effDen_'+histo_name)
+                    self.h_dataset[histo_name]= self.ObjectHistoClass(histo_name)
                     self.h_effset[histo_name] = histos.HistoSetEff(histo_name)
 
 
@@ -173,19 +190,29 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                 histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
                 histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
 
+                h_obj_match = self.h_dataset[histo_name]
+
+
                 hcl3d_matched   = None if not self.saveNtuples else self.h_tpset[histo_name].hcl3d
                 hcl3d_unmatched = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH].hcl3d
                 # h_tpset_match =   None if not self.saveNtuples else self.h_tpset[histo_name]
                 # h_tpset_NOmatch = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH]
                 h_genseleff_den =     None if not self.saveEffPlots else self.h_effset[histo_name].h_den
                 h_genseleff_num =     None if not self.saveEffPlots else self.h_effset[histo_name].h_num
+
+                # h_tpseleff_den =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_den
+                # h_tpseleff_num =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_num
+
                 self.plotObjectMatch(genReference,
                                         cl3Ds,
                                         l1tks,
                                         h_genseleff_den,
                                         h_genseleff_num,
+                                        # h_tpseleff_den,
+                                        # h_tpseleff_num,                                        
                                         hcl3d_matched,
                                         hcl3d_unmatched,
+                                        h_obj_match,
                                         self.tp_set.name,
                                         debug)
 
