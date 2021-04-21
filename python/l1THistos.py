@@ -389,18 +389,18 @@ class Cluster3DHistos(BaseHistos):
             #     name+'_npt05', '# 3D Cluster Pt > 0.5 GeV; # 3D clusters in cone;', 1000, 0, 1000)
             # self.h_npt20 = ROOT.TH1F(
             #     name+'_npt20', '# 3D Cluster Pt > 2.0 GeV; # 3D clusters in cone;', 1000, 0, 1000)
-            self.h_pt = ROOT.TH1F(name+'_pt', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt = ROOT.TH1F(name+'_pt', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
 
 
-            self.h_pt_passOLDlowlowID =   ROOT.TH1F(name+'_ptpassOLDlowlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
-            self.h_pt_passOLDlowhighID =  ROOT.TH1F(name+'_ptpassOLDlowhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
-            self.h_pt_passOLDhighlowID =  ROOT.TH1F(name+'_ptpassOLDhighlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
-            self.h_pt_passOLDhighhighID = ROOT.TH1F(name+'_ptpassOLDhighhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passOLDlowlowID =   ROOT.TH1F(name+'_ptpassOLDlowlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
+            self.h_pt_passOLDlowhighID =  ROOT.TH1F(name+'_ptpassOLDlowhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
+            self.h_pt_passOLDhighlowID =  ROOT.TH1F(name+'_ptpassOLDhighlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
+            self.h_pt_passOLDhighhighID = ROOT.TH1F(name+'_ptpassOLDhighhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
 
-            self.h_pt_passNEWlowlowID =   ROOT.TH1F(name+'_ptpassNEWlowlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
-            self.h_pt_passNEWlowhighID =  ROOT.TH1F(name+'_ptpassNEWlowhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
-            self.h_pt_passNEWhighlowID =  ROOT.TH1F(name+'_ptpassNEWhighlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
-            self.h_pt_passNEWhighhighID = ROOT.TH1F(name+'_ptpassNEWhighhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 100, 0, 100)
+            self.h_pt_passNEWlowlowID =   ROOT.TH1F(name+'_ptpassNEWlowlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
+            self.h_pt_passNEWlowhighID =  ROOT.TH1F(name+'_ptpassNEWlowhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
+            self.h_pt_passNEWhighlowID =  ROOT.TH1F(name+'_ptpassNEWhighlowID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
+            self.h_pt_passNEWhighhighID = ROOT.TH1F(name+'_ptpassNEWhighhighID', '3D Cluster Pt (GeV); p_{T} [GeV]', 500, 0, 500)
 
             self.h_eta = ROOT.TH1F(name+'_eta', '3D Cluster eta; #eta;', 100, -4, 4)
             # self.h_energy = ROOT.TH1F(name+'_energy', '3D Cluster energy (GeV); E [GeV]', 1000, 0, 1000)
