@@ -430,14 +430,14 @@ class Cluster3DHistos(BaseHistos):
         rnp.fill_hist(self.h_pt, cl3ds.pt)
 
         rnp.fill_hist(self.h_pt_passOLDlowlowID, cl3ds.pt[cl3ds.bdteg>-0.9969856])
-        rnp.fill_hist(self.h_pt_passOLDlowhighID, cl3ds.pt[cl3ds.bdteg>0.9967954])
+        rnp.fill_hist(self.h_pt_passOLDlowhighID, cl3ds.pt[cl3ds.bdteg>0.9950431])
         rnp.fill_hist(self.h_pt_passOLDhighlowID, cl3ds.pt[cl3ds.bdteg>-0.9989121])
-        rnp.fill_hist(self.h_pt_passOLDhighhighID, cl3ds.pt[cl3ds.bdteg>0.9972339])
+        rnp.fill_hist(self.h_pt_passOLDhighhighID, cl3ds.pt[cl3ds.bdteg>0.9922073])
 
-        rnp.fill_hist(self.h_pt_passNEWlowlowID, cl3ds.pt[cl3ds.newBDTlowlow>-0.7489949])
-        rnp.fill_hist(self.h_pt_passNEWlowhighID, cl3ds.pt[cl3ds.newBDTlowhigh>0.9905590])
-        rnp.fill_hist(self.h_pt_passNEWhighlowID, cl3ds.pt[cl3ds.newBDThighlow>-0.8880973])
-        rnp.fill_hist(self.h_pt_passNEWhighhighID, cl3ds.pt[cl3ds.newBDThighhigh>0.9893420])
+        rnp.fill_hist(self.h_pt_passNEWlowlowID, cl3ds.pt[cl3ds.newBDTlowlow>-0.7289690])
+        rnp.fill_hist(self.h_pt_passNEWlowhighID, cl3ds.pt[cl3ds.newBDTlowhigh>0.9969490])
+        rnp.fill_hist(self.h_pt_passNEWhighlowID, cl3ds.pt[cl3ds.newBDThighlow>-0.9031448])
+        rnp.fill_hist(self.h_pt_passNEWhighhighID, cl3ds.pt[cl3ds.newBDThighhigh>0.9968630])
 
         rnp.fill_hist(self.h_eta, cl3ds.eta)
         # rnp.fill_hist(self.h_energy, cl3ds.energy)
