@@ -125,11 +125,23 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     obj_matched = objects.loc[[best_match_indexes[idx]]]
                     obj_ismatch[objects.index.get_loc(best_match_indexes[idx])] = True
 
-                num_sel[genParticles.index.get_loc(idx)] = True
+                obj_matched = obj_matched.query(tp_IDsel.selection)
+                if not obj_matched.empty:
+                    num_sel[genParticles.index.get_loc(idx)] = True
 
                 # print ("====== using as match ======")
                 # print (genParticles.pt, (obj_matched.pt))
                 # print ("============================")
+
+                # Remove the matched clusters that do not pass the ID
+                # print(tp_IDsel)
+                # print(obj_matched.pt, obj_matched.eta)
+                # print("lowlow, ",obj_matched.newBDTlowlow)
+                # print("lowhigh, ",obj_matched.newBDTlowhigh)
+                # print("highlow, ",obj_matched.newBDThighlow)
+                # print("highhigh, ",obj_matched.newBDThighhigh)
+                # obj_matched = obj_matched.query(tp_IDsel.selection)
+                # print(obj_matched)
 
                 # FILL THE OUTPUT NTUPLES AND HISTOGRAMS
                 if self.saveNtuples:
