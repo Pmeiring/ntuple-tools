@@ -363,7 +363,8 @@ myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.tp_selections_rateeff,
+                                            selections.tp_eta_sel_noID,                      #<- defines collection to be matched
+                                            selections.tp_IDsel_tpg+selections.tp_IDsel_new, #<- defines ID to apply after matching
                                             selections.gen_e_sel,
                                             includeTracks=False, saveEffPlots=True, saveNtuples=False)
 ]
@@ -372,7 +373,7 @@ myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
 myBDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
-                                            selections.tp_eta_selections_forBDT,
+                                            selections.tp_eta_sel_noID,
                                             includeTracks=False, saveEffPlots=False, saveNtuples=True)
 ]
 
@@ -381,7 +382,8 @@ myBDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.tp_eta_selections_forBDT,
+                                            selections.tp_eta_sel_noID,
+                                            [selections.Selection('', '', '')],
                                             selections.gen_e_sel,
                                             includeTracks=False, saveEffPlots=False, saveNtuples=True)
 ]
@@ -391,19 +393,6 @@ mymatch_plotter = [extraplotters.CustomHistPlotter(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.tp_eta_selections_forBDT,
+                                            selections.tp_eta_sel_noID,
                                             selections.gen_e_sel)
-]
-
-
-
-
-# ntuplizer to use for singleelectron sample
-myBDT_sig_test = [extraplotters.Cluster3DGenMatchHybrid(
-                                            collections.cl3d_hm, 
-                                            collections.l1Trks ,
-                                            collections.gen_parts,
-                                            selections.tp_eta_selections,
-                                            selections.gen_e_sel_test,
-                                            includeTracks=False, saveEffPlots=False, saveNtuples=True)
 ]

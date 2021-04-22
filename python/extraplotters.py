@@ -13,22 +13,27 @@ from . import selections as selections
 
 def filter_combinations(tp_sel, gen_sel):
     isGoodCombi = True
+    # print ("filtering ", tp_sel.name, gen_sel.name)
     # if ("Pt15" in tp_sel.name or "Pt20"in tp_sel.name) and "Pt15" not in gen_sel.name: isGoodCombi=False
     # if ("Pt5to25" in tp_sel.name or "Pt5to20"in tp_sel.name) and "Pt30" not in gen_sel.name: isGoodCombi=False
     # if "Pt" not in tp_sel.name and "Pt" in gen_sel.name: isGoodCombi=False
-    if "EtaBC" in tp_sel.name and "EtaBC" not in gen_sel.name: isGoodCombi=False
-    if "EtaDE" in tp_sel.name and "EtaDE" not in gen_sel.name: isGoodCombi=False
+    if "EtaBC"   in tp_sel.name and "EtaBC" not in gen_sel.name: isGoodCombi=False
+    if "EtaDE"   in tp_sel.name and "EtaDE" not in gen_sel.name: isGoodCombi=False
+    if "higheta" in tp_sel.name and "EtaDE" not in gen_sel.name: isGoodCombi=False
+    if "loweta"  in tp_sel.name and "EtaBC" not in gen_sel.name: isGoodCombi=False
     return isGoodCombi
 
 
 class Cluster3DGenMatchHybrid(BasePlotter):
     def __init__(self, tp_set, l1track_set, gen_set,
-                 tp_selections=[selections.Selection('all')], gen_selections=[selections.Selection('all')], ObjectHistoClass=histos.Cluster3DHistos,
+                 tp_selections=[selections.Selection('all')], tp_IDselections=[selections.Selection('all')],
+                 gen_selections=[selections.Selection('all')], ObjectHistoClass=histos.Cluster3DHistos,
                  includeTracks=False, saveEffPlots=False, saveNtuples=False):
         # self.tp_set = tp_set
         # self.tp_selections = tp_selections
         # self.gen_set = gen_set
         # self.gen_selections = gen_selections
+        self.tp_IDselections=tp_IDselections
         self.ObjectHistoClass=ObjectHistoClass
         self.l1track_set=l1track_set
         self.h_tpset = {}
@@ -52,6 +57,7 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                         ntuple3DClNOMatch,
                         h_object_matched,
                         algoname,
+                        tp_IDsel,
                         debug):
 
         def match3DClusterToL1Tracks(clusters, tracks):
@@ -148,73 +154,77 @@ class Cluster3DGenMatchHybrid(BasePlotter):
         self.tp_set.activate()
         self.l1track_set.activate()        
         for tp_sel in self.tp_selections:
-            for gen_sel in self.gen_selections:
-                histo_name = '{}_{}_{}'.format(self.tp_set.name,
-                                               tp_sel.name,
-                                               gen_sel.name)
-                histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
+            for tp_IDsel in self.tp_IDselections:
+                for gen_sel in self.gen_selections:
+                    histo_name = '{}_{}_{}'.format(self.tp_set.name,
+                                                   tp_sel.name+tp_IDsel.name,
+                                                   gen_sel.name)
+                    histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name+tp_IDsel.name, gen_sel.name, "noMatch")
 
-                # Exclude some combinations of GENsel and TPsel
-                isGoodCombi = filter_combinations(tp_sel, gen_sel)
-                if not isGoodCombi: continue
+                    # Exclude some combinations of GENsel and TPsel
+                    isGoodCombi = filter_combinations(tp_sel+tp_IDsel, gen_sel) #<-  + might be wrong
+                    if not isGoodCombi: continue
 
-                if self.saveNtuples:
-                    self.h_tpset[histo_name]         = histos.HistoSet3DClusters(histo_name)
-                    self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
-                if self.saveEffPlots:
-                    # self.h_efftp[histo_name] = histos.HistoSetEff(histo_name)
-                    # self.h_efftp[histo_name].h_num = histos.Cluster3DHistos('h_effNum_'+histo_name)
-                    # self.h_efftp[histo_name].h_den = histos.Cluster3DHistos('h_effDen_'+histo_name)
-                    self.h_dataset[histo_name]= self.ObjectHistoClass(histo_name)
-                    self.h_effset[histo_name] = histos.HistoSetEff(histo_name, extended_range=True)
+                    if self.saveNtuples:
+                        self.h_tpset[histo_name]         = histos.HistoSet3DClusters(histo_name)
+                        self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
+                    if self.saveEffPlots:
+                        # self.h_efftp[histo_name] = histos.HistoSetEff(histo_name)
+                        # self.h_efftp[histo_name].h_num = histos.Cluster3DHistos('h_effNum_'+histo_name)
+                        # self.h_efftp[histo_name].h_den = histos.Cluster3DHistos('h_effDen_'+histo_name)
+                        self.h_dataset[histo_name]= self.ObjectHistoClass(histo_name)
+                        self.h_effset[histo_name] = histos.HistoSetEff(histo_name, extended_range=True)
 
 
     def fill_histos(self, debug=0):
         pass
 
     def fill_histos_event(self, idx, debug=0):
-        # print "================== new event =================="
+        # print ("================== new event ==================")
         for tp_sel in self.tp_selections:
             cl3Ds = self.tp_set.query_event(tp_sel, idx)
             l1tks = self.l1track_set.query_event(selections.Selection('all'), idx)
-            for gen_sel in self.gen_selections:
-                genReference = self.gen_set.query_event(gen_sel, idx)
-                if genReference.empty:
-                    continue
+            for tp_IDsel in self.tp_IDselections:
+                for gen_sel in self.gen_selections:
+                    # Exclude some combinations of GENsel and TPsel
+                    isGoodCombi = filter_combinations(tp_sel+tp_IDsel, gen_sel)#<-  + might be wrong
+                    if not isGoodCombi: continue
 
-                # Exclude some combinations of GENsel and TPsel
-                isGoodCombi = filter_combinations(tp_sel, gen_sel)
-                if not isGoodCombi: continue
+                    genReference = self.gen_set.query_event(gen_sel, idx)
+                    if genReference.empty:
+                        continue
 
-                # Fill all other histograms and ntuples
-                histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name)
-                histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
+                    # print (tp_sel.name, tp_IDsel.name, gen_sel.name)
 
-                h_obj_match = self.h_dataset[histo_name]
+                    # Fill all other histograms and ntuples
+                    histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name+tp_IDsel.name, gen_sel.name)
+                    histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name+tp_IDsel.name, gen_sel.name, "noMatch")
+
+                    h_obj_match = self.h_dataset[histo_name]
 
 
-                hcl3d_matched   = None if not self.saveNtuples else self.h_tpset[histo_name].hcl3d
-                hcl3d_unmatched = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH].hcl3d
-                # h_tpset_match =   None if not self.saveNtuples else self.h_tpset[histo_name]
-                # h_tpset_NOmatch = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH]
-                h_genseleff_den =     None if not self.saveEffPlots else self.h_effset[histo_name].h_den
-                h_genseleff_num =     None if not self.saveEffPlots else self.h_effset[histo_name].h_num
+                    hcl3d_matched   = None if not self.saveNtuples else self.h_tpset[histo_name].hcl3d
+                    hcl3d_unmatched = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH].hcl3d
+                    # h_tpset_match =   None if not self.saveNtuples else self.h_tpset[histo_name]
+                    # h_tpset_NOmatch = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH]
+                    h_genseleff_den =     None if not self.saveEffPlots else self.h_effset[histo_name].h_den
+                    h_genseleff_num =     None if not self.saveEffPlots else self.h_effset[histo_name].h_num
+                    # h_tpseleff_den =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_den
+                    # h_tpseleff_num =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_num
 
-                # h_tpseleff_den =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_den
-                # h_tpseleff_num =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_num
-
-                self.plotObjectMatch(genReference,
-                                        cl3Ds,
-                                        l1tks,
-                                        h_genseleff_den,
-                                        h_genseleff_num,
-                                        # h_tpseleff_den,
-                                        # h_tpseleff_num,                                        
-                                        hcl3d_matched,
-                                        hcl3d_unmatched,
-                                        h_obj_match,
-                                        self.tp_set.name,
-                                        debug)
+                    self.plotObjectMatch(genReference,
+                                            cl3Ds,
+                                            l1tks,
+                                            h_genseleff_den,
+                                            h_genseleff_num,
+                                            # h_tpseleff_den,
+                                            # h_tpseleff_num,                                        
+                                            hcl3d_matched,
+                                            hcl3d_unmatched,
+                                            h_obj_match,
+                                            self.tp_set.name,
+                                            tp_IDsel,
+                                            debug)
 
     def __repr__(self):
         for sel in self.tp_selections:
