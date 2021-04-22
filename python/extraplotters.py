@@ -166,7 +166,7 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     # self.h_efftp[histo_name].h_num = histos.Cluster3DHistos('h_effNum_'+histo_name)
                     # self.h_efftp[histo_name].h_den = histos.Cluster3DHistos('h_effDen_'+histo_name)
                     self.h_dataset[histo_name]= self.ObjectHistoClass(histo_name)
-                    self.h_effset[histo_name] = histos.HistoSetEff(histo_name)
+                    self.h_effset[histo_name] = histos.HistoSetEff(histo_name, extended_range=True)
 
 
     def fill_histos(self, debug=0):
