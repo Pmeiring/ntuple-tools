@@ -125,7 +125,9 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     obj_matched = objects.loc[[best_match_indexes[idx]]]
                     obj_ismatch[objects.index.get_loc(best_match_indexes[idx])] = True
 
-                obj_matched = obj_matched.query(tp_IDsel.selection)
+                # Remove the matched clusters that do not pass the ID                
+                if not tp_IDsel.selection == "":
+                    obj_matched = obj_matched.query(tp_IDsel.selection)
                 if not obj_matched.empty:
                     num_sel[genParticles.index.get_loc(idx)] = True
 

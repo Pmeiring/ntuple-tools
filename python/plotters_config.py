@@ -364,7 +364,7 @@ myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.l1Trks ,
                                             collections.gen_parts,
                                             selections.tp_eta_sel_noID,                      #<- defines collection to be matched
-                                            selections.tp_IDsel_tpg+selections.tp_IDsel_new, #<- defines ID to apply after matching
+                                            [selections.Selection('', '', '')]+selections.tp_IDsel_tpg+selections.tp_IDsel_new, #<- defines ID to apply after matching
                                             selections.gen_e_sel,
                                             includeTracks=False, saveEffPlots=True, saveNtuples=False)
 ]
