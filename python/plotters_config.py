@@ -396,3 +396,14 @@ mymatch_plotter = [extraplotters.CustomHistPlotter(
                                             selections.tp_eta_sel_noID,
                                             selections.gen_e_sel)
 ]
+
+
+# ntuplizer to use for singleelectron sample
+# myBDT_sig_test = [extraplotters.Cluster3DGenMatchHybrid(
+#                                             collections.cl3d_hm, 
+#                                             collections.l1Trks ,
+#                                             collections.gen_parts,
+#                                             selections.tp_eta_selections,
+#                                             selections.gen_e_sel_test,
+#                                             includeTracks=False, saveEffPlots=False, saveNtuples=True)
+# ]
