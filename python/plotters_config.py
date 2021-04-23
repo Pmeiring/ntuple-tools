@@ -374,7 +374,7 @@ myBDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
                                             collections.cl3d_hm, 
                                             collections.l1Trks ,
                                             selections.tp_eta_sel_noID,
-                                            includeTracks=False, saveEffPlots=False, saveNtuples=True)
+                                            includeTracks=True, saveEffPlots=False, saveNtuples=True)
 ]
 
 # ntuplizer to use for singleelectron sample
@@ -385,7 +385,7 @@ myBDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             selections.tp_eta_sel_noID,
                                             [selections.Selection('', '', '')],
                                             selections.gen_e_sel,
-                                            includeTracks=False, saveEffPlots=False, saveNtuples=True)
+                                            includeTracks=True, saveEffPlots=False, saveNtuples=True)
 ]
 
 # object matching plotter

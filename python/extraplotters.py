@@ -9,6 +9,7 @@ from . import l1THistos as histos
 from . import utils as utils
 from . import clusterTools as clAlgo
 from . import selections as selections
+pd.set_option('display.max_rows', None)
 
 
 def filter_combinations(tp_sel, gen_sel):
@@ -23,6 +24,35 @@ def filter_combinations(tp_sel, gen_sel):
     if "loweta"  in tp_sel.name and "EtaBC" not in gen_sel.name: isGoodCombi=False
     return isGoodCombi
 
+def match3DClusterToL1Tracks(clusters, tracks, positional):
+    L1Tk_best_match_idx = {}
+    if not tracks.empty: 
+        # Perform the matching 3DCluster->L1track
+        # print ("=========== matching tracks ==========")
+        L1Tk_best_match_idx, L1Tk_match_indices = utils.match_etaphi(clusters[['eta','phi']],
+                                                        tracks[['caloeta', 'calophi']],
+                                                        tracks['pt'],
+                                                        deltaR=0.3,
+                                                        return_positional=positional)
+        for idx_cl,idx_trk in L1Tk_best_match_idx.items():
+            if L1Tk_best_match_idx!=None:
+                trk= tracks.iloc[[idx_trk]] if positional else tracks.loc[[idx_trk]]
+                clusters.at[idx_cl, "tttrack_pt"]=trk.pt
+                clusters.at[idx_cl, "tttrack_eta"]=trk.eta
+                clusters.at[idx_cl, "tttrack_phi"]=trk.phi
+                clusters.at[idx_cl, "tttrack_chi2"]=trk.chi2
+                clusters.at[idx_cl, "tttrack_nStubs"]=trk.nStubs
+        # print (clusters)
+        m_cl = list(L1Tk_match_indices.values())
+        # if len(m_cl)!=0:
+        #     print ("Found %s tracks that matched to this cluster"%len(m_cl[0]))
+        #     print (tracks.loc[m_cl[0]])
+        # else:
+        #     print ("Found 0 tracks that matched to this cluster")
+        # print (list(L1Tk_match_indices.values()))
+        # print (tracks.loc[list(L1Tk_match_indices.values())[0]])
+        # print ("======================================")                
+    return clusters
 
 class Cluster3DGenMatchHybrid(BasePlotter):
     def __init__(self, tp_set, l1track_set, gen_set,
@@ -60,34 +90,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                         tp_IDsel,
                         debug):
 
-        def match3DClusterToL1Tracks(clusters, tracks):
-            L1Tk_match_indices = {}
-            for idx, Cluster in clusters.iterrows():
-                # If we have L1tracks, match them to 3Dclusters
-                # print "Do we have tracks? ", not L1tracks.empty
-                if not tracks.empty: 
-                    # Perform the matching 3DCluster->L1track
-                    # match_indices will contain for every cluster (index) the indices of matched L1tracks (sorted on pt of the L1tracks)
-                    L1Tk_best_match_idx, L1Tk_match_indices = utils.match_3Dcluster_L1Tk(Cluster[['eta','phi']],
-                                                                    Cluster['pt'],
-                                                                    tracks[['eta', 'phi']],
-                                                                    tracks['pt'],
-                                                                    deltaR=0.2)
-                    # print L1Tk_best_match_idx, L1Tk_match_indices
-                    if L1Tk_best_match_idx==None:
-                        clusters.loc[idx,"tttrack_pt"]=-999.
-                        clusters.loc[idx,"tttrack_eta"]=-999.
-                        clusters.loc[idx,"tttrack_phi"]=-999.
-                        clusters.loc[idx,"tttrack_chi2"]=-999.
-                        clusters.loc[idx,"tttrack_nStubs"]=-999.
-                    else:
-                        clusters.loc[idx,"tttrack_pt"]=tracks.loc[L1Tk_best_match_idx].pt
-                        clusters.loc[idx,"tttrack_eta"]=tracks.loc[L1Tk_best_match_idx].eta
-                        clusters.loc[idx,"tttrack_phi"]=tracks.loc[L1Tk_best_match_idx].phi
-                        clusters.loc[idx,"tttrack_chi2"]=tracks.loc[L1Tk_best_match_idx].chi2
-                        clusters.loc[idx,"tttrack_nStubs"]=tracks.loc[L1Tk_best_match_idx].nStubs
-            return clusters
-
         # print ("\n======  NEW EVENT ====== \n")
 
         gen_filler = histos.HistoLazyFiller(genParticles)
@@ -112,10 +114,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                 deltaR=0.2,
                 return_positional=positional)
      
-            # DECORATE THE 3D CLUSTERS WITH QUANTITIES OF MATCHED L1 TRACKS IN A DELTAR CONE
-            # NOT OPERATIONAL
-            if self.includeTracks:
-                objects = match3DClusterToL1Tracks(objects, L1tracks)
 
             for idx in list(best_match_indexes.keys()):
                 if positional:
@@ -124,6 +122,10 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                 else: 
                     obj_matched = objects.loc[[best_match_indexes[idx]]]
                     obj_ismatch[objects.index.get_loc(best_match_indexes[idx])] = True
+            
+                # DECORATE THE 3D CLUSTERS WITH QUANTITIES OF MATCHED L1 TRACKS IN A DELTAR CONE
+                if self.includeTracks:
+                    obj_matched = match3DClusterToL1Tracks(obj_matched, L1tracks, positional)
 
                 # Remove the matched clusters that do not pass the ID                
                 if not tp_IDsel.selection == "":
@@ -135,33 +137,22 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                 # print (genParticles.pt, (obj_matched.pt))
                 # print ("============================")
 
-                # Remove the matched clusters that do not pass the ID
-                # print(tp_IDsel)
-                # print(obj_matched.pt, obj_matched.eta)
-                # print("lowlow, ",obj_matched.newBDTlowlow)
-                # print("lowhigh, ",obj_matched.newBDTlowhigh)
-                # print("highlow, ",obj_matched.newBDThighlow)
-                # print("highhigh, ",obj_matched.newBDThighhigh)
-                # obj_matched = obj_matched.query(tp_IDsel.selection)
-                # print(obj_matched)
-
                 # FILL THE OUTPUT NTUPLES AND HISTOGRAMS
                 if self.saveNtuples:
                     ntuple3DClMatch.fill(obj_matched)
             
-                h_object_matched.fill(obj_matched)
+                if h_object_matched:
+                    h_object_matched.fill(obj_matched)
                 
             # obj_filler.add_selection('match', obj_ismatch)
             # h_object_matched.fill_lazy(obj_filler, 'match')
             # obj_filler.fill()
 
-
         if h_gen_matched is not None:
             gen_filler.add_selection('num', num_sel)
             h_gen_matched.fill_lazy(gen_filler, 'num')
-        
-        gen_filler.fill()
-        
+            gen_filler.fill()
+
 
     def book_histos(self):
         self.gen_set.activate()
@@ -214,15 +205,14 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     histo_name = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name+tp_IDsel.name, gen_sel.name)
                     histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name+tp_IDsel.name, gen_sel.name, "noMatch")
 
-                    h_obj_match = self.h_dataset[histo_name]
-
-
                     hcl3d_matched   = None if not self.saveNtuples else self.h_tpset[histo_name].hcl3d
                     hcl3d_unmatched = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH].hcl3d
                     # h_tpset_match =   None if not self.saveNtuples else self.h_tpset[histo_name]
                     # h_tpset_NOmatch = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH]
                     h_genseleff_den =     None if not self.saveEffPlots else self.h_effset[histo_name].h_den
                     h_genseleff_num =     None if not self.saveEffPlots else self.h_effset[histo_name].h_num
+                    h_obj_match =         None if not self.saveEffPlots else self.h_dataset[histo_name]
+
                     # h_tpseleff_den =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_den
                     # h_tpseleff_num =     None if not self.saveEffPlots else self.h_efftp[histo_name].h_num
 
@@ -274,39 +264,11 @@ class Cluster3DHybrid(BasePlotter):
                    algoname,
                    debug):
 
-        def match3DClusterToL1Tracks(clusters, tracks):
-            L1Tk_match_indices = {}
-            for idx, Cluster in clusters.iterrows():
-                # If we have L1tracks, match them to 3Dclusters
-                # print "Do we have tracks? ", not L1tracks.empty
-                if not tracks.empty: 
-                    # Perform the matching 3DCluster->L1track
-                    # match_indices will contain for every cluster (index) the indices of matched L1tracks (sorted on pt of the L1tracks)
-                    L1Tk_best_match_idx, L1Tk_match_indices = utils.match_3Dcluster_L1Tk(Cluster[['eta','phi']],
-                                                                    Cluster['pt'],
-                                                                    tracks[['eta', 'phi']],
-                                                                    tracks['pt'],
-                                                                    deltaR=0.2)
-                    # print L1Tk_best_match_idx, L1Tk_match_indices
-                    if L1Tk_best_match_idx==None:
-                        clusters.loc[idx,"tttrack_pt"]=-999.
-                        clusters.loc[idx,"tttrack_eta"]=-999.
-                        clusters.loc[idx,"tttrack_phi"]=-999.
-                        clusters.loc[idx,"tttrack_chi2"]=-999.
-                        clusters.loc[idx,"tttrack_nStubs"]=-999.
-                    else:
-                        clusters.loc[idx,"tttrack_pt"]=tracks.loc[L1Tk_best_match_idx].pt
-                        clusters.loc[idx,"tttrack_eta"]=tracks.loc[L1Tk_best_match_idx].eta
-                        clusters.loc[idx,"tttrack_phi"]=tracks.loc[L1Tk_best_match_idx].phi
-                        clusters.loc[idx,"tttrack_chi2"]=tracks.loc[L1Tk_best_match_idx].chi2
-                        clusters.loc[idx,"tttrack_nStubs"]=tracks.loc[L1Tk_best_match_idx].nStubs
-            return clusters
-
         if not objects.empty:
 
             # DECORATE THE 3D CLUSTERS WITH QUANTITIES OF MATCHED L1 TRACKS IN A DELTAR CONE
             if self.includeTracks:
-                objects = match3DClusterToL1Tracks(objects, L1tracks)
+                objects = match3DClusterToL1Tracks(objects, L1tracks, True)
 
             # SAVE CLUSTERS TO NTUPLE
             if self.saveNtuples:

@@ -57,7 +57,6 @@ def match_etaphi(ref_etaphi, trigger_etaphi, trigger_pt, deltaR=0.2, return_posi
             # best_match_indices[index] = best_match
             # all_matches_indices[index] = trigger_pt.iloc[matched].index.values
             # print (trigger_pt.iloc[matched].index.values)
-
     # print (best_match_indices)
     # print all_matches_indices
     return best_match_indices, all_matches_indices

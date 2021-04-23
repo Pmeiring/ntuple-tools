@@ -1488,7 +1488,6 @@ class Cluster3DTuples(BaseHistos):
             energy_fill=np.array(energy_fill, dtype='f')
             self.t_values.Fill(energy_fill)
 
-
     def write(self):
         # treeName = self.__class__.__name__
         treeName = "L1Trees"
