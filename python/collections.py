@@ -347,7 +347,7 @@ def cl3d_fixtures(clusters):
     clusters['tttrack_phi'] = -999.
     clusters['tttrack_chi2'] = -999.
     clusters['tttrack_nStubs'] = -999.
-
+    clusters['tttrack_nInCone'] = -999.
 
     return clusters
 

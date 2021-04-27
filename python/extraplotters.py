@@ -42,6 +42,7 @@ def match3DClusterToL1Tracks(clusters, tracks, positional):
                 clusters.at[idx_cl, "tttrack_phi"]=trk.phi
                 clusters.at[idx_cl, "tttrack_chi2"]=trk.chi2
                 clusters.at[idx_cl, "tttrack_nStubs"]=trk.nStubs
+                clusters.at[idx_cl, "tttrack_nInCone"]=len(L1Tk_match_indices[idx_cl])
         # print (clusters)
         m_cl = list(L1Tk_match_indices.values())
         # if len(m_cl)!=0:

@@ -1436,7 +1436,7 @@ class Cluster3DTuples(BaseHistos):
             # self.data = []
             # self.reference = []
             # variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg'
-            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh:tttrack_pt:tttrack_eta:tttrack_phi:tttrack_chi2:tttrack_nStubs'
+            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh:tttrack_pt:tttrack_eta:tttrack_phi:tttrack_chi2:tttrack_nStubs:tttrack_nInCone'
             self.t_values = ROOT.TNtuple(name, name, variables)
         BaseHistos.__init__(self, name, root_file, debug)
 
@@ -1481,8 +1481,9 @@ class Cluster3DTuples(BaseHistos):
                energy_fill.append(cl3ds.tttrack_phi)
                energy_fill.append(cl3ds.tttrack_chi2)
                energy_fill.append(cl3ds.tttrack_nStubs)
+               energy_fill.append(cl3ds.tttrack_nInCone)
             else:
-               for i in range(0,36):
+               for i in range(0,37):
                    energy_fill.append(-999)       
            
             energy_fill=np.array(energy_fill, dtype='f')
