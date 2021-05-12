@@ -361,31 +361,45 @@ myrate_plotter = [plotters.RatePlotter(     collections.cl3d_hm,
 # efficiency plotter to use for singleelectron sample 
 myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
-                                            collections.l1Trks ,
                                             collections.gen_parts,
                                             selections.tp_eta_sel_noID,                      #<- defines collection to be matched
                                             [selections.Selection('', '', '')]+selections.tp_IDsel_tpg+selections.tp_IDsel_new, #<- defines ID to apply after matching
                                             selections.gen_e_sel,
-                                            includeTracks=False, saveEffPlots=True, saveNtuples=False)
+                                            saveEffPlots=True, saveNtuples=False)
 ]
 
 # ntuplizer to use for minbias sample
-myBDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
+SA_BDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
                                             collections.cl3d_hm, 
-                                            collections.l1Trks ,
                                             selections.tp_eta_sel_noID,
-                                            includeTracks=True, saveEffPlots=False, saveNtuples=True)
+                                            saveEffPlots=False, saveNtuples=True)
 ]
 
 # ntuplizer to use for singleelectron sample
-myBDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
+SA_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
-                                            collections.l1Trks ,
                                             collections.gen_parts,
                                             selections.tp_eta_sel_noID,
                                             [selections.Selection('', '', '')],
                                             selections.gen_e_sel,
-                                            includeTracks=True, saveEffPlots=False, saveNtuples=True)
+                                            saveEffPlots=False, saveNtuples=True)
+]
+
+# ntuplizer to use for minbias sample
+SATK_BDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
+                                            collections.composite_tk3dcl, 
+                                            selections.tp_eta_sel_noID,
+                                            saveEffPlots=False, saveNtuples=True)
+]
+
+# ntuplizer to use for singleelectron sample
+SATK_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.composite_tk3dcl, 
+                                            collections.gen_parts,
+                                            selections.tp_eta_sel_noID,
+                                            [selections.Selection('', '', '')],
+                                            selections.gen_e_sel,
+                                            saveEffPlots=False, saveNtuples=True)
 ]
 
 # object matching plotter

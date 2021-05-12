@@ -55,6 +55,36 @@ def match3DClusterToL1Tracks(clusters, tracks, positional):
         # print ("======================================")                
     return clusters
 
+def constructClusterTrackComposite(clusters, tracks, positional):
+    # Match each cluster with the tracks
+    # Each match forms a composite object (multiple composite objects can be formed with the same cluster if it matches to multiple tracks)
+    # Return the dataframe of composite objects
+    composites = clusters.iloc[0:0,:].copy()
+
+    L1Tk_best_match_idx = {}
+    if not tracks.empty: 
+        # Perform the matching 3DCluster->L1track
+        # print ("=========== matching tracks ==========")
+        L1Tk_best_match_idx, L1Tk_match_indices = utils.match_etaphi(clusters[['eta','phi']],
+                                                        tracks[['caloeta', 'calophi']],
+                                                        tracks['pt'],
+                                                        deltaR=0.3,
+                                                        return_positional=positional)
+        for idx_cl,idx_trk in L1Tk_match_indices.items():
+            trk= tracks.iloc[[idx_trk]] if positional else tracks.loc[[idx_trk]]
+            cl = clusters.iloc[[idx_cl]] if positional else clusters.loc[[idx_cl]]
+            cl.tttrack_pt=trk.pt
+            cl.tttrack_eta=trk.eta
+            cl.tttrack_phi=trk.phi
+            cl.tttrack_chi2=trk.chi2
+            cl.tttrack_nStubs=trk.nStubs
+            cl.tttrack_nInCone=len(L1Tk_match_indices[idx_cl])
+            composites.append(cl)
+
+    return composites
+
+
+
 class Cluster3DGenMatchHybrid(BasePlotter):
     def __init__(self, tp_set, l1track_set, gen_set,
                  tp_selections=[selections.Selection('all')], tp_IDselections=[selections.Selection('all')],
@@ -246,30 +276,21 @@ class Cluster3DGenMatchHybrid(BasePlotter):
 
 
 class Cluster3DHybrid(BasePlotter):
-    def __init__(self, tp_set, l1track_set,
-                 tp_selections=[selections.Selection('all')], includeTracks=False, saveEffPlots=False, saveNtuples=False):
-        # self.tp_set = tp_set
-        # self.tp_selections = tp_selections
-        self.l1track_set=l1track_set
+    def __init__(self, tp_set,
+                 tp_selections=[selections.Selection('all')], saveEffPlots=False, saveNtuples=False):
         self.h_tpset = {}
         self.h_effset = {}
         self.saveNtuples = saveNtuples
         self.saveEffPlots = saveEffPlots
-        self.includeTracks = includeTracks
         super(Cluster3DHybrid, self).__init__(tp_set, tp_selections)
 
     def plotObject(self,
                    objects,
-                   L1tracks,
                    ntuple3DClNOMatch,
                    algoname,
                    debug):
 
         if not objects.empty:
-
-            # DECORATE THE 3D CLUSTERS WITH QUANTITIES OF MATCHED L1 TRACKS IN A DELTAR CONE
-            if self.includeTracks:
-                objects = match3DClusterToL1Tracks(objects, L1tracks, True)
 
             # SAVE CLUSTERS TO NTUPLE
             if self.saveNtuples:
@@ -278,7 +299,6 @@ class Cluster3DHybrid(BasePlotter):
         
     def book_histos(self):
         self.tp_set.activate()
-        self.l1track_set.activate()        
         tp_name = self.tp_set.name
         for selection in self.tp_selections: 
             histo_name_NOMATCH='{}_{}_noMatch'.format(tp_name, selection.name)
@@ -292,20 +312,14 @@ class Cluster3DHybrid(BasePlotter):
         pass
 
     def fill_histos_event(self, idx, debug=0):
-        # print ("idx = ",idx)
+        print ("event idx = ",idx)
         for tp_sel in self.tp_selections:
             cl3Ds = self.tp_set.query_event(tp_sel, idx)
-            l1tks = self.l1track_set.query_event(selections.Selection('all'), idx)
-            # l1tks = self.l1track_set.df
 
-            # if not tp_sel.all:
-            #     cl3Ds = cl3Ds.query(tp_sel.selection)
-            
             histo_name_NOMATCH='{}_{}_noMatch'.format(self.tp_set.name, tp_sel.name)
             hcl3d_unmatched = None if not self.saveNtuples else self.h_tpset[histo_name_NOMATCH].hcl3d
 
             self.plotObject(cl3Ds,
-                            l1tks,
                             hcl3d_unmatched,
                             self.tp_set.name,
                             debug)

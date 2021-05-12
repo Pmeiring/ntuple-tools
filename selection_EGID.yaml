@@ -24,7 +24,8 @@ collections:
       microcentury
     plotters:
       # - tpEff
-      - BDT_sig_ntuple
+      - SA_BDT_sig_ntuple
+      - SATK_BDT_sig_ntuple
       # - BDT_sig_sliceGenpt
 
   minBias:
@@ -40,13 +41,16 @@ collections:
       microcentury
     plotters:
       # - tpRate
-      - BDT_bkg_ntuple
+      # - SA_BDT_bkg_ntuple
+      - SATK_BDT_bkg_ntuple
 
 plotters:
   tpRate:          !!python/name:python.plotters_config.myrate_plotter
   tpEff:           !!python/name:python.plotters_config.myeffi_plotter
-  BDT_sig_ntuple : !!python/name:python.plotters_config.myBDT_sig_ntuplizer
-  BDT_bkg_ntuple : !!python/name:python.plotters_config.myBDT_bkg_ntuplizer
+  SA_BDT_sig_ntuple : !!python/name:python.plotters_config.SA_BDT_sig_ntuplizer
+  SA_BDT_bkg_ntuple : !!python/name:python.plotters_config.SA_BDT_bkg_ntuplizer
+  SATK_BDT_sig_ntuple : !!python/name:python.plotters_config.SATK_BDT_sig_ntuplizer
+  SATK_BDT_bkg_ntuple : !!python/name:python.plotters_config.SATK_BDT_bkg_ntuplizer  
   # BDT_sig_sliceGenpt: !!python/name:python.plotters_config.myBDT_sig_test
 
 samples:

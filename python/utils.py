@@ -26,6 +26,8 @@ def match_etaphi(ref_etaphi, trigger_etaphi, trigger_pt, deltaR=0.2, return_posi
     
     # for iref,(eta,phi) in enumerate(ref_etaphi):
     for index, row in ref_etaphi.iterrows():
+        # print (" index ref",index)
+        # print (" index trg",trigger_etaphi.index)
         gen_eta, gen_phi = row.values
         matched = kdtree.query_ball_point([gen_eta, gen_phi], deltaR)
         # not this in an integer of the index of the array not the index in the pandas meaning: hence to beused with iloc

@@ -158,6 +158,7 @@ class DFCollection(object):
         if len(self.depends_on) > 0:
             common_block_size = -1
             for coll in self.depends_on:
+                print (coll, common_block_size, coll.read_entry_block)
                 if common_block_size == -1:
                     common_block_size = coll.read_entry_block
                 else:
@@ -522,6 +523,50 @@ def get_trackmatched_egs(egs, tracks, debug=0):
                                           'dr': math.sqrt((bestmatch_tk.phi-bestmatch_eg.phi)**2+(bestmatch_tk.eta-bestmatch_eg.eta)**2)},
                                          ignore_index=True, sort=False)
     return matched_egs
+
+def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
+    cl3d_dummy_df = clusters.iloc[0:0,:].copy()
+    
+    composites =  pd.DataFrame(columns = cl3d_dummy_df.columns.tolist() + ['tkpt', 'tketa', 'tkphi', 'tkz0', 'tkchi2', 'tkchi2Red', 'tknstubs', 'deta', 'dphi', 'dr'])
+    # print (composites)
+
+    if clusters.empty or tracks.empty:
+        return composites
+
+    # Perform the matching 3DCluster->L1track
+    # print ("=========== matching tracks ==========")
+    print(clusters)
+    print(tracks)
+
+    best_match_indexes, allmatches = match_etaphi(clusters[['eta','phi']],
+                                                    tracks[['caloeta', 'calophi']],
+                                                    tracks['pt'],
+                                                    deltaR=0.3)
+    # print ("BESTMATCHES\n",best_match_indexes,"\n")
+    # print ("ALLMATCHES\n","\n")
+    for idx_cl,idx_trk in allmatches.items():
+        # print (idx_cl, idx_trk)
+        trk= tracks.loc[[idx_trk]]
+        cl = clusters.loc[[idx_cl]]
+
+        composites = composites.append({'pt': cl.pt,
+                                          'energy': cl.energy,
+                                          'eta': cl.eta,
+                                          'phi': cl.phi,
+                                          'hwQual': bestmatch_eg.hwQual,
+                                          'tkpt': trk.pt,
+                                          'tketa': trk.eta,
+                                          'tkphi': trk.phi,
+                                          'tkz0': trk.z0,
+                                          'tkchi2': trk.chi2,
+                                          'tkchi2Red': trk.chi2Red,
+                                          'tknstubs': trk.nStubs,
+                                          'deta': trk.eta - cl.eta,
+                                          'dphi': trk.phi - cl.phi,
+                                          'dr': math.sqrt((trk.phi-cl.phi)**2+(trk.eta-cl.eta)**2)},
+                                         ignore_index=True, sort=False)
+
+    return composites    
 
 
 def get_layer_calib_clusters(input_clusters,
@@ -1079,7 +1124,9 @@ l1Trks = DFCollection(
     filler_function=lambda event, entry_block: event.getDataFrame(
         prefix='l1Trk', entry_block=entry_block),
     debug=0,
-    print_function=lambda df: df[['pt', 'eta', 'phi']].sort_values(by='pt', ascending=False))
+    print_function=lambda df: df[['pt', 'eta', 'phi']].sort_values(by='pt', ascending=False),
+    read_entry_block=200
+    )
 
 tracks = DFCollection(
     name='L1Trk', label='L1Track',
@@ -1127,6 +1174,12 @@ tkegs_shape_calib = DFCollection(
     depends_on=[cl3d_hm_shape_calib, tracks],
     debug=0)
 # tkegs_shape_calib.activate()
+
+composite_tk3dcl = DFCollection(
+    name='CompositeTk3DCl', label='CompositeTk3DCl',
+    filler_function=lambda event, entry_block: get_loosetrackmatched_cl3d(clusters=cl3d_hm.df, tracks=l1Trks.df),
+    depends_on=[cl3d_hm, l1Trks],
+    debug=0)
 
 tkegs_emu = DFCollection(
     name='TkEGEmu', label='TkEG Emu',
