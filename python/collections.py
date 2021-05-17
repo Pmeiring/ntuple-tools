@@ -343,12 +343,23 @@ def cl3d_fixtures(clusters):
     clusters['newBDThighhigh'] = rnptmva.evaluate_reader(
         classifiers.MVA_classifier_builder_highhigh(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
 
-    clusters['tttrack_pt'] = -999.
-    clusters['tttrack_eta'] = -999.
-    clusters['tttrack_phi'] = -999.
-    clusters['tttrack_chi2'] = -999.
-    clusters['tttrack_nStubs'] = -999.
-    clusters['tttrack_nInCone'] = -999.
+    # clusters['tttrack_pt'] = -999.
+    # clusters['tttrack_eta'] = -999.
+    # clusters['tttrack_phi'] = -999.
+    # clusters['tttrack_chi2'] = -999.
+    # clusters['tttrack_nStubs'] = -999.
+    # clusters['tttrack_nInCone'] = -999.
+
+    # clusters['tkpt'] = -999.
+    # clusters['tketa']= -999.
+    # clusters['tkphi']= -999.
+    # clusters['tkz0']= -999.
+    # clusters['tkchi2']= -999.
+    # clusters['tkchi2Red']= -999.
+    # clusters['tknstubs']= -999.
+    # clusters['deta']= -999.
+    # clusters['dphi']= -999.
+    # clusters['dr']= -999.
 
     return clusters
 
@@ -524,48 +535,87 @@ def get_trackmatched_egs(egs, tracks, debug=0):
                                          ignore_index=True, sort=False)
     return matched_egs
 
+
 def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
     cl3d_dummy_df = clusters.iloc[0:0,:].copy()
-    
     composites =  pd.DataFrame(columns = cl3d_dummy_df.columns.tolist() + ['tkpt', 'tketa', 'tkphi', 'tkz0', 'tkchi2', 'tkchi2Red', 'tknstubs', 'deta', 'dphi', 'dr'])
-    # print (composites)
 
     if clusters.empty or tracks.empty:
         return composites
 
-    # Perform the matching 3DCluster->L1track
-    # print ("=========== matching tracks ==========")
-    print(clusters)
-    print(tracks)
+    # print (cl3d_dummy_df.info)
+    # print (clusters)
 
-    best_match_indexes, allmatches = match_etaphi(clusters[['eta','phi']],
-                                                    tracks[['caloeta', 'calophi']],
-                                                    tracks['pt'],
-                                                    deltaR=0.3)
-    # print ("BESTMATCHES\n",best_match_indexes,"\n")
-    # print ("ALLMATCHES\n","\n")
-    for idx_cl,idx_trk in allmatches.items():
-        # print (idx_cl, idx_trk)
-        trk= tracks.loc[[idx_trk]]
-        cl = clusters.loc[[idx_cl]]
+    # split dataframe using gropuby
+    spl_clu = list(clusters.groupby("entry"))
+    spl_trk = list(tracks.groupby("entry"))
+      
+    # view splitted dataframe
+    # print(splits)
+    indexlist = []
+    for iev,cls_ in spl_clu:
+        # print ("\n EVENT ",iev)
+        tks_ = spl_trk[iev][1]
 
-        composites = composites.append({'pt': cl.pt,
-                                          'energy': cl.energy,
-                                          'eta': cl.eta,
-                                          'phi': cl.phi,
-                                          'hwQual': bestmatch_eg.hwQual,
-                                          'tkpt': trk.pt,
-                                          'tketa': trk.eta,
-                                          'tkphi': trk.phi,
-                                          'tkz0': trk.z0,
-                                          'tkchi2': trk.chi2,
-                                          'tkchi2Red': trk.chi2Red,
-                                          'tknstubs': trk.nStubs,
-                                          'deta': trk.eta - cl.eta,
-                                          'dphi': trk.phi - cl.phi,
-                                          'dr': math.sqrt((trk.phi-cl.phi)**2+(trk.eta-cl.eta)**2)},
-                                         ignore_index=True, sort=False)
+        # Match the clusters and tracks in this event
+        best_match_indexes, allmatches = match_etaphi(cls_[['eta','phi']],
+                                                        tks_[['caloeta', 'calophi']],
+                                                        tks_['pt'],
+                                                        deltaR=0.3)
+        # print ("BESTMATCHES\n",best_match_indexes,"\n")
+        # print ("ALLMATCHES\n")
+        count=0
+        for idx_cl,idx_trks in allmatches.items():
+            # print (idx_cl, idx_trks)
+            cl = clusters.loc[[idx_cl]]
+            for idx_trk in idx_trks:
+                trk= tracks.loc[[idx_trk]]
 
+                cl['tkpt'] = trk.pt.values
+                cl['tketa']= trk.eta.values
+                cl['tkphi']= trk.phi.values
+                cl['tkz0']= trk.z0.values
+                cl['tkchi2']= trk.chi2.values
+                cl['tkchi2Red']= trk.chi2Red.values
+                cl['tknstubs']= trk.nStubs.values
+                cl['deta']= trk.eta.values - cl.eta.values
+                cl['dphi']= trk.phi.values - cl.phi.values
+                cl['dr']= 1
+                # print (cl.index)
+                # print (count)
+                # count_ = [count]
+                # print (count_)
+
+                # index = cl.index
+                # names = index.names
+                # index = cl.index.tolist()[0]
+                # index = [iev, count]
+                indexlist.append((iev, count))
+                # print (index)
+                # print (type(index[0]))
+                # [:1]+[('x2','x2')]  
+                
+
+
+                # cl.index = pd.MultiIndex([(iev, count)], names=['entry', 'subentry'])
+                # cl.index = cl.index.set_levels(count_, level=1)
+                # cl.index.set_levels([count], level='subentry')
+                # print (cl.index)
+
+                composites = composites.append(cl, sort=False)
+                count+=1
+
+    multiindex = pd.MultiIndex.from_tuples(indexlist, names = ['entry', 'subentry'])
+    # print (indexlist)
+    # print (multiindex)
+    composites.index=multiindex
+    # print (composites)
+    # print (composites.index)
+    # print (composites.index.get_level_values('entry'))
+    # print (composites.index.get_level_values('entry').unique())
+
+    # composites.set_index(composites.index[1])
+    # print (composites)
     return composites    
 
 

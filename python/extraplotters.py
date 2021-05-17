@@ -86,23 +86,21 @@ def constructClusterTrackComposite(clusters, tracks, positional):
 
 
 class Cluster3DGenMatchHybrid(BasePlotter):
-    def __init__(self, tp_set, l1track_set, gen_set,
+    def __init__(self, tp_set, gen_set,
                  tp_selections=[selections.Selection('all')], tp_IDselections=[selections.Selection('all')],
                  gen_selections=[selections.Selection('all')], ObjectHistoClass=histos.Cluster3DHistos,
-                 includeTracks=False, saveEffPlots=False, saveNtuples=False):
+                 saveEffPlots=False, saveNtuples=False):
         # self.tp_set = tp_set
         # self.tp_selections = tp_selections
         # self.gen_set = gen_set
         # self.gen_selections = gen_selections
         self.tp_IDselections=tp_IDselections
         self.ObjectHistoClass=ObjectHistoClass
-        self.l1track_set=l1track_set
         self.h_tpset = {}
         self.h_dataset= {}
         self.h_effset = {}
         self.saveNtuples = saveNtuples
         self.saveEffPlots = saveEffPlots
-        self.includeTracks = includeTracks
         self.gen_eta_phi_columns = ['exeta', 'exphi']
 
         super(Cluster3DGenMatchHybrid, self).__init__(tp_set, tp_selections, gen_set, gen_selections)
@@ -111,7 +109,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
     def plotObjectMatch(self,
                         genParticles,
                         objects,
-                        L1tracks,
                         h_gen,
                         h_gen_matched,
                         ntuple3DClMatch,
@@ -138,10 +135,10 @@ class Cluster3DGenMatchHybrid(BasePlotter):
             # obj_filler = histos.HistoLazyFiller(objects)
             obj_ismatch = np.full(objects.shape[0], False, dtype=bool)
 
-            best_match_indexes, allmatches = utils.match_etaphi(
+            best_match_indexes, allmatches = utils.match_etaphi_GENtoComposite(
                 genParticles[self.gen_eta_phi_columns],
                 objects[['eta', 'phi']],
-                objects['pt'],
+                objects[['pt','tkpt']],
                 deltaR=0.2,
                 return_positional=positional)
      
@@ -154,10 +151,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     obj_matched = objects.loc[[best_match_indexes[idx]]]
                     obj_ismatch[objects.index.get_loc(best_match_indexes[idx])] = True
             
-                # DECORATE THE 3D CLUSTERS WITH QUANTITIES OF MATCHED L1 TRACKS IN A DELTAR CONE
-                if self.includeTracks:
-                    obj_matched = match3DClusterToL1Tracks(obj_matched, L1tracks, positional)
-
                 # Remove the matched clusters that do not pass the ID                
                 if not tp_IDsel.selection == "":
                     obj_matched = obj_matched.query(tp_IDsel.selection)
@@ -188,7 +181,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
     def book_histos(self):
         self.gen_set.activate()
         self.tp_set.activate()
-        self.l1track_set.activate()        
         for tp_sel in self.tp_selections:
             for tp_IDsel in self.tp_IDselections:
                 for gen_sel in self.gen_selections:
@@ -219,7 +211,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
         # print ("================== new event ==================")
         for tp_sel in self.tp_selections:
             cl3Ds = self.tp_set.query_event(tp_sel, idx)
-            l1tks = self.l1track_set.query_event(selections.Selection('all'), idx)
             for tp_IDsel in self.tp_IDselections:
                 for gen_sel in self.gen_selections:
                     # Exclude some combinations of GENsel and TPsel
@@ -249,7 +240,6 @@ class Cluster3DGenMatchHybrid(BasePlotter):
 
                     self.plotObjectMatch(genReference,
                                             cl3Ds,
-                                            l1tks,
                                             h_genseleff_den,
                                             h_genseleff_num,
                                             # h_tpseleff_den,

@@ -1436,7 +1436,7 @@ class Cluster3DTuples(BaseHistos):
             # self.data = []
             # self.reference = []
             # variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg'
-            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh:tttrack_pt:tttrack_eta:tttrack_phi:tttrack_chi2:tttrack_nStubs:tttrack_nInCone'
+            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh:tkpt:tketa:tkphi:tkz0:tkchi2:tkchi2Red:tknstubs:deta:dphi:dr'
             self.t_values = ROOT.TNtuple(name, name, variables)
         BaseHistos.__init__(self, name, root_file, debug)
 
@@ -1476,14 +1476,18 @@ class Cluster3DTuples(BaseHistos):
                energy_fill.append(cl3ds.newBDTlowhigh)
                energy_fill.append(cl3ds.newBDThighlow)
                energy_fill.append(cl3ds.newBDThighhigh)
-               energy_fill.append(cl3ds.tttrack_pt)
-               energy_fill.append(cl3ds.tttrack_eta)
-               energy_fill.append(cl3ds.tttrack_phi)
-               energy_fill.append(cl3ds.tttrack_chi2)
-               energy_fill.append(cl3ds.tttrack_nStubs)
-               energy_fill.append(cl3ds.tttrack_nInCone)
+               energy_fill.append(cl3ds.tkpt)
+               energy_fill.append(cl3ds.tketa)
+               energy_fill.append(cl3ds.tkphi)
+               energy_fill.append(cl3ds.tkz0)
+               energy_fill.append(cl3ds.tkchi2)
+               energy_fill.append(cl3ds.tkchi2Red)
+               energy_fill.append(cl3ds.tknstubs)
+               energy_fill.append(cl3ds.deta)
+               energy_fill.append(cl3ds.dphi)
+               energy_fill.append(cl3ds.dr)
             else:
-               for i in range(0,37):
+               for i in range(0,41):
                    energy_fill.append(-999)       
            
             energy_fill=np.array(energy_fill, dtype='f')

@@ -74,6 +74,64 @@ def debugPrintOut(level, name, toCount, toPrint):
 
 
 
+def match_etaphi_GENtoComposite(ref_etaphi, trigger_etaphi, trigger_pttkpt, deltaR=0.2, return_positional=False):
+    '''Match objects within a given DeltaR.
+    
+    If return_positional = False
+     Returns the panda index of the best match (highest-pt)
+       and of all the matches
+    If return_positional = True 
+     Returns the position of the best match (highest-pt)
+       and of all the matches in the input trigger_etaphi and trigger_pt arrays.
+    #    '''
+
+    kdtree = cKDTree(trigger_etaphi)
+    best_match_indices = {}
+    all_matches_indices = {}
+    
+    # for iref,(eta,phi) in enumerate(ref_etaphi):
+    for index, row in ref_etaphi.iterrows():
+        # print (" index ref",index)
+        # print (" index trg",trigger_etaphi.index)
+        gen_eta, gen_phi = row.values
+        matched = kdtree.query_ball_point([gen_eta, gen_phi], deltaR)
+        # not this in an integer of the index of the array not the index in the pandas meaning: hence to beused with iloc
+        # Handle the -pi pi transition
+        matched_sym = kdtree.query_ball_point([gen_eta, gen_phi-np.sign(gen_phi)*2.*m.pi], deltaR)
+        matched = np.unique(np.concatenate((matched, matched_sym))).astype(int)
+
+        # Choose the match with highest pT
+        if (len(matched) != 0):
+            # print (trigger_pttkpt.iloc[matched])
+            sorted_trgtrkpt = trigger_pttkpt.iloc[matched].sort_values(["pt", "tkpt"], ascending = (False, False))
+            # print (sorted_trgtrkpt)
+
+            pandaIDX_bestmatch = sorted_trgtrkpt.index.values[0]
+            plainIDX_bestmatch = trigger_pttkpt.index.get_loc(pandaIDX_bestmatch)
+        
+            if return_positional:
+                best_match_indices[index] = plainIDX_bestmatch
+                all_matches_indices[index] = matched
+            else:
+                best_match_indices[index] = pandaIDX_bestmatch
+                all_matches_indices[index] = trigger_pttkpt.iloc[matched].index.values
+
+    return best_match_indices, all_matches_indices
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # def match_3Dcluster_L1Tk(cluster_etaphi, cluster_pt, L1tk_etaphi, L1tk_pt, deltaR=0.2):
 #     kdtree = cKDTree(L1tk_etaphi)
 #     best_match_indices = {}

@@ -5,7 +5,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
-  plot_version: v99
+  plot_version: v100
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
@@ -21,10 +21,10 @@ collections:
       ele_flat2to100_PU0_HLTTDR: 1
       ele_flat2to100_PU200_HLTTDR: 1
     htc_jobflavor:
-      microcentury
+      longlunch
     plotters:
       # - tpEff
-      - SA_BDT_sig_ntuple
+      # - SA_BDT_sig_ntuple
       - SATK_BDT_sig_ntuple
       # - BDT_sig_sliceGenpt
 
@@ -38,7 +38,7 @@ collections:
       minbias_PU0_HLTTDR: 1
       minbias_PU200_HLTTDR: 1
     htc_jobflavor:
-      microcentury
+      longlunch
     plotters:
       # - tpRate
       # - SA_BDT_bkg_ntuple
