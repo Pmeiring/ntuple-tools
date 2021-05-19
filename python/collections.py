@@ -556,11 +556,17 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
     for iev,cls_ in spl_clu:
         print ("\n EVENT ",iev)
 
-
-        if cls_.empty or len(spl_trk[iev])<2:
-            print (cls_)
-            print (spl_trk[iev])
+        try:
+            spl_trk[iev][1]
+        except:
+            print(cls_)
+            print (spl_trk)
             continue
+
+        # if cls_.empty or len(spl_trk[iev])<2:
+        #     print (cls_)
+        #     print (spl_trk[iev])
+        #     continue
         # print (cls_)
         # print (spl_trk[iev])
 
