@@ -30,6 +30,8 @@ from python.mp_pool import POOL
 import python.classifiers as classifiers
 import python.calibrations as calib
 import python.pf_regions as pf_regions
+from collections import defaultdict
+
 
 
 class WeightFile(object):
@@ -543,25 +545,39 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
     if clusters.empty or tracks.empty:
         return composites
 
-    # print (cl3d_dummy_df.info)
-    # print (clusters)
-
     # split dataframe using gropuby
     spl_clu = list(clusters.groupby("entry"))
     spl_trk = list(tracks.groupby("entry"))
-      
-    # view splitted dataframe
-    # print(splits)
+
+    d = defaultdict(list)
+    for a, b in spl_clu+spl_trk:
+        # print (a,b)
+        d[a].append(b)
+    # print (d)
+    d = [(k,v) for k, v in d.items() if len(v)>1] # [[df_cls_ev1,df_trk_ev1], [df_cls_ev2,df_trk_ev2], ...]
+    # print (d)
+
     indexlist = []
-    for iev,cls_ in spl_clu:
+    for iev,dfs in d:
+
+    # for iev,cls_ in spl_clu:
         print ("\n EVENT ",iev)
 
-        try:
-            spl_trk[iev][1]
-        except:
-            print(cls_)
-            print (spl_trk)
-            continue
+        cls_ = dfs[0]
+        tks_ = dfs[1]
+
+
+        # print (cls_)
+        # print (tks_)
+        # try:
+        #     spl_trk[iev][1]
+        # except:
+        #     print(cls_)
+        #     print (len(spl_trk), " events for tracks")
+        #     for i in range (len(spl_trk)):
+        #         print (spl_trk[i][0])
+        #         print (spl_trk[i][1])
+        #     continue
 
         # if cls_.empty or len(spl_trk[iev])<2:
         #     print (cls_)
@@ -570,7 +586,7 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
         # print (cls_)
         # print (spl_trk[iev])
 
-        tks_ = spl_trk[iev][1]
+        # tks_ = spl_trk[iev][1]
 
         # Match the clusters and tracks in this event
         best_match_indexes, allmatches = match_etaphi(cls_[['eta','phi']],
