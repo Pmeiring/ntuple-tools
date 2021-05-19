@@ -554,7 +554,16 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
     # print(splits)
     indexlist = []
     for iev,cls_ in spl_clu:
-        # print ("\n EVENT ",iev)
+        print ("\n EVENT ",iev)
+
+
+        if cls_.empty or len(spl_trk[iev])<2:
+            print (cls_)
+            print (spl_trk[iev])
+            continue
+        # print (cls_)
+        # print (spl_trk[iev])
+
         tks_ = spl_trk[iev][1]
 
         # Match the clusters and tracks in this event
