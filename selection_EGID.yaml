@@ -5,7 +5,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
-  plot_version: v102
+  plot_version: v103
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
@@ -21,7 +21,7 @@ collections:
       ele_flat2to100_PU0_HLTTDR: 1
       ele_flat2to100_PU200_HLTTDR: 1
     htc_jobflavor:
-      longlunch
+      microcentury
     plotters:
       # - tpEff
       # - SA_BDT_sig_ntuple
@@ -38,7 +38,7 @@ collections:
       minbias_PU0_HLTTDR: 1
       minbias_PU200_HLTTDR: 1
     htc_jobflavor:
-      longlunch
+      microcentury
     plotters:
       # - tpRate
       # - SA_BDT_bkg_ntuple
@@ -59,23 +59,23 @@ samples:
 
   ele_flat2to100_PU0_HLTTDR:
     input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU0_CMSSW1116_v_5/210120_181637/0000/
-    events_per_job : 1000
+    events_per_job : 200
 
   ele_flat2to100_PU200_HLTTDR:
     input_sample_dir: SingleElectron_PT2to200/SingleE_FlatPt-2to100_PU200_CMSSW1116_v_6/210125_095600/0000/
-    events_per_job : 1000
+    events_per_job : 200
 
   minbias_PU0_HLTTDR:
     input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU0_CMSSW1116_v_6/210121_093155/0000/
-    events_per_job : 1000
+    events_per_job : 200
 
   minbias_PU200_HLTTDR:
     input_sample_dir: MinBias_TuneCP5_14TeV-pythia8/MinBias_PU200_CMSSW1116_v_7/210127_102656/0000/
-    events_per_job : 1000
+    events_per_job : 200
 
   gianluca_doubleE_200PU:
     input_sample_dir: DoubleElectron_FlatPt-1To100/DoubleElectron_FlatPt-1To100_PU200_v63H/210115_153303/0000/
-    events_per_job : 1000
+    events_per_job : 200
 
 
 
