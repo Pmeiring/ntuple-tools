@@ -345,13 +345,6 @@ def cl3d_fixtures(clusters):
     clusters['newBDThighhigh'] = rnptmva.evaluate_reader(
         classifiers.MVA_classifier_builder_highhigh(), 'BDT', clusters[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe']])
 
-    # clusters['tttrack_pt'] = -999.
-    # clusters['tttrack_eta'] = -999.
-    # clusters['tttrack_phi'] = -999.
-    # clusters['tttrack_chi2'] = -999.
-    # clusters['tttrack_nStubs'] = -999.
-    # clusters['tttrack_nInCone'] = -999.
-
     # clusters['tkpt'] = -999.
     # clusters['tketa']= -999.
     # clusters['tkphi']= -999.
@@ -364,6 +357,17 @@ def cl3d_fixtures(clusters):
     # clusters['dr']= -999.
 
     return clusters
+
+
+def composite_fixtures(comps):
+    if comps.empty:
+        return comps
+        
+    comps['trkBDTlow'] = rnptmva.evaluate_reader(
+        classifiers.MVA_classifier_builder_CL3DTRK_low(), 'BDT', comps[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe','tkchi2','tkz0','tknstubs','tkpt','dphi','deta']])
+    comps['trkBDThigh'] = rnptmva.evaluate_reader(
+        classifiers.MVA_classifier_builder_CL3DTRK_high(), 'BDT', comps[['coreshowerlength','showerlength','firstlayer','maxlayer','szz','srrmean','srrtot','seetot','spptot', 'seemax', 'sppmax', 'srrmax', 'meanz', 'emaxe', 'layer10', 'layer50', 'layer90', 'ntc67', 'ntc90', 'hoe','tkchi2','tkz0','tknstubs','tkpt','dphi','deta']])
+    return comps
 
 
 def gen_fixtures(particles, mc_particles):
@@ -545,56 +549,26 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
     if clusters.empty or tracks.empty:
         return composites
 
-    # split dataframe using gropuby
+    # Some black magic to group the tracks and clusters by event (only if both exist)
     spl_clu = list(clusters.groupby("entry"))
     spl_trk = list(tracks.groupby("entry"))
-
     d = defaultdict(list)
     for a, b in spl_clu+spl_trk:
-        # print (a,b)
         d[a].append(b)
-    # print (d)
     d = [(k,v) for k, v in d.items() if len(v)>1] # [[df_cls_ev1,df_trk_ev1], [df_cls_ev2,df_trk_ev2], ...]
-    # print (d)
 
     indexlist = []
     for iev,dfs in d:
-
-    # for iev,cls_ in spl_clu:
         print ("\n EVENT ",iev)
 
         cls_ = dfs[0]
         tks_ = dfs[1]
-
-
-        # print (cls_)
-        # print (tks_)
-        # try:
-        #     spl_trk[iev][1]
-        # except:
-        #     print(cls_)
-        #     print (len(spl_trk), " events for tracks")
-        #     for i in range (len(spl_trk)):
-        #         print (spl_trk[i][0])
-        #         print (spl_trk[i][1])
-        #     continue
-
-        # if cls_.empty or len(spl_trk[iev])<2:
-        #     print (cls_)
-        #     print (spl_trk[iev])
-        #     continue
-        # print (cls_)
-        # print (spl_trk[iev])
-
-        # tks_ = spl_trk[iev][1]
 
         # Match the clusters and tracks in this event
         best_match_indexes, allmatches = match_etaphi(cls_[['eta','phi']],
                                                         tks_[['caloeta', 'calophi']],
                                                         tks_['pt'],
                                                         deltaR=0.3)
-        # print ("BESTMATCHES\n",best_match_indexes,"\n")
-        # print ("ALLMATCHES\n")
         count=0
         for idx_cl,idx_trks in allmatches.items():
             # print (idx_cl, idx_trks)
@@ -612,41 +586,14 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
                 cl['deta']= trk.eta.values - cl.eta.values
                 cl['dphi']= trk.phi.values - cl.phi.values
                 cl['dr']= 1
-                # print (cl.index)
-                # print (count)
-                # count_ = [count]
-                # print (count_)
 
-                # index = cl.index
-                # names = index.names
-                # index = cl.index.tolist()[0]
-                # index = [iev, count]
                 indexlist.append((iev, count))
-                # print (index)
-                # print (type(index[0]))
-                # [:1]+[('x2','x2')]  
-                
-
-
-                # cl.index = pd.MultiIndex([(iev, count)], names=['entry', 'subentry'])
-                # cl.index = cl.index.set_levels(count_, level=1)
-                # cl.index.set_levels([count], level='subentry')
-                # print (cl.index)
-
                 composites = composites.append(cl, sort=False)
                 count+=1
 
     multiindex = pd.MultiIndex.from_tuples(indexlist, names = ['entry', 'subentry'])
-    # print (indexlist)
-    # print (multiindex)
     composites.index=multiindex
-    # print (composites)
-    # print (composites.index)
-    # print (composites.index.get_level_values('entry'))
-    # print (composites.index.get_level_values('entry').unique())
 
-    # composites.set_index(composites.index[1])
-    # print (composites)
     return composites    
 
 
@@ -1259,6 +1206,7 @@ tkegs_shape_calib = DFCollection(
 composite_tk3dcl = DFCollection(
     name='CompositeTk3DCl', label='CompositeTk3DCl',
     filler_function=lambda event, entry_block: get_loosetrackmatched_cl3d(clusters=cl3d_hm.df, tracks=l1Trks.df),
+    fixture_function=lambda comps: composite_fixtures(comps),
     depends_on=[cl3d_hm, l1Trks],
     debug=0)
 

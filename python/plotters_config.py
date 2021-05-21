@@ -353,17 +353,19 @@ tp_cluster_tc_match_plotters = [plotters.ClusterTCGenMatchPlotter(collections.tp
                                                                   gen_selections=selections.gen_part_ee_eta_brem_sel)]
 
 
+# ========================================== STAND ALONE ================================
+
 # rate plotter to use for minbias sample
-myrate_plotter = [plotters.RatePlotter(     collections.cl3d_hm, 
+mySArate_plotter = [plotters.RatePlotter(   collections.cl3d_hm, 
                                             selections.tp_selections_rateeff)
 ]
 
 # efficiency plotter to use for singleelectron sample 
-myeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
+mySAeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.cl3d_hm, 
                                             collections.gen_parts,
-                                            selections.tp_eta_sel_noID,                      #<- defines collection to be matched
-                                            [selections.Selection('', '', '')]+selections.tp_IDsel_tpg+selections.tp_IDsel_new, #<- defines ID to apply after matching
+                                            selections.tp_selections_rateeff,                      #<- defines collection to be matched
+                                            [selections.Selection('', '', '')], #<- defines ID to apply after matching
                                             selections.gen_e_sel,
                                             saveEffPlots=True, saveNtuples=False)
 ]
@@ -385,6 +387,23 @@ SA_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             saveEffPlots=False, saveNtuples=True)
 ]
 
+# ========================================== STAND ALONE + TRACKS ================================
+
+# rate plotter to use for minbias sample
+mySATKrate_plotter = [plotters.RatePlotter( collections.composite_tk3dcl, 
+                                            selections.tp_IDcl3dtrk)
+]
+
+# efficiency plotter to use for singleelectron sample 
+mySATKeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.composite_tk3dcl, 
+                                            collections.gen_parts,
+                                            selections.tp_IDcl3dtrk,                      #<- defines collection to be matched
+                                            [selections.Selection('', '', '')], #<- defines ID to apply after matching
+                                            selections.gen_e_sel,
+                                            saveEffPlots=True, saveNtuples=False)
+]
+
 # ntuplizer to use for minbias sample
 SATK_BDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
                                             collections.composite_tk3dcl, 
@@ -401,6 +420,9 @@ SATK_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             selections.gen_e_sel,
                                             saveEffPlots=False, saveNtuples=True)
 ]
+
+# ========================================== CUSTOM MATCHING STUDIES ================================
+
 
 # object matching plotter
 mymatch_plotter = [extraplotters.CustomHistPlotter(

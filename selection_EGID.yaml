@@ -5,7 +5,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
-  plot_version: v103
+  plot_version: v104
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
@@ -23,9 +23,10 @@ collections:
     htc_jobflavor:
       microcentury
     plotters:
-      # - tpEff
+      - SA_tpEff
       # - SA_BDT_sig_ntuple
-      - SATK_BDT_sig_ntuple
+      - SATK_tpEff
+      # - SATK_BDT_sig_ntuple
       # - BDT_sig_sliceGenpt
 
   minBias:
@@ -40,15 +41,18 @@ collections:
     htc_jobflavor:
       microcentury
     plotters:
-      # - tpRate
+      - SA_tpRate
       # - SA_BDT_bkg_ntuple
-      - SATK_BDT_bkg_ntuple
+      - SATK_tpRate
+      # - SATK_BDT_bkg_ntuple
 
 plotters:
-  tpRate:          !!python/name:python.plotters_config.myrate_plotter
-  tpEff:           !!python/name:python.plotters_config.myeffi_plotter
+  SA_tpRate:          !!python/name:python.plotters_config.mySArate_plotter
+  SA_tpEff:           !!python/name:python.plotters_config.mySAeffi_plotter
   SA_BDT_sig_ntuple : !!python/name:python.plotters_config.SA_BDT_sig_ntuplizer
   SA_BDT_bkg_ntuple : !!python/name:python.plotters_config.SA_BDT_bkg_ntuplizer
+  SATK_tpRate:          !!python/name:python.plotters_config.mySATKrate_plotter
+  SATK_tpEff:           !!python/name:python.plotters_config.mySATKeffi_plotter
   SATK_BDT_sig_ntuple : !!python/name:python.plotters_config.SATK_BDT_sig_ntuplizer
   SATK_BDT_bkg_ntuple : !!python/name:python.plotters_config.SATK_BDT_bkg_ntuplizer  
   # BDT_sig_sliceGenpt: !!python/name:python.plotters_config.myBDT_sig_test

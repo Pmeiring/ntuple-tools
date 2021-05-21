@@ -223,7 +223,7 @@ tp_loweta  = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <
 tp_higheta = [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')]
 tp_eta_sel_noID = tp_loweta + tp_higheta
 
-
+# ============================== STAND-ALONE ===========================
 
 tp_IDsel_tpg_lowlow  = [Selection('tpgID900_lowetalowpt',  'passed old ID WP90%: low eta, low pt',  'bdteg>-0.9969856')]
 tp_IDsel_tpg_highlow = [Selection('tpgID900_highetalowpt', 'passed old ID WP90%: high eta, low pt', 'bdteg>-0.9989121')]
@@ -236,8 +236,6 @@ tp_IDsel_new_highlow = [Selection('newID900_highetalowpt', 'passed new ID WP90%:
 tp_IDsel_new_lowhigh = [Selection('newID900_lowetahighpt', 'passed new ID WP90%: low eta, high pt', 'newBDTlowhigh>0.9969490')]
 tp_IDsel_new_highhigh= [Selection('newID900_highetahighpt','passed new ID WP90%: high eta, high pt','newBDThighhigh>0.9968630')]
 tp_IDsel_new = tp_IDsel_new_lowlow+tp_IDsel_new_highlow+tp_IDsel_new_lowhigh+tp_IDsel_new_highhigh
-
-
 
 
 tp_IDtpg__loweta__lowpt = add_selections(tp_loweta,  tp_IDsel_tpg_lowlow)
@@ -253,6 +251,17 @@ tp_IDnew_higheta_highpt = add_selections(tp_higheta, tp_IDsel_new_highhigh)
 tp_IDnew = tp_IDnew__loweta__lowpt + tp_IDnew_higheta__lowpt + tp_IDnew__loweta_highpt + tp_IDnew_higheta_highpt
 
 tp_selections_rateeff = tp_eta_sel_noID + tp_IDtpg + tp_IDnew
+
+# ============================== STAND-ALONE + TRACK ===========================
+
+tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>-0.1771708')]
+tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9963946')]
+
+tp_IDcl3dtrk_lowpt  = add_selections(tp_loweta,   tp_IDsel_cl3dtrk_low)
+tp_IDcl3dtrk_highpt = add_selections(tp_higheta,  tp_IDsel_cl3dtrk_high)
+tp_IDcl3dtrk = tp_IDcl3dtrk_lowpt + tp_IDcl3dtrk_highpt
+
+
 
 
 

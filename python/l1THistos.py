@@ -1418,8 +1418,11 @@ class TCClusterMatchHistos(BaseHistos):
 
 
 class HistoSet3DClusters():
-    def __init__(self, name, root_file=None, debug=False):
-        self.hcl3d = Cluster3DTuples('h_cl3d_'+name, root_file, debug)
+    def __init__(self, name, iscomposite=False, root_file=None, debug=False):
+        if iscomposite:
+            self.hcl3d = CompositeTuples('h_cl3dtrk_'+name, root_file, debug)
+        else:
+            self.hcl3d = Cluster3DTuples('h_cl3d_'+name, root_file, debug)
         # if not root_file:
         #     self.htc.annotateTitles(name)
         #     self.hcl2d.annotateTitles(name)
@@ -1435,8 +1438,73 @@ class Cluster3DTuples(BaseHistos):
         if not root_file:
             # self.data = []
             # self.reference = []
-            # variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg'
-            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh:tkpt:tketa:tkphi:tkz0:tkchi2:tkchi2Red:tknstubs:deta:dphi:dr'
+            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh'
+            self.t_values = ROOT.TNtuple(name, name, variables)
+        BaseHistos.__init__(self, name, root_file, debug)
+
+    def fill(self, clusters):
+        for index, cl3ds in clusters.iterrows():
+
+            energy_fill = []
+            if not cl3ds.empty:
+               energy_fill.append(cl3ds.pt)
+               energy_fill.append(cl3ds.eta)
+               energy_fill.append(abs(cl3ds.eta))
+               energy_fill.append(cl3ds.phi)
+               energy_fill.append(cl3ds.energy)
+               energy_fill.append(cl3ds.nclu)
+               energy_fill.append(cl3ds.showerlength)
+               energy_fill.append(cl3ds.coreshowerlength)
+               energy_fill.append(cl3ds.firstlayer)
+               energy_fill.append(cl3ds.maxlayer)
+               energy_fill.append(cl3ds.seetot)
+               energy_fill.append(cl3ds.seemax)
+               energy_fill.append(cl3ds.spptot)
+               energy_fill.append(cl3ds.sppmax)
+               energy_fill.append(cl3ds.srrtot)
+               energy_fill.append(cl3ds.srrmax)
+               energy_fill.append(cl3ds.srrmean)
+               energy_fill.append(cl3ds.meanz)
+               energy_fill.append(cl3ds.szz)
+               energy_fill.append(cl3ds.emaxe)
+               energy_fill.append(cl3ds.layer10)
+               energy_fill.append(cl3ds.layer50)
+               energy_fill.append(cl3ds.layer90)
+               energy_fill.append(cl3ds.ntc67)
+               energy_fill.append(cl3ds.ntc90)
+               energy_fill.append(cl3ds.hoe)
+               energy_fill.append(cl3ds.bdteg)
+               energy_fill.append(cl3ds.newBDTlowlow)
+               energy_fill.append(cl3ds.newBDTlowhigh)
+               energy_fill.append(cl3ds.newBDThighlow)
+               energy_fill.append(cl3ds.newBDThighhigh)
+            else:
+               for i in range(0,31):
+                   energy_fill.append(-999)       
+           
+            energy_fill=np.array(energy_fill, dtype='f')
+            self.t_values.Fill(energy_fill)
+
+    def write(self):
+        # treeName = self.__class__.__name__
+        treeName = "L1Trees"
+        if treeName not in ROOT.gDirectory.GetListOfKeys():
+            ROOT.gDirectory.mkdir(treeName)
+        newdir = ROOT.gDirectory.GetDirectory(treeName)
+        newdir.cd()
+
+        self.t_values.Write()
+        ROOT.gDirectory.cd('..')
+        return
+
+
+
+class CompositeTuples(BaseHistos):
+    def __init__(self, name, root_file=None, debug=False):
+        if not root_file:
+            # self.data = []
+            # self.reference = []
+            variables='pt:eta:absEta:phi:energy:nclu:showerlength:coreshowerlength:firstlayer:maxlayer:seetot:seemax:spptot:sppmax:srrtot:srrmax:srrmean:meanz:szz:emaxe:layer10:layer50:layer90:ntc67:ntc90:hoe:bdteg:newBDTlowlow:newBDTlowhigh:newBDThighlow:newBDThighhigh:tkpt:tketa:tkphi:tkz0:tkchi2:tkchi2Red:tknstubs:deta:dphi:dr:trkBDTlow:trkBDThigh'
             self.t_values = ROOT.TNtuple(name, name, variables)
         BaseHistos.__init__(self, name, root_file, debug)
 
@@ -1486,8 +1554,10 @@ class Cluster3DTuples(BaseHistos):
                energy_fill.append(cl3ds.deta)
                energy_fill.append(cl3ds.dphi)
                energy_fill.append(cl3ds.dr)
+               energy_fill.append(cl3ds.trkBDTlow)
+               energy_fill.append(cl3ds.trkBDThigh)
             else:
-               for i in range(0,41):
+               for i in range(0,43):
                    energy_fill.append(-999)       
            
             energy_fill=np.array(energy_fill, dtype='f')
@@ -1504,10 +1574,6 @@ class Cluster3DTuples(BaseHistos):
         self.t_values.Write()
         ROOT.gDirectory.cd('..')
         return
-
-
-
-
 
 
 

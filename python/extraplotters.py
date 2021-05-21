@@ -24,66 +24,6 @@ def filter_combinations(tp_sel, gen_sel):
     if "loweta"  in tp_sel.name and "EtaBC" not in gen_sel.name: isGoodCombi=False
     return isGoodCombi
 
-def match3DClusterToL1Tracks(clusters, tracks, positional):
-    L1Tk_best_match_idx = {}
-    if not tracks.empty: 
-        # Perform the matching 3DCluster->L1track
-        # print ("=========== matching tracks ==========")
-        L1Tk_best_match_idx, L1Tk_match_indices = utils.match_etaphi(clusters[['eta','phi']],
-                                                        tracks[['caloeta', 'calophi']],
-                                                        tracks['pt'],
-                                                        deltaR=0.3,
-                                                        return_positional=positional)
-        for idx_cl,idx_trk in L1Tk_best_match_idx.items():
-            if L1Tk_best_match_idx!=None:
-                trk= tracks.iloc[[idx_trk]] if positional else tracks.loc[[idx_trk]]
-                clusters.at[idx_cl, "tttrack_pt"]=trk.pt
-                clusters.at[idx_cl, "tttrack_eta"]=trk.eta
-                clusters.at[idx_cl, "tttrack_phi"]=trk.phi
-                clusters.at[idx_cl, "tttrack_chi2"]=trk.chi2
-                clusters.at[idx_cl, "tttrack_nStubs"]=trk.nStubs
-                clusters.at[idx_cl, "tttrack_nInCone"]=len(L1Tk_match_indices[idx_cl])
-        # print (clusters)
-        m_cl = list(L1Tk_match_indices.values())
-        # if len(m_cl)!=0:
-        #     print ("Found %s tracks that matched to this cluster"%len(m_cl[0]))
-        #     print (tracks.loc[m_cl[0]])
-        # else:
-        #     print ("Found 0 tracks that matched to this cluster")
-        # print (list(L1Tk_match_indices.values()))
-        # print (tracks.loc[list(L1Tk_match_indices.values())[0]])
-        # print ("======================================")                
-    return clusters
-
-def constructClusterTrackComposite(clusters, tracks, positional):
-    # Match each cluster with the tracks
-    # Each match forms a composite object (multiple composite objects can be formed with the same cluster if it matches to multiple tracks)
-    # Return the dataframe of composite objects
-    composites = clusters.iloc[0:0,:].copy()
-
-    L1Tk_best_match_idx = {}
-    if not tracks.empty: 
-        # Perform the matching 3DCluster->L1track
-        # print ("=========== matching tracks ==========")
-        L1Tk_best_match_idx, L1Tk_match_indices = utils.match_etaphi(clusters[['eta','phi']],
-                                                        tracks[['caloeta', 'calophi']],
-                                                        tracks['pt'],
-                                                        deltaR=0.3,
-                                                        return_positional=positional)
-        for idx_cl,idx_trk in L1Tk_match_indices.items():
-            trk= tracks.iloc[[idx_trk]] if positional else tracks.loc[[idx_trk]]
-            cl = clusters.iloc[[idx_cl]] if positional else clusters.loc[[idx_cl]]
-            cl.tttrack_pt=trk.pt
-            cl.tttrack_eta=trk.eta
-            cl.tttrack_phi=trk.phi
-            cl.tttrack_chi2=trk.chi2
-            cl.tttrack_nStubs=trk.nStubs
-            cl.tttrack_nInCone=len(L1Tk_match_indices[idx_cl])
-            composites.append(cl)
-
-    return composites
-
-
 
 class Cluster3DGenMatchHybrid(BasePlotter):
     def __init__(self, tp_set, gen_set,
@@ -94,6 +34,7 @@ class Cluster3DGenMatchHybrid(BasePlotter):
         # self.tp_selections = tp_selections
         # self.gen_set = gen_set
         # self.gen_selections = gen_selections
+        self.isTrkCl3D = "CompositeTk3DCl" in tp_set.name
         self.tp_IDselections=tp_IDselections
         self.ObjectHistoClass=ObjectHistoClass
         self.h_tpset = {}
@@ -135,12 +76,21 @@ class Cluster3DGenMatchHybrid(BasePlotter):
             # obj_filler = histos.HistoLazyFiller(objects)
             obj_ismatch = np.full(objects.shape[0], False, dtype=bool)
 
-            best_match_indexes, allmatches = utils.match_etaphi_GENtoComposite(
-                genParticles[self.gen_eta_phi_columns],
-                objects[['eta', 'phi']],
-                objects[['pt','tkpt']],
-                deltaR=0.2,
-                return_positional=positional)
+            # Match GEN to RECO
+            if self.isTrkCl3D:
+                best_match_indexes, allmatches = utils.match_etaphi_GENtoComposite(
+                    genParticles[self.gen_eta_phi_columns],
+                    objects[['eta', 'phi']],
+                    objects[['pt','tkpt']],
+                    deltaR=0.2,
+                    return_positional=positional)
+            else:
+                 best_match_indexes, allmatches = utils.match_etaphi(
+                    genParticles[self.gen_eta_phi_columns],
+                    objects[['eta', 'phi']],
+                    objects['pt'],
+                    deltaR=0.2,
+                    return_positional=positional)               
      
 
             for idx in list(best_match_indexes.keys()):
@@ -194,8 +144,8 @@ class Cluster3DGenMatchHybrid(BasePlotter):
                     if not isGoodCombi: continue
 
                     if self.saveNtuples:
-                        self.h_tpset[histo_name]         = histos.HistoSet3DClusters(histo_name)
-                        self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
+                        self.h_tpset[histo_name]         = histos.HistoSet3DClusters(histo_name, iscomposite=self.isTrkCl3D)
+                        self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH, iscomposite=self.isTrkCl3D)
                     if self.saveEffPlots:
                         # self.h_efftp[histo_name] = histos.HistoSetEff(histo_name)
                         # self.h_efftp[histo_name].h_num = histos.Cluster3DHistos('h_effNum_'+histo_name)
@@ -268,6 +218,7 @@ class Cluster3DGenMatchHybrid(BasePlotter):
 class Cluster3DHybrid(BasePlotter):
     def __init__(self, tp_set,
                  tp_selections=[selections.Selection('all')], saveEffPlots=False, saveNtuples=False):
+        self.isTrkCl3D = "CompositeTk3DCl" in tp_set.name
         self.h_tpset = {}
         self.h_effset = {}
         self.saveNtuples = saveNtuples
@@ -294,7 +245,7 @@ class Cluster3DHybrid(BasePlotter):
             histo_name_NOMATCH='{}_{}_noMatch'.format(tp_name, selection.name)
             #self.h_tpset[selection.name] = histos.HistoSetClusters(name='{}_{}_nomatch'.format(tp_name, selection.name))
             if self.saveNtuples:
-                self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH)
+                self.h_tpset[histo_name_NOMATCH] = histos.HistoSet3DClusters(histo_name_NOMATCH, iscomposite=self.isTrkCl3D)
             if self.saveEffPlots:
                 self.h_effset[histo_name] = histos.HistoSetEff(histo_name)
 
@@ -302,7 +253,6 @@ class Cluster3DHybrid(BasePlotter):
         pass
 
     def fill_histos_event(self, idx, debug=0):
-        print ("event idx = ",idx)
         for tp_sel in self.tp_selections:
             cl3Ds = self.tp_set.query_event(tp_sel, idx)
 
