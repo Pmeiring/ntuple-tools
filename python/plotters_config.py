@@ -404,10 +404,25 @@ mySATKeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             saveEffPlots=True, saveNtuples=False)
 ]
 
+# rate plotter to use for minbias sample
+L1TDR_SATKrate_plotter = [plotters.RatePlotter( collections.composite_tk3dclellips, 
+                                            selections.tp_IDcl3dtrkEllips)
+]
+
+# efficiency plotter to use for singleelectron sample 
+L1TDR_SATKeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.composite_tk3dclellips, 
+                                            collections.gen_parts,
+                                            selections.tp_IDcl3dtrkEllips,                      #<- defines collection to be matched
+                                            [selections.Selection('', '', '')], #<- defines ID to apply after matching
+                                            selections.gen_e_sel,
+                                            saveEffPlots=True, saveNtuples=False)
+]
+
 # ntuplizer to use for minbias sample
 SATK_BDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
                                             collections.composite_tk3dcl, 
-                                            selections.tp_eta_sel_noID,
+                                            selections.tk_acceptance,
                                             saveEffPlots=False, saveNtuples=True)
 ]
 
@@ -415,7 +430,7 @@ SATK_BDT_bkg_ntuplizer = [extraplotters.Cluster3DHybrid(
 SATK_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.composite_tk3dcl, 
                                             collections.gen_parts,
-                                            selections.tp_eta_sel_noID,
+                                            selections.tk_acceptance,
                                             [selections.Selection('', '', '')],
                                             selections.gen_e_sel,
                                             saveEffPlots=False, saveNtuples=True)

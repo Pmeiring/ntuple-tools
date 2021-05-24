@@ -5,7 +5,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
-  plot_version: v104
+  plot_version: v105
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
@@ -26,6 +26,7 @@ collections:
       - SA_tpEff
       # - SA_BDT_sig_ntuple
       - SATK_tpEff
+      - SATK_L1TDR_tpEff
       # - SATK_BDT_sig_ntuple
       # - BDT_sig_sliceGenpt
 
@@ -44,6 +45,7 @@ collections:
       - SA_tpRate
       # - SA_BDT_bkg_ntuple
       - SATK_tpRate
+      - SATK_L1TDR_tpRate
       # - SATK_BDT_bkg_ntuple
 
 plotters:
@@ -55,6 +57,9 @@ plotters:
   SATK_tpEff:           !!python/name:python.plotters_config.mySATKeffi_plotter
   SATK_BDT_sig_ntuple : !!python/name:python.plotters_config.SATK_BDT_sig_ntuplizer
   SATK_BDT_bkg_ntuple : !!python/name:python.plotters_config.SATK_BDT_bkg_ntuplizer  
+  SATK_L1TDR_tpRate: !!python/name:python.plotters_config.L1TDR_SATKrate_plotter
+  SATK_L1TDR_tpEff: !!python/name:python.plotters_config.L1TDR_SATKeffi_plotter
+
   # BDT_sig_sliceGenpt: !!python/name:python.plotters_config.myBDT_sig_test
 
 samples:

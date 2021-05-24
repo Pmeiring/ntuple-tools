@@ -21,6 +21,7 @@ import numpy as np
 import ROOT
 import math
 import sys
+import math as m
 
 import root_numpy.tmva as rnptmva
 
@@ -595,6 +596,82 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
     composites.index=multiindex
 
     return composites    
+
+
+def get_ellipticalmatched_cl3d(clusters, tracks, debug=0):
+    cl3d_dummy_df = clusters.iloc[0:0,:].copy()
+    composites =  pd.DataFrame(columns = cl3d_dummy_df.columns.tolist() + ['tkpt', 'tketa', 'tkphi', 'tkz0', 'tkchi2', 'tkchi2Red', 'tknstubs', 'deta', 'dphi', 'dr'])
+
+    if clusters.empty or tracks.empty:
+        return composites
+
+    # Some black magic to group the tracks and clusters by event (only if both exist)
+    spl_clu = list(clusters.groupby("entry"))
+    spl_trk = list(tracks.groupby("entry"))
+    d = defaultdict(list)
+    for a, b in spl_clu+spl_trk:
+        d[a].append(b)
+    d = [(k,v) for k, v in d.items() if len(v)>1] # [[df_cls_ev1,df_trk_ev1], [df_cls_ev2,df_trk_ev2], ...]
+
+    indexlist = []
+    for iev,dfs in d:
+        print ("\n EVENT ",iev)
+
+        cls_ = dfs[0]
+        tks_ = dfs[1]
+
+        # Match the clusters and tracks in this event
+        # best_match_indexes, allmatches = match_etaphi(cls_[['eta','phi']],
+        #                                                 tks_[['caloeta', 'calophi']],
+        #                                                 tks_['pt'],
+        #                                                 deltaR=0.3)
+        # print (allmatches)
+
+        allmatches = {}
+        for idx_cl, cl in cls_.iterrows():        
+            for idx_trk, trk in tks_.iterrows():
+                # print (idx_cl, cl.eta, cl.phi)
+                # print (idx_trk,trk.eta,trk.phi)
+                deta=abs(cl.eta-trk.eta)
+                dphi1=abs(cl.phi-trk.phi)
+                dphi2=cl.phi-np.sign(cl.phi)*2.*m.pi - trk.phi
+                dphi = min(abs(dphi1),abs(dphi2))
+                inEllips = (pow(dphi/0.07,2) + pow(deta/0.0075,2))<1.
+                if inEllips:
+                    # print (idx_cl, idx_trk, deta, dphi1, dphi2,dphi)
+
+                    if idx_cl in allmatches:
+                        allmatches[idx_cl].append(idx_trk)
+                    else:
+                        allmatches[idx_cl]=[idx_trk]
+
+        count=0
+        for idx_cl,idx_trks in allmatches.items():
+            # print (idx_cl, idx_trks)
+            cl = clusters.loc[[idx_cl]]
+            for idx_trk in idx_trks:
+                trk= tracks.loc[[idx_trk]]
+
+                cl['tkpt'] = trk.pt.values
+                cl['tketa']= trk.eta.values
+                cl['tkphi']= trk.phi.values
+                cl['tkz0']= trk.z0.values
+                cl['tkchi2']= trk.chi2.values
+                cl['tkchi2Red']= trk.chi2Red.values
+                cl['tknstubs']= trk.nStubs.values
+                cl['deta']= trk.eta.values - cl.eta.values
+                cl['dphi']= trk.phi.values - cl.phi.values
+                cl['dr']= 1
+
+                indexlist.append((iev, count))
+                composites = composites.append(cl, sort=False)
+                count+=1
+
+    multiindex = pd.MultiIndex.from_tuples(indexlist, names = ['entry', 'subentry'])
+    composites.index=multiindex
+
+    return composites  
+
 
 
 def get_layer_calib_clusters(input_clusters,
@@ -1209,6 +1286,14 @@ composite_tk3dcl = DFCollection(
     fixture_function=lambda comps: composite_fixtures(comps),
     depends_on=[cl3d_hm, l1Trks],
     debug=0)
+
+composite_tk3dclellips = DFCollection(
+    name='CompositeTk3DClEllips', label='CompositeTk3DClEllips',
+    filler_function=lambda event, entry_block: get_ellipticalmatched_cl3d(clusters=cl3d_hm.df, tracks=l1Trks.df),
+    fixture_function=lambda comps: cl3d_fixtures(comps),
+    depends_on=[cl3d_hm, l1Trks],
+    debug=0)
+
 
 tkegs_emu = DFCollection(
     name='TkEGEmu', label='TkEG Emu',

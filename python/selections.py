@@ -254,15 +254,18 @@ tp_selections_rateeff = tp_eta_sel_noID + tp_IDtpg + tp_IDnew
 
 # ============================== STAND-ALONE + TRACK ===========================
 
+tk_acceptance = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.4', '1.52 < abs(eta) <= 2.4')]
+
 tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>-0.1771708')]
 tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9963946')]
 
-tp_IDcl3dtrk_lowpt  = add_selections(tp_loweta,   tp_IDsel_cl3dtrk_low)
-tp_IDcl3dtrk_highpt = add_selections(tp_higheta,  tp_IDsel_cl3dtrk_high)
-tp_IDcl3dtrk = tp_IDcl3dtrk_lowpt + tp_IDcl3dtrk_highpt
+tp_IDcl3dtrk_lowpt  = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_low)
+tp_IDcl3dtrk_highpt = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_high)
+tp_IDcl3dtrk = tk_acceptance + tp_IDcl3dtrk_lowpt + tp_IDcl3dtrk_highpt
 
-
-
+tp_IDcl3dtrkEllips_lowpt  = add_selections(tk_acceptance,  tp_IDsel_new_lowlow)
+tp_IDcl3dtrkEllips_highpt = add_selections(tk_acceptance,  tp_IDsel_new_lowhigh)
+tp_IDcl3dtrkEllips = tk_acceptance + tp_IDcl3dtrkEllips_lowpt + tp_IDcl3dtrkEllips_highpt
 
 
 
