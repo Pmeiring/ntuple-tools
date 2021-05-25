@@ -302,6 +302,11 @@ gen_exeta_selections = [
                       Selection('EtaBC', '1.52 < |#eta^{GEN}| <= 2.7', '1.52 < abs(exeta) <= 2.7'),
 ]
 
+gen_exetatrk_selections = [
+                      Selection('EtaDE', '2.7 < |#eta^{GEN}| <= 3.0', '2.7 < abs(exeta) <= 3.0'),
+                      Selection('EtaBC', '1.52 < |#eta^{GEN}| <= 2.4', '1.52 < abs(exeta) <= 2.4'),
+]
+
 gen_eta_sel = [Selection('EtaDE', '2.4 < |#eta^{GEN}| <= 3.0', '2.4 < abs(eta) <= 3.0'),
                Selection('EtaBC', '1.52 < |#eta^{GEN}| <= 2.4', '1.52 < abs(eta) <= 2.4'),
                Selection('EtaBCD', '1.52 < |#eta^{GEN}| <= 2.8', '1.52 < abs(eta) <= 2.8'),
@@ -457,6 +462,9 @@ gen_part_selections += gen_part_ee_pt_sel
 
 gen_e_sel = add_selections(gen_ele_sel, gen_pt_sel)
 gen_e_sel = add_selections(gen_e_sel, gen_exeta_selections)
+
+gen_e_sel_trk = add_selections(gen_ele_sel, gen_pt_sel)
+gen_e_sel_trk = add_selections(gen_e_sel_trk, gen_exetatrk_selections)
 
 
 gen_e_sel_test = add_selections(gen_ele_sel, gen_pt_sel_test)

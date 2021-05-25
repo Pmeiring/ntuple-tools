@@ -400,7 +400,7 @@ mySATKeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.gen_parts,
                                             selections.tp_IDcl3dtrk,                      #<- defines collection to be matched
                                             [selections.Selection('', '', '')], #<- defines ID to apply after matching
-                                            selections.gen_e_sel,
+                                            selections.gen_e_sel_trk,
                                             saveEffPlots=True, saveNtuples=False)
 ]
 
@@ -415,7 +415,7 @@ L1TDR_SATKeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.gen_parts,
                                             selections.tp_IDcl3dtrkEllips,                      #<- defines collection to be matched
                                             [selections.Selection('', '', '')], #<- defines ID to apply after matching
-                                            selections.gen_e_sel,
+                                            selections.gen_e_sel_trk,
                                             saveEffPlots=True, saveNtuples=False)
 ]
 
@@ -432,7 +432,7 @@ SATK_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.gen_parts,
                                             selections.tk_acceptance,
                                             [selections.Selection('', '', '')],
-                                            selections.gen_e_sel,
+                                            selections.gen_e_sel_trk,
                                             saveEffPlots=False, saveNtuples=True)
 ]
 
