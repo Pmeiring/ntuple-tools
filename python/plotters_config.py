@@ -366,7 +366,7 @@ mySAeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                                             collections.gen_parts,
                                             selections.tp_selections_rateeff,                      #<- defines collection to be matched
                                             [selections.Selection('', '', '')], #<- defines ID to apply after matching
-                                            selections.gen_e_sel,
+                                            selections.gen_e_sel_trk,
                                             saveEffPlots=True, saveNtuples=False)
 ]
 

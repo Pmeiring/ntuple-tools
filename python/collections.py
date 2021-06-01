@@ -578,8 +578,8 @@ def get_loosetrackmatched_cl3d(clusters, tracks, debug=0):
                 trk= tracks.loc[[idx_trk]]
 
                 cl['tkpt'] = trk.pt.values
-                cl['tketa']= trk.eta.values
-                cl['tkphi']= trk.phi.values
+                cl['tketa']= trk.caloeta.values
+                cl['tkphi']= trk.calophi.values
                 cl['tkz0']= trk.z0.values
                 cl['tkchi2']= trk.chi2.values
                 cl['tkchi2Red']= trk.chi2Red.values
@@ -632,9 +632,9 @@ def get_ellipticalmatched_cl3d(clusters, tracks, debug=0):
             for idx_trk, trk in tks_.iterrows():
                 # print (idx_cl, cl.eta, cl.phi)
                 # print (idx_trk,trk.eta,trk.phi)
-                deta=abs(cl.eta-trk.eta)
-                dphi1=abs(cl.phi-trk.phi)
-                dphi2=cl.phi-np.sign(cl.phi)*2.*m.pi - trk.phi
+                deta=abs(cl.eta-trk.caloeta)
+                dphi1=abs(cl.phi-trk.calophi)
+                dphi2=cl.phi-np.sign(cl.phi)*2.*m.pi - trk.calophi
                 dphi = min(abs(dphi1),abs(dphi2))
                 inEllips = (pow(dphi/0.07,2) + pow(deta/0.0075,2))<1.
                 if inEllips:
@@ -653,8 +653,8 @@ def get_ellipticalmatched_cl3d(clusters, tracks, debug=0):
                 trk= tracks.loc[[idx_trk]]
 
                 cl['tkpt'] = trk.pt.values
-                cl['tketa']= trk.eta.values
-                cl['tkphi']= trk.phi.values
+                cl['tketa']= trk.caloeta.values
+                cl['tkphi']= trk.calophi.values
                 cl['tkz0']= trk.z0.values
                 cl['tkchi2']= trk.chi2.values
                 cl['tkchi2Red']= trk.chi2Red.values

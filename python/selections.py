@@ -220,8 +220,10 @@ tp_match_selections = add_selections(tp_pt_selections, tp_eta_selections)
 
 
 tp_loweta  = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.7', '1.52 < abs(eta) <= 2.7')]
+tp_loweta_tk  = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.4', '1.52 < abs(eta) <= 2.4')]
 tp_higheta = [Selection('EtaDE', '2.7 < |#eta^{L1}| <= 3', '2.7 < abs(eta) <= 3')]
 tp_eta_sel_noID = tp_loweta + tp_higheta
+tp_eta_sel_noID_tk = tp_loweta_tk + tp_higheta
 
 # ============================== STAND-ALONE ===========================
 
@@ -238,19 +240,19 @@ tp_IDsel_new_highhigh= [Selection('newID900_highetahighpt','passed new ID WP90%:
 tp_IDsel_new = tp_IDsel_new_lowlow+tp_IDsel_new_highlow+tp_IDsel_new_lowhigh+tp_IDsel_new_highhigh
 
 
-tp_IDtpg__loweta__lowpt = add_selections(tp_loweta,  tp_IDsel_tpg_lowlow)
+tp_IDtpg__loweta__lowpt = add_selections(tp_loweta_tk,  tp_IDsel_tpg_lowlow)
 tp_IDtpg_higheta__lowpt = add_selections(tp_higheta, tp_IDsel_tpg_highlow)
-tp_IDtpg__loweta_highpt = add_selections(tp_loweta,  tp_IDsel_tpg_lowhigh)
+tp_IDtpg__loweta_highpt = add_selections(tp_loweta_tk,  tp_IDsel_tpg_lowhigh)
 tp_IDtpg_higheta_highpt = add_selections(tp_higheta, tp_IDsel_tpg_highhigh)
 tp_IDtpg = tp_IDtpg__loweta__lowpt + tp_IDtpg_higheta__lowpt + tp_IDtpg__loweta_highpt + tp_IDtpg_higheta_highpt
 
-tp_IDnew__loweta__lowpt = add_selections(tp_loweta,  tp_IDsel_new_lowlow)
+tp_IDnew__loweta__lowpt = add_selections(tp_loweta_tk,  tp_IDsel_new_lowlow)
 tp_IDnew_higheta__lowpt = add_selections(tp_higheta, tp_IDsel_new_highlow)
-tp_IDnew__loweta_highpt = add_selections(tp_loweta,  tp_IDsel_new_lowhigh)
+tp_IDnew__loweta_highpt = add_selections(tp_loweta_tk,  tp_IDsel_new_lowhigh)
 tp_IDnew_higheta_highpt = add_selections(tp_higheta, tp_IDsel_new_highhigh)
 tp_IDnew = tp_IDnew__loweta__lowpt + tp_IDnew_higheta__lowpt + tp_IDnew__loweta_highpt + tp_IDnew_higheta_highpt
 
-tp_selections_rateeff = tp_eta_sel_noID + tp_IDtpg + tp_IDnew
+tp_selections_rateeff = tp_eta_sel_noID_tk + tp_IDtpg + tp_IDnew
 
 # ============================== STAND-ALONE + TRACK ===========================
 
