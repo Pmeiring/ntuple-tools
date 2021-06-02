@@ -258,8 +258,8 @@ tp_selections_rateeff = tp_eta_sel_noID_tk + tp_IDtpg + tp_IDnew
 
 tk_acceptance = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.4', '1.52 < abs(eta) <= 2.4')]
 
-tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>-0.1771708')]
-tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9963946')]
+tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>0.5186648')]
+tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9968369')]
 
 tp_IDcl3dtrk_lowpt  = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_low)
 tp_IDcl3dtrk_highpt = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_high)
