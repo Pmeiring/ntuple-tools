@@ -181,6 +181,31 @@ def match_etaphi_GENtoComposite(ref_etaphi, trigger_etaphi, trigger_pttkpt, delt
 
 #     return best_match, matched
 
+def match_Cl3D_L1trk(cl3d, tracks, dR_cones):
+    idx_highestPTL1track=[-1] * len(dR_cones)
+    matched             =[[]  for x in range(len(dR_cones))]
+    if tracks.empty:
+        return matched, idx_highestPTL1track
+
+    tracks_etaphi = tracks[['caloeta','calophi']]
+    tracks_pt = tracks['pt']
+    kdtree = cKDTree(tracks_etaphi)
+
+    for i,dR_cone in enumerate(dR_cones):
+
+        # Match with dR cone and take care of +pi -pi transition
+        _matched = kdtree.query_ball_point([cl3d.eta, cl3d.phi], dR_cone)
+        _matched_sym = kdtree.query_ball_point([cl3d.eta, cl3d.phi-np.sign(cl3d.phi)*2.*m.pi], dR_cone)
+        matched[i] = np.unique(np.concatenate((_matched, _matched_sym))).astype(int)
+        # note this in an integer of the index of the array not the index in the pandas meaning: hence to be used with iloc
+
+        # Best match = highest pT L1 Object matched to GEN
+        if (len(matched[i]) != 0):
+            idx_highestPTL1track[i] = np.argmax(tracks_pt.iloc[matched[i]])
+
+    return matched, idx_highestPTL1track
+
+
 # def do_all_matches(GP, L1Objects, dR_cones, useExtrapolatedGenCoords=False):
 
 #     idx_closestDRL1object=[-1] * len(dR_cones)

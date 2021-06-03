@@ -440,12 +440,12 @@ SATK_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
 
 
 # object matching plotter
-mymatch_plotter = [extraplotters.CustomHistPlotter(
+mymatch_plotter = [extraplotters.TK_Cl3D_MatchPlotter(
                                             collections.cl3d_hm, 
-                                            collections.l1Trks ,
                                             collections.gen_parts,
-                                            selections.tp_eta_sel_noID,
-                                            selections.gen_e_sel)
+                                            collections.l1Trks,
+                                            selections.tk_acceptance,
+                                            selections.gen_e_sel_trk)
 ]
 
 

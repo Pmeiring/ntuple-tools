@@ -265,20 +265,16 @@ class Cluster3DHybrid(BasePlotter):
                             debug)
 
 
-class CustomHistPlotter(BasePlotter):
-    def __init__(self, tp_set, l1track_set, gen_set,
+class TK_Cl3D_MatchPlotter(BasePlotter):
+    def __init__(self, tp_set, gen_set, l1track_set,
                  tp_selections=[selections.Selection('all')], gen_selections=[selections.Selection('all')]):
-        # self.tp_set = tp_set
-        # self.tp_selections = tp_selections
-        # self.gen_set = gen_set
-        # self.gen_selections = gen_selections
         self.l1track_set=l1track_set
-        self.h_tpset = {}
-        self.h_resoset = {}
-        self.h_effset = {}
-        self.h_trackmatching = {}
+        # self.tk_selections=tk_selections
+        # self.h_tpset = {}
+        # self.h_trackmatching = {}
         self.h_custom = {}        
-        super(CustomHistPlotter, self).__init__(tp_set, tp_selections, gen_set, gen_selections)
+        super(TK_Cl3D_MatchPlotter, self).__init__(tp_set, tp_selections, gen_set, gen_selections)
+        self.gen_eta_phi_columns = ['exeta', 'exphi']
 
         
     def book_histos(self):
@@ -287,53 +283,60 @@ class CustomHistPlotter(BasePlotter):
         self.l1track_set.activate()        
         for tp_sel in self.tp_selections:
             for gen_sel in self.gen_selections:
-                histo_name = '{}_{}_{}'.format(self.tp_set.name,
-                                               tp_sel.name,
-                                               gen_sel.name)
-                histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
+                histo_name = '{}_{}'.format(self.tp_set.name,
+                                               tp_sel.name)
+                histo_name_NOMATCH = '{}_{}_{}'.format(self.tp_set.name, tp_sel.name, "noMatch")
 
                 # Exclude some combinations of GENsel and TPsel
-                isGoodCombi = filter_combinations(tp_sel, gen_sel)
+                isGoodCombi = filter_combinations(tp_sel, gen_sel) #<-  + might be wrong
                 if not isGoodCombi: continue
 
                 # Custom histograms that will be filled using all simtracks/3dclusters
-                # To do so (for now) check that the selection indeed takes simply all objects (when filling the histograms)
-                if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GEN":
+                print (self.tp_set.name, self.l1track_set.name)
+                self.h_custom["HMvDR_l1Trk"] = histos.CustomHistos("HMvDR_l1Trk")
 
-                # histname = '{}_{}'.format(self.tp_set.name,self.gen_set.name)
-                    self.h_custom["HMvDR_GEN"] = histos.CustomHistos("HMvDR_GEN")
-                    self.h_custom["l1Trk_GEN"] = histos.CustomHistos("l1Trk_GEN")
-                # histname = '{}_{}'.format(self.l1track_set.name,self.gen_set.name)
-                # self.h_custom[histname] = histos.CustomHistos(histname)
+    def plotObject(self, cl3Ds, l1tks, gen, h_custom, debug=0):
+        best_match_indexes = {}
+        positional = True
+        getattr(h_custom,"h_ntracks").Fill(len(l1tks))
+        getattr(h_custom,"h_ncl3ds").Fill(len(cl3Ds))
+        
+        if not cl3Ds.empty:
+            obj_ismatch = np.full(cl3Ds.shape[0], False, dtype=bool)
+            best_match_indexes, allmatches = utils.match_etaphi(
+                gen[self.gen_eta_phi_columns],
+                cl3Ds[['eta', 'phi']],
+                cl3Ds['pt'],
+                deltaR=0.2,
+                return_positional=positional)  
+        # print (best_match_indexes) #{0: 10, 1: 25}
 
+        for idx in list(best_match_indexes.keys()):
+            if positional:
+                obj_matched = cl3Ds.iloc[[best_match_indexes[idx]]]
+            else: 
+                obj_matched = cl3Ds.loc[[best_match_indexes[idx]]]
+            extrafunc.Fill_Cl3DtoTrack_customHists(obj_matched, h_custom, l1tks, 0.3)
 
+    def fill_histos(self, debug=0):
+        pass
 
-    def fill_histos(self, debug=False):
-        # print "================== new event =================="
+    def fill_histos_event(self, idx, debug=0):
         for tp_sel in self.tp_selections:
-            cl3Ds = self.tp_set.df
-            l1tks = self.l1track_set.df
-
-            if not tp_sel.all:
-                cl3Ds = cl3Ds.query(tp_sel.selection)
+            cl3Ds = self.tp_set.query_event(tp_sel, idx)
+            l1tks = self.l1track_set.query_event(selections.Selection('all'), idx)
             for gen_sel in self.gen_selections:
-                
-                genReference = self.gen_set.df[(self.gen_set.df.gen > 0)] 
-                if not gen_sel.all:
-                    genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection) 
-                
+
                 # Exclude some combinations of GENsel and TPsel
-                isGoodCombi = filter_combinations(tp_sel, gen_sel)
+                isGoodCombi = filter_combinations(tp_sel, gen_sel) #<-  + might be wrong
                 if not isGoodCombi: continue
+                gen = self.gen_set.query_event(gen_sel, idx)
 
-                # Fill the custom histograms used to study matching and preselection
-                if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GEN":
-                    h_custom = self.h_custom["HMvDR_GEN"]
-                    extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, cl3Ds, 0.2, useExtrapolatedGenCoords=True)
-                if self.l1track_set.name=="l1Trk" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GENEtaBCD":
-                    h_custom = self.h_custom["l1Trk_GEN"]
-                    extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, l1tks, 0.2, useExtrapolatedGenCoords=False)
-
+                self.plotObject(cl3Ds,
+                                l1tks,
+                                gen,
+                                self.h_custom["HMvDR_l1Trk"],
+                                debug)
 
     def __repr__(self):
         for sel in self.tp_selections:
@@ -343,3 +346,85 @@ class CustomHistPlotter(BasePlotter):
                                                                    [sel.name for sel in self.tp_selections],
                                                                    self.gen_set.name,
                                                                    [sel.name for sel in self.gen_selections])
+
+
+
+
+# class CustomHistPlotter(BasePlotter):
+#     def __init__(self, tp_set, l1track_set, gen_set,
+#                  tp_selections=[selections.Selection('all')], gen_selections=[selections.Selection('all')]):
+#         # self.tp_set = tp_set
+#         # self.tp_selections = tp_selections
+#         # self.gen_set = gen_set
+#         # self.gen_selections = gen_selections
+#         self.l1track_set=l1track_set
+#         self.h_tpset = {}
+#         self.h_resoset = {}
+#         self.h_effset = {}
+#         self.h_trackmatching = {}
+#         self.h_custom = {}        
+#         super(CustomHistPlotter, self).__init__(tp_set, tp_selections, gen_set, gen_selections)
+
+        
+#     def book_histos(self):
+#         self.gen_set.activate()
+#         self.tp_set.activate()
+#         self.l1track_set.activate()        
+#         for tp_sel in self.tp_selections:
+#             for gen_sel in self.gen_selections:
+#                 histo_name = '{}_{}_{}'.format(self.tp_set.name,
+#                                                tp_sel.name,
+#                                                gen_sel.name)
+#                 histo_name_NOMATCH = '{}_{}_{}_{}'.format(self.tp_set.name, tp_sel.name, gen_sel.name, "noMatch")
+
+#                 # Exclude some combinations of GENsel and TPsel
+#                 isGoodCombi = filter_combinations(tp_sel, gen_sel)
+#                 if not isGoodCombi: continue
+
+#                 # Custom histograms that will be filled using all simtracks/3dclusters
+#                 # To do so (for now) check that the selection indeed takes simply all objects (when filling the histograms)
+#                 if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GEN":
+
+#                 # histname = '{}_{}'.format(self.tp_set.name,self.gen_set.name)
+#                     self.h_custom["HMvDR_GEN"] = histos.CustomHistos("HMvDR_GEN")
+#                     self.h_custom["l1Trk_GEN"] = histos.CustomHistos("l1Trk_GEN")
+#                 # histname = '{}_{}'.format(self.l1track_set.name,self.gen_set.name)
+#                 # self.h_custom[histname] = histos.CustomHistos(histname)
+
+
+
+#     def fill_histos(self, debug=False):
+#         # print "================== new event =================="
+#         for tp_sel in self.tp_selections:
+#             cl3Ds = self.tp_set.df
+#             l1tks = self.l1track_set.df
+
+#             if not tp_sel.all:
+#                 cl3Ds = cl3Ds.query(tp_sel.selection)
+#             for gen_sel in self.gen_selections:
+                
+#                 genReference = self.gen_set.df[(self.gen_set.df.gen > 0)] 
+#                 if not gen_sel.all:
+#                     genReference = self.gen_set.df[(self.gen_set.df.gen > 0)].query(gen_sel.selection) 
+                
+#                 # Exclude some combinations of GENsel and TPsel
+#                 isGoodCombi = filter_combinations(tp_sel, gen_sel)
+#                 if not isGoodCombi: continue
+
+#                 # Fill the custom histograms used to study matching and preselection
+#                 if self.tp_set.name=="HMvDR" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GEN":
+#                     h_custom = self.h_custom["HMvDR_GEN"]
+#                     extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, cl3Ds, 0.2, useExtrapolatedGenCoords=True)
+#                 if self.l1track_set.name=="l1Trk" and tp_sel.name=="EtaBCDE" and gen_sel.name=="GENEtaBCD":
+#                     h_custom = self.h_custom["l1Trk_GEN"]
+#                     extrafunc.Fill_GENtoL1Obj_CustomHists(genReference, h_custom, l1tks, 0.2, useExtrapolatedGenCoords=False)
+
+
+#     def __repr__(self):
+#         for sel in self.tp_selections:
+#             print (sel)
+#         return '<{} tps: {}, tps_s: {}, gen:{}, gen_s:{}> '.format(self.__class__.__name__,
+#                                                                    self.tp_set.name,
+#                                                                    [sel.name for sel in self.tp_selections],
+#                                                                    self.gen_set.name,
+#                                                                    [sel.name for sel in self.gen_selections])

@@ -27,6 +27,45 @@ def getnObjectsinCone(L1Objects, dR_cone, refindex):
             nmatched+=1
     return nmatched
 
+def Fill_Cl3DtoTrack_customHists(cl3ds, h_custom, tracks, dR_cone):
+    dR_cones = [0.025, 0.05, 0.1, 0.2, 0.3, 0.4, 1.0, 100]
+
+    for iCL, CL in cl3ds.iterrows():
+        pT_range = getPTinterval(CL.pt)
+
+
+        # PERFORM THE GEN-L1OBJECT MATCHING
+        idx_allmatches, idx_highestPTL1track = utils.match_Cl3D_L1trk(CL, tracks, dR_cones)
+        ntracks_dR =    {"0.025":0, "0.05":0, "0.1":0, "0.2":0, "0.3":0, "0.4":0, "1.0":0, "100":0}
+
+        for idx_trk, trk in tracks.iterrows():
+
+            # COMPUTE DR (GEN,L1OBJECT)
+            dR1 = np.sqrt( pow((trk.caloeta-CL.eta),2) + pow((trk.calophi-CL.phi),2) )
+            dR2 = np.sqrt( pow((trk.caloeta-CL.eta),2) + pow((trk.calophi-np.sign(trk.calophi)*2.*m.pi-CL.phi),2) )
+            dR = min(dR1,dR2)
+            # nClusters and pt in slices of dR
+            for k,v in ntracks_dR.items():
+                if dR<float(k): 
+                    ntracks_dR[k]    +=int(1)
+
+            getattr(h_custom,"h_dR_any_Cl3Dpt_%s"%pT_range).Fill(dR)
+            if idx_trk == idx_highestPTL1track[4]: #dR=0.3
+                getattr(h_custom,"h_dR_highestPT_Cl3Dpt_%s"%pT_range).Fill(dR)
+
+        # track multiplicity within dR=0.3 of cluster, in slices of cluster pt 
+        getattr(h_custom,"h_nTrks_pt_%s"%pT_range).Fill(len(idx_allmatches[4])) 
+
+        # nClusters per SimTrack in slices of dR
+        for idR, dR_cone in enumerate(dR_cones):
+            dR = str(dR_cone).replace(".","p")
+
+            getattr(h_custom,"h_nTrks_dR%s"%dR).Fill(ntracks_dR[str(dR_cone)])
+
+            if len(idx_allmatches[idR])!=0:# only take the matched simtracks
+                getattr(h_custom,"h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR%s"%dR).Fill(CL.pt,( tracks.loc[ idx_highestPTL1track[idR] ]['pt'] / CL.pt))
+
+
 # There's freedom in which h_custom is passed (i.e. corresponding to specific objects/cases)
 def Fill_GENtoL1Obj_CustomHists(genParticles, h_custom, L1Objects, dR_cone, useExtrapolatedGenCoords=False):
     # print "==================="

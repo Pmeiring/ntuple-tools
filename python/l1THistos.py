@@ -1580,14 +1580,54 @@ class CompositeTuples(BaseHistos):
 
 
 
+class CustomHistos(BaseHistos):
+    def __init__(self, name, root_file=None, debug=False):
+        if not root_file:
 
+            self.h_ntracks = ROOT.TH1F(name+'_ntracks','Number of Tracks',5000,0,5000)
+            self.h_ncl3ds =  ROOT.TH1F(name+'_ncl3ds', 'Number of Cl3Ds', 5000,0,5000)
 
+            self.h_nTrks_dR0p025 = ROOT.TH1F(name+'_nTrks_dR0p025','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
+            self.h_nTrks_dR0p05 = ROOT.TH1F(name+'_nTrks_dR0p05','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
+            self.h_nTrks_dR0p1 = ROOT.TH1F(name+'_nTrks_dR0p1','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
+            self.h_nTrks_dR0p2 = ROOT.TH1F(name+'_nTrks_dR0p2','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
+            self.h_nTrks_dR0p3 = ROOT.TH1F(name+'_nTrks_dR0p3','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
+            self.h_nTrks_dR0p4 = ROOT.TH1F(name+'_nTrks_dR0p4','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
+            self.h_nTrks_dR1p0 = ROOT.TH1F(name+'_nTrks_dR1p0','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
+            self.h_nTrks_dR100 = ROOT.TH1F(name+'_nTrks_dR100','Number of Tracks within #Delta R = X of Cl3D',5000,0,5000)
 
+            self.h_dR_highestPT_Cl3Dpt_0_5   = ROOT.TH1F(name+'_dR_highestPT_Cl3Dpt_0_5',  '#Delta R (Cl3D, Best matched Track)',1000,0,10)
+            self.h_dR_highestPT_Cl3Dpt_5_10  = ROOT.TH1F(name+'_dR_highestPT_Cl3Dpt_5_10', '#Delta R (Cl3D, Best matched Track)',1000,0,10)
+            self.h_dR_highestPT_Cl3Dpt_10_20 = ROOT.TH1F(name+'_dR_highestPT_Cl3Dpt_10_20','#Delta R (Cl3D, Best matched Track)',1000,0,10)
+            self.h_dR_highestPT_Cl3Dpt_20_30 = ROOT.TH1F(name+'_dR_highestPT_Cl3Dpt_20_30','#Delta R (Cl3D, Best matched Track)',1000,0,10)
+            self.h_dR_highestPT_Cl3Dpt_30_40 = ROOT.TH1F(name+'_dR_highestPT_Cl3Dpt_30_40','#Delta R (Cl3D, Best matched Track)',1000,0,10)
+            self.h_dR_highestPT_Cl3Dpt_40_50 = ROOT.TH1F(name+'_dR_highestPT_Cl3Dpt_40_50','#Delta R (Cl3D, Best matched Track)',1000,0,10)
+            self.h_dR_highestPT_Cl3Dpt_50_1000=ROOT.TH1F(name+'_dR_highestPT_Cl3Dpt_50_1000','#Delta R (Cl3D, Best matched Track)',1000,0,10)
+            self.h_dR_any_Cl3Dpt_0_5   =   ROOT.TH1F(name+'_dR_any_Cl3Dpt_0_5',  '#Delta R (Cl3D, Any Track)',1000,0,10)
+            self.h_dR_any_Cl3Dpt_5_10  =   ROOT.TH1F(name+'_dR_any_Cl3Dpt_5_10', '#Delta R (Cl3D, Any Track)',1000,0,10)
+            self.h_dR_any_Cl3Dpt_10_20 =   ROOT.TH1F(name+'_dR_any_Cl3Dpt_10_20','#Delta R (Cl3D, Any Track)',1000,0,10)
+            self.h_dR_any_Cl3Dpt_20_30 =   ROOT.TH1F(name+'_dR_any_Cl3Dpt_20_30','#Delta R (Cl3D, Any Track)',1000,0,10)
+            self.h_dR_any_Cl3Dpt_30_40 =   ROOT.TH1F(name+'_dR_any_Cl3Dpt_30_40','#Delta R (Cl3D, Any Track)',1000,0,10)
+            self.h_dR_any_Cl3Dpt_40_50 =   ROOT.TH1F(name+'_dR_any_Cl3Dpt_40_50','#Delta R (Cl3D, Any Track)',1000,0,10)
+            self.h_dR_any_Cl3Dpt_50_1000 = ROOT.TH1F(name+'_dR_any_Cl3Dpt_50_1000','#Delta R (Cl3D, Any Track)',1000,0,10)
 
-
-
-
-
+            self.h_nTrks_pt_0_5 =     ROOT.TH1F(name+'_nTrks_pt_0_5','Number of Trks within #Delta R = 0.3 of a Cl3D with certain pT',5000,0,5000)
+            self.h_nTrks_pt_5_10 =    ROOT.TH1F(name+'_nTrks_pt_5_10','Number of Trks within #Delta R = 0.3 of a Cl3D with certain pT',5000,0,5000)
+            self.h_nTrks_pt_10_20 =   ROOT.TH1F(name+'_nTrks_pt_10_20','Number of Trks within #Delta R = 0.3 of a Cl3D with certain pT',5000,0,5000)
+            self.h_nTrks_pt_20_30 =   ROOT.TH1F(name+'_nTrks_pt_20_30','Number of Trks within #Delta R = 0.3 of a Cl3D with certain pT',5000,0,5000)
+            self.h_nTrks_pt_30_40 =   ROOT.TH1F(name+'_nTrks_pt_30_40','Number of Trks within #Delta R = 0.3 of a Cl3D with certain pT',5000,0,5000)
+            self.h_nTrks_pt_40_50 =   ROOT.TH1F(name+'_nTrks_pt_40_50','Number of Trks within #Delta R = 0.3 of a Cl3D with certain pT',5000,0,5000)
+            self.h_nTrks_pt_50_1000 = ROOT.TH1F(name+'_nTrks_pt_50_1000','Number of Trks within #Delta R = 0.3 of a Cl3D with certain pT',5000,0,5000)
+ 
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p025 = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p025','Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p05  = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p05', 'Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p1   = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p1',  'Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p2   = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p2',  'Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p3   = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p3',  'Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p4   = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR0p4',  'Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR1p0   = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR1p0',  'Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+            self.h_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR100   = ROOT.TH2F(name+'_ptHighestPT_over_ptCl3D_vs_ptCl3D_dR100',  'Mismatch in pt of Cl3D and best matching Track within #Delta R = X of Cl3D',1000,0,200,1000,0,10)
+        BaseHistos.__init__(self, name, root_file, debug)
 
 
 # if __name__ == "__main__":
