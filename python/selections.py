@@ -258,8 +258,15 @@ tp_selections_rateeff = tp_eta_sel_noID_tk + tp_IDtpg + tp_IDnew
 
 tk_acceptance = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.4', '1.52 < abs(eta) <= 2.4')]
 
-tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>0.5186648')]
-tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9968369')]
+tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>0.5186648'),
+                            Selection('cl3dtrk_ID800_lowpt',   'passed cl3d+trk ID WP80%: low pt',   'trkBDTlow>0.9711921'),
+                            Selection('cl3dtrk_ID700_lowpt',   'passed cl3d+trk ID WP70%: low pt',   'trkBDTlow>0.9931843'),
+                            Selection('cl3dtrk_ID600_lowpt',   'passed cl3d+trk ID WP60%: low pt',   'trkBDTlow>0.9974276'),]
+
+
+tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9968369'),
+                            Selection('cl3dtrk_ID800_highpt',  'passed cl3d+trk ID WP80%: high pt',  'trkBDThigh>0.9987155'),
+                            Selection('cl3dtrk_ID700_highpt',  'passed cl3d+trk ID WP70%: high pt',  'trkBDThigh>0.9988345'),]
 
 tp_IDcl3dtrk_lowpt  = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_low)
 tp_IDcl3dtrk_highpt = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_high)

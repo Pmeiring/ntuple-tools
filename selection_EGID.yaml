@@ -5,7 +5,7 @@ common:
     default: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_local: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
   output_dir_lx: /eos/user/p/pmeiring/www/L1Trigger/l1eg/histos_matching
-  plot_version: v109
+  plot_version: v110
   run_clustering: False
   run_density_computation: False
   calib_version: calib-v134C
@@ -23,13 +23,12 @@ collections:
     htc_jobflavor:
       microcentury
     plotters:
-      # - SA_tpEff
+      - SA_tpEff
       # - SA_BDT_sig_ntuple
-      # - SATK_tpEff
-      # - SATK_L1TDR_tpEff
+      - SATK_tpEff
+      - SATK_L1TDR_tpEff
       # - SATK_BDT_sig_ntuple
-      # - BDT_sig_sliceGenpt
-      - SATK_customPlotter
+      # - SATK_customPlotter
 
   minBias:
     file_label:
@@ -43,9 +42,9 @@ collections:
     htc_jobflavor:
       microcentury
     plotters:
-      # - SA_tpRate
+      - SA_tpRate
       # - SA_BDT_bkg_ntuple
-      # - SATK_tpRate
+      - SATK_tpRate
       - SATK_L1TDR_tpRate
       # - SATK_BDT_bkg_ntuple
 
