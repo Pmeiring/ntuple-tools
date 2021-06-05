@@ -261,12 +261,17 @@ tk_acceptance = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.4', '1.52 < abs(eta
 tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>0.5186648'),
                             Selection('cl3dtrk_ID800_lowpt',   'passed cl3d+trk ID WP80%: low pt',   'trkBDTlow>0.9711921'),
                             Selection('cl3dtrk_ID700_lowpt',   'passed cl3d+trk ID WP70%: low pt',   'trkBDTlow>0.9931843'),
-                            Selection('cl3dtrk_ID600_lowpt',   'passed cl3d+trk ID WP60%: low pt',   'trkBDTlow>0.9974276'),]
-
+                            Selection('cl3dtrk_ID600_lowpt',   'passed cl3d+trk ID WP60%: low pt',   'trkBDTlow>0.9974276'),
+                            Selection('cl3dtrk_ID950_lowpt',   'passed cl3d+trk ID WP95.0%: low pt',  'trkBDTlow>-0.6440965'),
+                            Selection('cl3dtrk_ID975_lowpt',   'passed cl3d+trk ID WP97.5%: low pt',  'trkBDTlow>-0.9437125'),
+                            Selection('cl3dtrk_ID995_lowpt',   'passed cl3d+trk ID WP99.5%: low pt',  'trkBDTlow>-0.9930969'),]
 
 tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9968369'),
                             Selection('cl3dtrk_ID800_highpt',  'passed cl3d+trk ID WP80%: high pt',  'trkBDThigh>0.9987155'),
-                            Selection('cl3dtrk_ID700_highpt',  'passed cl3d+trk ID WP70%: high pt',  'trkBDThigh>0.9988345'),]
+                            Selection('cl3dtrk_ID700_highpt',  'passed cl3d+trk ID WP70%: high pt',  'trkBDThigh>0.9988345'),
+                            Selection('cl3dtrk_ID950_highpt',  'passed cl3d+trk ID WP95.0%: high pt',  'trkBDThigh>0.9857399'),
+                            Selection('cl3dtrk_ID975_highpt',  'passed cl3d+trk ID WP97.5%: high pt',  'trkBDThigh>0.8863575'),
+                            Selection('cl3dtrk_ID995_highpt',  'passed cl3d+trk ID WP99.5%: high pt',  'trkBDThigh>-0.7819477'),]
 
 tp_IDcl3dtrk_lowpt  = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_low)
 tp_IDcl3dtrk_highpt = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_high)
