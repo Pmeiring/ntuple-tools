@@ -306,9 +306,12 @@ tp_IDcl3dtrk_highpt = add_selections(tk_acceptance,  tp_IDsel_cl3dtrk_high)
 tp_IDcl3dtrk = tk_acceptance + tp_IDcl3dtrk_lowpt + tp_IDcl3dtrk_highpt
 
 tp_IDcl3dtrkEllips_lowpt  = add_selections(tk_acceptance,  tp_IDsel_new_lowlow)
-tp_IDcl3dtrkEllips_highpt = add_selections(tk_acceptance,  tp_IDsel_new_lowhigh)
-tp_IDcl3dtrkEllips = tk_acceptance + tp_IDcl3dtrkEllips_lowpt + tp_IDcl3dtrkEllips_highpt
+tp_IDcl3dtrkEllips_lowpt  = add_selections(tp_IDcl3dtrkEllips_lowpt,  tp_IDsel_tpg_lowlow)
 
+tp_IDcl3dtrkEllips_highpt = add_selections(tk_acceptance,  tp_IDsel_new_lowhigh)
+tp_IDcl3dtrkEllips_highpt = add_selections(tp_IDcl3dtrkEllips_highpt,  tp_IDsel_tpg_lowhigh)
+tp_IDcl3dtrkEllips = tk_acceptance + tp_IDcl3dtrkEllips_lowpt + tp_IDcl3dtrkEllips_highpt
+tp_IDcl3dtrkEllips_pt10 = add_selections(tp_IDcl3dtrkEllips,  [Selection('TrkPt10', 'p_{T}^{Trk}>=10GeV', 'tkpt >= 10')])
 
 
 

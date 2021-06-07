@@ -551,7 +551,7 @@ class GenericGenMatchPlotter(BasePlotter):
                 genParticles[self.gen_eta_phi_columns],
                 objects[['eta', 'phi']],
                 objects['pt'],
-                deltaR=0.1,
+                deltaR=0.2,
                 return_positional=positional)
                 
             # print (objects)
@@ -644,6 +644,14 @@ class TrackGenMatchPlotter(GenericGenMatchPlotter):
                                                    data_selections, gen_selections,
                                                    gen_eta_phi_columns=['eta', 'phi'])
 
+class TkEGenMatchPlotter(GenericGenMatchPlotter):
+    def __init__(self, data_set, gen_set,
+                 data_selections=[selections.Selection('all')],
+                 gen_selections=[selections.Selection('all')]):
+        super(TkEGenMatchPlotter, self).__init__(histos.TkEleHistos, histos.TrackResoHistos,
+                                                   data_set, gen_set,
+                                                   data_selections, gen_selections,
+                                                   gen_eta_phi_columns=['exeta', 'exphi'])
 
 class EGGenMatchPlotter(GenericGenMatchPlotter):
     def __init__(self, data_set, gen_set,

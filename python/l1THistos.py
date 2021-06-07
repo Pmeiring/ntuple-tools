@@ -561,7 +561,7 @@ class TkEleHistos(BaseHistos):
         filler.fill1d_lazy(self.h_dpt, 'dpt', sel_name)
         filler.fill1d_lazy(self.h_tkchi2, 'tkChi2', sel_name)
         filler.fill1d_lazy(self.h_tkIso, 'tkIso', sel_name)
-        filler.fill1d_lazy(self.h_pfIso, 'pfIso', sel_name)
+        # filler.fill1d_lazy(self.h_pfIso, 'pfIso', sel_name)
 
 
 
