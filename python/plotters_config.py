@@ -452,6 +452,44 @@ SATK_BDT_sig_ntuplizer = [extraplotters.Cluster3DGenMatchHybrid(
                                             saveEffPlots=False, saveNtuples=True)
 ]
 
+# ========================================== TURN ONS ================================
+
+turnons_plotter = [extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.composite_tk3dcl, 
+                                            collections.gen_parts,
+                                            selections.tp_turnon_cl3dtrk,
+                                            [selections.Selection('', '', '')],
+                                            selections.gen_e_sel_trk,
+                                            saveEffPlots=True, saveNtuples=False),
+                  extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.composite_tk3dclellips, 
+                                            collections.gen_parts,
+                                            selections.tp_turnon_cl3dtrkEllipsOLD,
+                                            [selections.Selection('', '', '')],
+                                            selections.gen_e_sel_trk,
+                                            saveEffPlots=True, saveNtuples=False),
+                  extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.composite_tk3dclellips, 
+                                            collections.gen_parts,
+                                            selections.tp_turnon_cl3dtrkEllips,
+                                            [selections.Selection('', '', '')],
+                                            selections.gen_e_sel_trk,
+                                            saveEffPlots=True, saveNtuples=False),
+                  plotters.TkEGenMatchPlotter(
+                                            collections.tkeles_EE, 
+                                            collections.gen_parts,
+                                            selections.tp_turnon_tkele,           
+                                            selections.gen_e_sel_trk),    
+                  extraplotters.Cluster3DGenMatchHybrid(
+                                            collections.cl3d_hm, 
+                                            collections.gen_parts,
+                                            selections.tp_turnon_cl3d,
+                                            [selections.Selection('', '', '')],
+                                            selections.gen_e_sel_trk,
+                                            saveEffPlots=True, saveNtuples=False),
+]
+
+
 # ========================================== CUSTOM MATCHING STUDIES ================================
 
 

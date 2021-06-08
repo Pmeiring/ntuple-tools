@@ -315,6 +315,75 @@ tp_IDcl3dtrkEllips_pt10 = add_selections(tp_IDcl3dtrkEllips,  [Selection('TrkPt1
 
 
 
+# ============================== TURN ONS ===========================
+
+# Composite ID
+tp_turnon_cl3dtrk_lowpt_WP90p0 = add_selections( [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>0.5186648')] , [Selection('Pt25p0', 'p_{T}^{L1}>=25.0GeV', 'pt >= 25.0')] )
+tp_turnon_cl3dtrk_lowpt_WP80p0 = add_selections( [Selection('cl3dtrk_ID800_lowpt',   'passed cl3d+trk ID WP80%: low pt',   'trkBDTlow>0.9711921')] , [Selection('Pt21p0', 'p_{T}^{L1}>=21.0GeV', 'pt >= 21.0')] )
+tp_turnon_cl3dtrk_lowpt_WP70p0 = add_selections( [Selection('cl3dtrk_ID700_lowpt',   'passed cl3d+trk ID WP70%: low pt',   'trkBDTlow>0.9931843')] , [Selection('Pt18p0', 'p_{T}^{L1}>=18.0GeV', 'pt >= 18.0')] )
+tp_turnon_cl3dtrk_lowpt_WP60p0 = add_selections( [Selection('cl3dtrk_ID600_lowpt',   'passed cl3d+trk ID WP60%: low pt',   'trkBDTlow>0.9974276')] , [Selection('Pt14p5', 'p_{T}^{L1}>=14.5GeV', 'pt >= 14.5')] )
+tp_turnon_cl3dtrk_lowpt = tp_turnon_cl3dtrk_lowpt_WP90p0 + tp_turnon_cl3dtrk_lowpt_WP80p0 + tp_turnon_cl3dtrk_lowpt_WP70p0 + tp_turnon_cl3dtrk_lowpt_WP60p0
+
+tp_turnon_cl3dtrk_highpt_WP99p5 = add_selections( [Selection('cl3dtrk_ID995_highpt',  'passed cl3d+trk ID WP99.5%: high pt',  'trkBDThigh>-0.7819477')] , [Selection('Pt35p0', 'p_{T}^{L1}>=35.0GeV', 'pt >= 35.0')] )
+tp_turnon_cl3dtrk_highpt_WP97p5 = add_selections( [Selection('cl3dtrk_ID975_highpt',  'passed cl3d+trk ID WP97.5%: high pt',  'trkBDThigh>0.8863575')] ,  [Selection('Pt25p5', 'p_{T}^{L1}>=25.5GeV', 'pt >= 25.5')] )
+tp_turnon_cl3dtrk_highpt_WP95p0 = add_selections( [Selection('cl3dtrk_ID950_highpt',  'passed cl3d+trk ID WP95.0%: high pt',  'trkBDThigh>0.9857399')] ,  [Selection('Pt19p0', 'p_{T}^{L1}>=19.0GeV', 'pt >= 19.0')] )
+tp_turnon_cl3dtrk_highpt_WP90p0 = add_selections( [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',    'trkBDThigh>0.9968369')] ,  [Selection('Pt10p5', 'p_{T}^{L1}>=10.5GeV', 'pt >= 10.5')] )
+tp_turnon_cl3dtrk_highpt = tp_turnon_cl3dtrk_highpt_WP99p5 + tp_turnon_cl3dtrk_highpt_WP97p5 + tp_turnon_cl3dtrk_highpt_WP95p0 + tp_turnon_cl3dtrk_highpt_WP90p0
+tp_turnon_cl3dtrk_noeta = tp_turnon_cl3dtrk_lowpt + tp_turnon_cl3dtrk_highpt
+tp_turnon_cl3dtrk = add_selections( tk_acceptance, tp_turnon_cl3dtrk_noeta )
+
+# Standalone ID
+tp_turnon_cl3d_lowpt_WP90p0 = add_selections( [Selection('newID900_lowetalowpt',  'passed new ID WP90%: low eta, low pt',  'newBDTlowlow>0.0529739')], [Selection('Pt27p5', 'p_{T}^{L1}>=27.5GeV', 'pt >= 27.5')] )
+tp_turnon_cl3d_lowpt_WP80p0 = add_selections( [Selection('newID800_lowetalowpt',  'passed new ID WP80%: low eta, low pt',  'newBDTlowlow>0.9509327')], [Selection('Pt24p0', 'p_{T}^{L1}>=24.0GeV', 'pt >= 24.0')] )
+tp_turnon_cl3d_lowpt_WP70p0 = add_selections( [Selection('newID700_lowetalowpt',  'passed new ID WP70%: low eta, low pt',  'newBDTlowlow>0.9902121')], [Selection('Pt21p5', 'p_{T}^{L1}>=21.5GeV', 'pt >= 21.5')] )
+tp_turnon_cl3d_lowpt_WP60p0 = add_selections( [Selection('newID600_lowetalowpt',  'passed new ID WP60%: low eta, low pt',  'newBDTlowlow>0.9959325')], [Selection('Pt19p0', 'p_{T}^{L1}>=19.0GeV', 'pt >= 19.0')] )
+tp_turnon_cl3d_lowpt = tp_turnon_cl3d_lowpt_WP90p0 + tp_turnon_cl3d_lowpt_WP80p0 + tp_turnon_cl3d_lowpt_WP70p0 + tp_turnon_cl3d_lowpt_WP60p0
+
+tp_turnon_cl3d_highpt_WP99p5 = add_selections( [Selection('newID995_lowetahighpt', 'passed new ID WP99.5%: low eta, high pt', 'newBDTlowhigh>-0.8130972')], [Selection('Pt37p5', 'p_{T}^{L1}>=37.5GeV', 'pt >= 37.5')])
+tp_turnon_cl3d_highpt_WP97p5 = add_selections( [Selection('newID975_lowetahighpt', 'passed new ID WP97.5%: low eta, high pt', 'newBDTlowhigh>0.8952214')],  [Selection('Pt31p0', 'p_{T}^{L1}>=31.0GeV', 'pt >= 31.0')])
+tp_turnon_cl3d_highpt_WP95p0 = add_selections( [Selection('newID950_lowetahighpt', 'passed new ID WP95.0%: low eta, high pt', 'newBDTlowhigh>0.9844716')],  [Selection('Pt27p0', 'p_{T}^{L1}>=27.0GeV', 'pt >= 27.0')])
+tp_turnon_cl3d_highpt_WP90p0 = add_selections( [Selection('newID900_lowetahighpt', 'passed new ID WP90%: low eta, high pt', 'newBDTlowhigh>0.9969573')],    [Selection('Pt22p5', 'p_{T}^{L1}>=22.5GeV', 'pt >= 22.5')])
+tp_turnon_cl3d_highpt = tp_turnon_cl3d_highpt_WP99p5 + tp_turnon_cl3d_highpt_WP97p5 + tp_turnon_cl3d_highpt_WP95p0 + tp_turnon_cl3d_highpt_WP90p0
+tp_turnon_cl3d_noeta = tp_turnon_cl3d_lowpt + tp_turnon_cl3d_highpt
+tp_turnon_cl3d = add_selections( tp_loweta_tk, tp_turnon_cl3d_noeta )
+
+# Custom TkElectron (old ID)
+tp_turnon_cl3dtrkEllipsOLD_lowpt_WP90p0 = add_selections( [Selection('tpgID900_lowetalowpt',  'passed old ID WP90%: low eta, low pt',  'bdteg>-0.9961638')], [Selection('Pt19p0', 'p_{T}^{L1}>=19.0GeV', 'pt >= 19.0')])
+tp_turnon_cl3dtrkEllipsOLD_lowpt_WP80p0 = add_selections( [Selection('tpgID800_lowetalowpt',  'passed old ID WP80%: low eta, low pt',  'bdteg>-0.8698904')], [Selection('Pt14p5', 'p_{T}^{L1}>=14.5GeV', 'pt >= 14.5')])
+tp_turnon_cl3dtrkEllipsOLD_lowpt_WP70p0 = add_selections( [Selection('tpgID700_lowetalowpt',  'passed old ID WP70%: low eta, low pt',  'bdteg>0.0340707')],  [Selection('Pt11p5', 'p_{T}^{L1}>=11.5GeV', 'pt >= 11.5')])
+tp_turnon_cl3dtrkEllipsOLD_lowpt = tp_turnon_cl3dtrkEllipsOLD_lowpt_WP90p0 + tp_turnon_cl3dtrkEllipsOLD_lowpt_WP80p0 + tp_turnon_cl3dtrkEllipsOLD_lowpt_WP70p0
+
+tp_turnon_cl3dtrkEllipsOLD_highpt_WP99p5 = add_selections( [Selection('tpgID995_lowetahighpt', 'passed old ID WP99.5%: low eta, high pt', 'bdteg>-0.9872372')], [Selection('Pt37p5', 'p_{T}^{L1}>=37.5GeV', 'pt >= 37.5')])
+tp_turnon_cl3dtrkEllipsOLD_highpt_WP97p5 = add_selections( [Selection('tpgID975_lowetahighpt', 'passed old ID WP97.5%: low eta, high pt', 'bdteg>0.7430214')],  [Selection('Pt24p5', 'p_{T}^{L1}>=24.5GeV', 'pt >= 24.5')])
+tp_turnon_cl3dtrkEllipsOLD_highpt_WP95p0 = add_selections( [Selection('tpgID950_lowetahighpt', 'passed old ID WP95.0%: low eta, high pt', 'bdteg>0.9766097')],  [Selection('Pt20p0', 'p_{T}^{L1}>=20.0GeV', 'pt >= 20.0')])
+tp_turnon_cl3dtrkEllipsOLD_highpt_WP90p0 = add_selections( [Selection('tpgID900_lowetahighpt', 'passed old ID WP90%: low eta, high pt', 'bdteg>0.9950431')],    [Selection('Pt15p5', 'p_{T}^{L1}>=15.5GeV', 'pt >= 15.5')])
+tp_turnon_cl3dtrkEllipsOLD_highpt = tp_turnon_cl3dtrkEllipsOLD_highpt_WP99p5 + tp_turnon_cl3dtrkEllipsOLD_highpt_WP97p5 + tp_turnon_cl3dtrkEllipsOLD_highpt_WP95p0 + tp_turnon_cl3dtrkEllipsOLD_highpt_WP90p0
+tp_turnon_cl3dtrkEllipsOLD_noetanotrkpt = tp_turnon_cl3dtrkEllipsOLD_lowpt + tp_turnon_cl3dtrkEllipsOLD_highpt
+tp_turnon_cl3dtrkEllipsOLD_notrkpt = add_selections( tk_acceptance, tp_turnon_cl3dtrkEllipsOLD_noetanotrkpt )
+tp_turnon_cl3dtrkEllipsOLD = add_selections( tp_turnon_cl3dtrkEllipsOLD_notrkpt, [Selection('TrkPt10', 'p_{T}^{Trk}>=10GeV', 'tkpt >= 10')] )
+
+# Custom TkElectron (new ID)
+tp_turnon_cl3dtrkEllips_lowpt_WP90p0 = add_selections( [Selection('newID900_lowetalowpt',  'passed new ID WP90%: low eta, low pt',  'newBDTlowlow>0.0529739')], [Selection('Pt16p0', 'p_{T}^{L1}>=16.0GeV', 'pt >= 16.0')])
+tp_turnon_cl3dtrkEllips_lowpt_WP80p0 = add_selections( [Selection('newID800_lowetalowpt',  'passed new ID WP80%: low eta, low pt',  'newBDTlowlow>0.9509327')], [Selection('Pt12p5', 'p_{T}^{L1}>=12.5GeV', 'pt >= 12.5')])
+tp_turnon_cl3dtrkEllips_lowpt_WP70p0 = add_selections( [Selection('newID700_lowetalowpt',  'passed new ID WP70%: low eta, low pt',  'newBDTlowlow>0.9902121')], [Selection('Pt9p0', 'p_{T}^{L1}>=9.0GeV', 'pt >= 9.0')])
+tp_turnon_cl3dtrkEllips_lowpt = tp_turnon_cl3dtrkEllips_lowpt_WP90p0 + tp_turnon_cl3dtrkEllips_lowpt_WP80p0 + tp_turnon_cl3dtrkEllips_lowpt_WP70p0
+
+tp_turnon_cl3dtrkEllips_highpt_WP99p5 = add_selections( [Selection('newID995_lowetahighpt', 'passed new ID WP99.5%: low eta, high pt', 'newBDTlowhigh>-0.8130972')], [Selection('Pt26p0', 'p_{T}^{L1}>=26.0GeV', 'pt >= 26.0')])
+tp_turnon_cl3dtrkEllips_highpt_WP97p5 = add_selections( [Selection('newID975_lowetahighpt', 'passed new ID WP97.5%: low eta, high pt', 'newBDTlowhigh>0.8952214')],  [Selection('Pt20p5', 'p_{T}^{L1}>=20.5GeV', 'pt >= 20.5')])
+tp_turnon_cl3dtrkEllips_highpt_WP95p0 = add_selections( [Selection('newID950_lowetahighpt', 'passed new ID WP95.0%: low eta, high pt', 'newBDTlowhigh>0.9844716')],  [Selection('Pt16p0', 'p_{T}^{L1}>=16.0GeV', 'pt >= 16.0')])
+tp_turnon_cl3dtrkEllips_highpt_WP90p0 = add_selections( [Selection('newID900_lowetahighpt', 'passed new ID WP90%: low eta, high pt', 'newBDTlowhigh>0.9969573')],    [Selection('Pt5p5', 'p_{T}^{L1}>=5.5GeV', 'pt >= 5.5')])
+tp_turnon_cl3dtrkEllips_highpt = tp_turnon_cl3dtrkEllips_highpt_WP99p5 + tp_turnon_cl3dtrkEllips_highpt_WP97p5 + tp_turnon_cl3dtrkEllips_highpt_WP95p0 + tp_turnon_cl3dtrkEllips_highpt_WP90p0
+tp_turnon_cl3dtrkEllips_noetanotrkpt = tp_turnon_cl3dtrkEllips_lowpt + tp_turnon_cl3dtrkEllips_highpt
+tp_turnon_cl3dtrkEllips_notrkpt = add_selections( tk_acceptance, tp_turnon_cl3dtrkEllips_noetanotrkpt )
+tp_turnon_cl3dtrkEllips = add_selections( tp_turnon_cl3dtrkEllips_notrkpt, [Selection('TrkPt10', 'p_{T}^{Trk}>=10GeV', 'tkpt >= 10')] )
+
+# Real TkElectron 
+tp_turnon_tkele_lowpt = add_selections(  tk_acceptance,  [Selection('Pt11p0', 'p_{T}^{L1}>=11.0GeV', 'pt >= 11.0')])
+tp_turnon_tkele_highpt = add_selections( tk_acceptance,  [Selection('Pt26p0', 'p_{T}^{L1}>=26.0GeV', 'pt >= 26.0')])
+tp_turnon_tkele = tp_turnon_tkele_lowpt + tp_turnon_tkele_highpt
+
+# ====================================================================================
+
 
 tp_calib_selections = tp_id_selections
 
