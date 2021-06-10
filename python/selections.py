@@ -285,6 +285,7 @@ tp_selections_rateeff = tp_eta_sel_noID_tk + tp_IDtpg + tp_IDnew
 # ============================== STAND-ALONE + TRACK ===========================
 
 tk_acceptance = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.4', '1.52 < abs(eta) <= 2.4')]
+tp_realtkele = add_selections( tk_acceptance, [Selection('TkEqual4', 'hwQual4', 'hwQual == 4')] )
 
 # https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_107/_Summary/allvars_trk_loweta_low_wp.txt
 tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>0.5186648'),

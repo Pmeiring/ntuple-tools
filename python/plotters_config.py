@@ -410,7 +410,7 @@ L1TDR_SATKrate_plotter = [plotters.RatePlotter( collections.composite_tk3dclelli
                           plotters.RatePlotter( collections.composite_tk3dclellips, 
                                             selections.tp_IDcl3dtrkEllips_pt10),
                           plotters.RatePlotter( collections.tkeles_EE, 
-                                            selections.tk_acceptance),
+                                            selections.tp_realtkele),
 ]
 
 # TK ELECTRON EFFICIENCY
@@ -431,7 +431,7 @@ L1TDR_SATKeffi_plotter = [extraplotters.Cluster3DGenMatchHybrid(
                           plotters.TkEGenMatchPlotter(
                                             collections.tkeles_EE, 
                                             collections.gen_parts,
-                                            selections.tk_acceptance,           #<- defines collection to be matched
+                                            selections.tp_realtkele,           #<- defines collection to be matched
                                             selections.gen_e_sel_trk),                          
 ]
 
