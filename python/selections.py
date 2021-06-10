@@ -226,7 +226,7 @@ tp_eta_sel_noID = tp_loweta + tp_higheta
 tp_eta_sel_noID_tk = tp_loweta_tk + tp_higheta
 
 # ============================== STAND-ALONE ===========================
-
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_newPtRangesBugfix_87/_Summary/tpg_loweta_low_wp.txt
 tp_IDsel_tpg_lowlow  = [Selection('tpgID995_lowetalowpt',  'passed old ID WP99.5%: low eta, low pt',  'bdteg>-0.9989308'),
                         Selection('tpgID975_lowetalowpt',  'passed old ID WP97.5%: low eta, low pt',  'bdteg>-0.9989289'),
                         Selection('tpgID950_lowetalowpt',  'passed old ID WP95.0%: low eta, low pt',  'bdteg>-0.9987948'),
@@ -234,9 +234,9 @@ tp_IDsel_tpg_lowlow  = [Selection('tpgID995_lowetalowpt',  'passed old ID WP99.5
                         Selection('tpgID800_lowetalowpt',  'passed old ID WP80%: low eta, low pt',  'bdteg>-0.8698904'),
                         Selection('tpgID700_lowetalowpt',  'passed old ID WP70%: low eta, low pt',  'bdteg>0.0340707'),
                         Selection('tpgID600_lowetalowpt',  'passed old ID WP60%: low eta, low pt',  'bdteg>0.8522367')]
-
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_newPtRangesBugfix_87/_Summary/tpg_higheta_low_wp.txt (low stat)
 tp_IDsel_tpg_highlow = [Selection('tpgID900_highetalowpt', 'passed old ID WP90%: high eta, low pt', 'bdteg>-0.9989121')]
-
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_newPtRangesBugfix_87/_Summary/tpg_loweta_high_wp.txt
 tp_IDsel_tpg_lowhigh = [Selection('tpgID995_lowetahighpt', 'passed old ID WP99.5%: low eta, high pt', 'bdteg>-0.9872372'),
                         Selection('tpgID975_lowetahighpt', 'passed old ID WP97.5%: low eta, high pt', 'bdteg>0.7430214'),    
                         Selection('tpgID950_lowetahighpt', 'passed old ID WP95.0%: low eta, high pt', 'bdteg>0.9766097'),    
@@ -246,7 +246,7 @@ tp_IDsel_tpg_lowhigh = [Selection('tpgID995_lowetahighpt', 'passed old ID WP99.5
 
 tp_IDsel_tpg_highhigh= [Selection('tpgID900_highetahighpt','passed old ID WP90%: high eta, high pt','bdteg>0.9972339')]
 tp_IDsel_tpg = tp_IDsel_tpg_lowlow+tp_IDsel_tpg_highlow+tp_IDsel_tpg_lowhigh+tp_IDsel_tpg_highhigh
-
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_newPtRangesBugfix_87/_Summary/allvars_loweta_low_wp.txt
 tp_IDsel_new_lowlow  = [Selection('newID995_lowetalowpt',  'passed new ID WP99.5%: low eta, low pt',  'newBDTlowlow>-0.9916163'),
                         Selection('newID975_lowetalowpt',  'passed new ID WP97.5%: low eta, low pt',  'newBDTlowlow>-0.9687850'),
                         Selection('newID950_lowetalowpt',  'passed new ID WP95.0%: low eta, low pt',  'newBDTlowlow>-0.8786631'),
@@ -254,9 +254,9 @@ tp_IDsel_new_lowlow  = [Selection('newID995_lowetalowpt',  'passed new ID WP99.5
                         Selection('newID800_lowetalowpt',  'passed new ID WP80%: low eta, low pt',  'newBDTlowlow>0.9509327'),
                         Selection('newID700_lowetalowpt',  'passed new ID WP70%: low eta, low pt',  'newBDTlowlow>0.9902121'),
                         Selection('newID600_lowetalowpt',  'passed new ID WP60%: low eta, low pt',  'newBDTlowlow>0.9959325')]
-
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_newPtRangesBugfix_87/_Summary/allvars_higheta_low_wp.txt (low stat)
 tp_IDsel_new_highlow = [Selection('newID900_highetalowpt', 'passed new ID WP90%: high eta, low pt', 'newBDThighlow>-0.9031448')]
-
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_newPtRangesBugfix_87/_Summary/allvars_loweta_high_wp.txt
 tp_IDsel_new_lowhigh = [Selection('newID995_lowetahighpt', 'passed new ID WP99.5%: low eta, high pt', 'newBDTlowhigh>-0.8130972'),
                         Selection('newID975_lowetahighpt', 'passed new ID WP97.5%: low eta, high pt', 'newBDTlowhigh>0.8952214'),
                         Selection('newID950_lowetahighpt', 'passed new ID WP95.0%: low eta, high pt', 'newBDTlowhigh>0.9844716'),
@@ -286,6 +286,7 @@ tp_selections_rateeff = tp_eta_sel_noID_tk + tp_IDtpg + tp_IDnew
 
 tk_acceptance = [Selection('EtaBC', '1.52 < |#eta^{L1}| <= 2.4', '1.52 < abs(eta) <= 2.4')]
 
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_107/_Summary/allvars_trk_loweta_low_wp.txt
 tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID WP90%: low pt',   'trkBDTlow>0.5186648'),
                             Selection('cl3dtrk_ID800_lowpt',   'passed cl3d+trk ID WP80%: low pt',   'trkBDTlow>0.9711921'),
                             Selection('cl3dtrk_ID700_lowpt',   'passed cl3d+trk ID WP70%: low pt',   'trkBDTlow>0.9931843'),
@@ -293,7 +294,7 @@ tp_IDsel_cl3dtrk_low   = [Selection('cl3dtrk_ID900_lowpt',   'passed cl3d+trk ID
                             Selection('cl3dtrk_ID950_lowpt',   'passed cl3d+trk ID WP95.0%: low pt',  'trkBDTlow>-0.6440965'),
                             Selection('cl3dtrk_ID975_lowpt',   'passed cl3d+trk ID WP97.5%: low pt',  'trkBDTlow>-0.9437125'),
                             Selection('cl3dtrk_ID995_lowpt',   'passed cl3d+trk ID WP99.5%: low pt',  'trkBDTlow>-0.9930969'),]
-
+# https://pmeiring.web.cern.ch/pmeiring/L1Trigger/l1eg/BDTs/MyBDT_107/_Summary/allvars_trk_loweta_high_wp.txt
 tp_IDsel_cl3dtrk_high  = [Selection('cl3dtrk_ID900_highpt',  'passed cl3d+trk ID WP90%: high pt',  'trkBDThigh>0.9968369'),
                             Selection('cl3dtrk_ID800_highpt',  'passed cl3d+trk ID WP80%: high pt',  'trkBDThigh>0.9987155'),
                             Selection('cl3dtrk_ID700_highpt',  'passed cl3d+trk ID WP70%: high pt',  'trkBDThigh>0.9988345'),
@@ -333,18 +334,28 @@ tp_turnon_cl3dtrk_noeta = tp_turnon_cl3dtrk_lowpt + tp_turnon_cl3dtrk_highpt
 tp_turnon_cl3dtrk = add_selections( tk_acceptance, tp_turnon_cl3dtrk_noeta )
 
 # Standalone ID
+tp_turnon_cl3d_lowpt_oldWP90p0 = add_selections( [Selection('tpgID900_lowetalowpt',  'passed old ID WP90%: low eta, low pt',  'bdteg>-0.9961638')], [Selection('Pt30p0', 'p_{T}^{L1}>=30.0GeV', 'pt >= 30.0')] )
+tp_turnon_cl3d_lowpt_oldWP80p0 = add_selections( [Selection('tpgID800_lowetalowpt',  'passed old ID WP80%: low eta, low pt',  'bdteg>-0.8698904')], [Selection('Pt24p5', 'p_{T}^{L1}>=24.5GeV', 'pt >= 24.5')] )
+tp_turnon_cl3d_lowpt_oldWP70p0 = add_selections( [Selection('tpgID700_lowetalowpt',  'passed old ID WP70%: low eta, low pt',  'bdteg>0.0340707')], [Selection('Pt21p5', 'p_{T}^{L1}>=21.5GeV', 'pt >= 21.5')] )
+tp_turnon_cl3d_lowpt_oldWP60p0 = add_selections( [Selection('tpgID600_lowetalowpt',  'passed old ID WP60%: low eta, low pt',  'bdteg>0.8522367')], [Selection('Pt19p0', 'p_{T}^{L1}>=19.0GeV', 'pt >= 19.0')] )
+tp_turnon_cl3d_lowpt_old= tp_turnon_cl3d_lowpt_oldWP90p0 + tp_turnon_cl3d_lowpt_oldWP80p0 + tp_turnon_cl3d_lowpt_oldWP70p0 + tp_turnon_cl3d_lowpt_oldWP60p0
 tp_turnon_cl3d_lowpt_WP90p0 = add_selections( [Selection('newID900_lowetalowpt',  'passed new ID WP90%: low eta, low pt',  'newBDTlowlow>0.0529739')], [Selection('Pt27p5', 'p_{T}^{L1}>=27.5GeV', 'pt >= 27.5')] )
 tp_turnon_cl3d_lowpt_WP80p0 = add_selections( [Selection('newID800_lowetalowpt',  'passed new ID WP80%: low eta, low pt',  'newBDTlowlow>0.9509327')], [Selection('Pt24p0', 'p_{T}^{L1}>=24.0GeV', 'pt >= 24.0')] )
 tp_turnon_cl3d_lowpt_WP70p0 = add_selections( [Selection('newID700_lowetalowpt',  'passed new ID WP70%: low eta, low pt',  'newBDTlowlow>0.9902121')], [Selection('Pt21p5', 'p_{T}^{L1}>=21.5GeV', 'pt >= 21.5')] )
 tp_turnon_cl3d_lowpt_WP60p0 = add_selections( [Selection('newID600_lowetalowpt',  'passed new ID WP60%: low eta, low pt',  'newBDTlowlow>0.9959325')], [Selection('Pt19p0', 'p_{T}^{L1}>=19.0GeV', 'pt >= 19.0')] )
 tp_turnon_cl3d_lowpt = tp_turnon_cl3d_lowpt_WP90p0 + tp_turnon_cl3d_lowpt_WP80p0 + tp_turnon_cl3d_lowpt_WP70p0 + tp_turnon_cl3d_lowpt_WP60p0
 
+tp_turnon_cl3d_highpt_oldWP99p5 = add_selections( [Selection('tpgID995_lowetahighpt', 'passed old ID WP99.5%: low eta, high pt', 'bdteg>-0.9872372')], [Selection('Pt48p0', 'p_{T}^{L1}>=48.0GeV', 'pt >= 48.0')])
+tp_turnon_cl3d_highpt_oldWP97p5 = add_selections( [Selection('tpgID975_lowetahighpt', 'passed old ID WP97.5%: low eta, high pt', 'bdteg>0.7430214')],  [Selection('Pt35p0', 'p_{T}^{L1}>=35.0GeV', 'pt >= 35.0')])
+tp_turnon_cl3d_highpt_oldWP95p0 = add_selections( [Selection('tpgID950_lowetahighpt', 'passed old ID WP95.0%: low eta, high pt', 'bdteg>0.9766097')],  [Selection('Pt30p5', 'p_{T}^{L1}>=30.5GeV', 'pt >= 30.5')])
+tp_turnon_cl3d_highpt_oldWP90p0 = add_selections( [Selection('tpgID900_lowetahighpt', 'passed old ID WP90%: low eta, high pt', 'bdteg>0.9950431')],    [Selection('Pt26p5', 'p_{T}^{L1}>=26.5GeV', 'pt >= 26.5')])
+tp_turnon_cl3d_highpt_old = tp_turnon_cl3d_highpt_oldWP99p5 + tp_turnon_cl3d_highpt_oldWP97p5 + tp_turnon_cl3d_highpt_oldWP95p0 + tp_turnon_cl3d_highpt_oldWP90p0
 tp_turnon_cl3d_highpt_WP99p5 = add_selections( [Selection('newID995_lowetahighpt', 'passed new ID WP99.5%: low eta, high pt', 'newBDTlowhigh>-0.8130972')], [Selection('Pt37p5', 'p_{T}^{L1}>=37.5GeV', 'pt >= 37.5')])
 tp_turnon_cl3d_highpt_WP97p5 = add_selections( [Selection('newID975_lowetahighpt', 'passed new ID WP97.5%: low eta, high pt', 'newBDTlowhigh>0.8952214')],  [Selection('Pt31p0', 'p_{T}^{L1}>=31.0GeV', 'pt >= 31.0')])
 tp_turnon_cl3d_highpt_WP95p0 = add_selections( [Selection('newID950_lowetahighpt', 'passed new ID WP95.0%: low eta, high pt', 'newBDTlowhigh>0.9844716')],  [Selection('Pt27p0', 'p_{T}^{L1}>=27.0GeV', 'pt >= 27.0')])
 tp_turnon_cl3d_highpt_WP90p0 = add_selections( [Selection('newID900_lowetahighpt', 'passed new ID WP90%: low eta, high pt', 'newBDTlowhigh>0.9969573')],    [Selection('Pt22p5', 'p_{T}^{L1}>=22.5GeV', 'pt >= 22.5')])
 tp_turnon_cl3d_highpt = tp_turnon_cl3d_highpt_WP99p5 + tp_turnon_cl3d_highpt_WP97p5 + tp_turnon_cl3d_highpt_WP95p0 + tp_turnon_cl3d_highpt_WP90p0
-tp_turnon_cl3d_noeta = tp_turnon_cl3d_lowpt + tp_turnon_cl3d_highpt
+tp_turnon_cl3d_noeta = tp_turnon_cl3d_lowpt_old + tp_turnon_cl3d_lowpt + tp_turnon_cl3d_highpt_old + tp_turnon_cl3d_highpt
 tp_turnon_cl3d = add_selections( tp_loweta_tk, tp_turnon_cl3d_noeta )
 
 # Custom TkElectron (old ID)
