@@ -23,12 +23,12 @@ collections:
     htc_jobflavor:
       microcentury
     plotters:
-      - SA_tpEff
+      # - SA_tpEff
       # - SA_BDT_sig_ntuple
-      - SATK_tpEff
-      - SATK_L1TDR_tpEff
+      # - SATK_tpEff
+      # - SATK_L1TDR_tpEff
       # - SATK_BDT_sig_ntuple
-      # - TurnOns
+      - TurnOns
       # - SATK_customPlotter
 
   minBias:
