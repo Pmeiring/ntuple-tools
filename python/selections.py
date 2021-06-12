@@ -390,8 +390,8 @@ tp_turnon_cl3dtrkEllips_notrkpt = add_selections( tk_acceptance, tp_turnon_cl3dt
 tp_turnon_cl3dtrkEllips = add_selections( tp_turnon_cl3dtrkEllips_notrkpt, [Selection('TrkPt10', 'p_{T}^{Trk}>=10GeV', 'tkpt >= 10')] )
 
 # Real TkElectron 
-tp_turnon_tkele_lowpt = add_selections(  tk_acceptance,  [Selection('Pt10p5', 'p_{T}^{L1}>=10.5GeV', 'pt >= 10.5')])
-tp_turnon_tkele_highpt = add_selections( tk_acceptance,  [Selection('Pt22p0', 'p_{T}^{L1}>=22.0GeV', 'pt >= 22.0')])
+tp_turnon_tkele_lowpt = add_selections(  tp_realtkele,  [Selection('Pt10p5', 'p_{T}^{L1}>=10.5GeV', 'pt >= 10.5')])
+tp_turnon_tkele_highpt = add_selections( tp_realtkele,  [Selection('Pt22p0', 'p_{T}^{L1}>=22.0GeV', 'pt >= 22.0')])
 tp_turnon_tkele = tp_turnon_tkele_lowpt + tp_turnon_tkele_highpt
 
 # ====================================================================================
